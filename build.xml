@@ -4,11 +4,12 @@
 		<delete>
 			<fileset dir="src/rs/ac/bg/etf/pp1">
 			    <exclude name="sym.java"/>
-			    <exclude name="Log4Utils.java"/>
-			    	<exclude name="mjlexer.lex"/>
-			</fileset>
-			<fileset dir="src/rs/ac/bg/etf/pp1/util">
-			    <exclude name="Log4Utils.java"/>
+			    <exclude name="mjlexer.lex"/>
+			    <exclude name="**/Log4Utils.java"/>
+				<exclude name="Log4Utils.java"/>
+				<exclude name="./util/Log4Utils.java"/>
+				<exclude name="src/rs/ac/bg/etf/pp1/Log4Utils.java"/>
+	
 			</fileset>
 		</delete>	
 	</target>

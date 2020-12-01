@@ -2,9 +2,11 @@ program MJProgram
 	int x, y;
 {	
 	void main() {
-			switch () {
-				default:
-					break;
-			}
+		switch(true) {
+			case true:
+				break;
+			case false:
+				break;
+		}
 	}
 }
