@@ -75,10 +75,18 @@ terminal ASSIGN;
 
 terminal BRACES_BEGIN;
 terminal BRACES_END;
+terminal BRACKET_BEGIN;
+terminal BRACKET_END;
+terminal PARENTHESES_BEGIN;
+terminal PARENTHESES_END;
 
 terminal CONST;
 
 terminal SEMI;
+
+terminal CLASS;
+terminal EXTENDS;
+terminal VOID;
 
 /* ================== NON-TERMINALS ================== */
 
@@ -106,6 +114,30 @@ nonterminal Const;
 
 nonterminal Literals;
 
+nonterminal VariableDeclarations;
+
+nonterminal VariableList;
+
+nonterminal VariableDeclaration;
+
+nonterminal ClassDeclaration;
+
+nonterminal ClassBody;
+
+nonterminal FieldList;
+
+nonterminal ClassMethodList;
+
+nonterminal ReturnType;
+
+nonterminal MethodDeclaration;
+
+nonterminal MethodVariables;
+
+nonterminal FormPars;
+
+nonterminal Statement;
+
 /* ===================== GRAMMAR ===================== */
 
 Program 	::= 
@@ -117,12 +149,14 @@ Program 	::=
 			  						BRACES_END;
 
 Declarations ::=
-				(DeclarationList) Decls
+				(DeclarationList) Declarations Decls
 				| (NoDecls)
 				;
 				
 Decls		::= 
 				(ConstDeclarations) CONST Type ConstList SEMI
+				| (VarDeclarations) VariableDeclarations
+				| (ClassDeclarations) CLASS ClassDeclaration BRACES_BEGIN ClassBody BRACES_END
 				;
 
 ConstList 	::= 
@@ -132,12 +166,77 @@ ConstList 	::=
 Const		::=
 				(ConstDefinition) IDENT:identification ASSIGN Literals;
 
+/* BoolLiteral ima neki random bag da generise neki kod koji ne moze da koristi */
+
 Literals	::=
-				(NumericLiteral) NUM_CONST:value
-				| (BooleanLiteral) BOOL_CONST:value
-				| (CharLiteral) CHAR_CONST:value
+				(NumericLiteral) NUM_CONST:numValue
+				| (BoolLiteral) BOOL_CONST:boolValue
+				| (CharLiteral) CHAR_CONST:charValue
+				;
+
+
+VariableDeclarations ::= 
+					(VariableDecls) Type VariableList SEMI
+					;		
+	
+VariableList ::= 
+				(SingleVariable) VariableDeclaration
+				| (MoreVariables) VariableList COMMA VariableDeclaration
 				;
 				
+VariableDeclaration ::= 
+					(NonArrayVariable) IDENT:variableName
+					| (ArrayVariable) IDENT:variableName BRACKET_BEGIN BRACKET_END
+					;
+
+ClassDeclaration ::= 
+				(RootClass) IDENT:className
+				| (ChildClass) IDENT:className EXTENDS Type
+				;
+
+
+ClassBody ::= 
+			(ClassBodyWithMethods) FieldList BRACES_BEGIN ClassMethodList BRACES_END
+			| (ClassBodyWithoutMethods) FieldList
+			;
+			
+FieldList ::=
+			(HasFieldVariables) FieldList VariableDeclarations
+			| (NoFields)
+			;
+			
+
+ClassMethodList ::=
+				(HasMethods) ClassMethodList MethodDeclaration
+				|
+				(NoMethods)
+				; 
+
+MethodDeclaration ::= 
+				(OneMethodDeclaration) ReturnType
+				IDENT 
+				PARENTHESES_BEGIN 
+					FormPars 
+				PARENTHESES_END
+				
+				MethodVariables 
+				
+				BRACES_BEGIN
+					Statement
+				BRACES_END
+				;
+
+MethodVariables ::= 
+				(HasMethodVariables) MethodVariables VariableDeclarations
+				|
+				(NoVariables)
+				;
+
+Statement ::= (EmptyStatement_TODO);
+
+Type ::= 
+		(Type) IDENT:type
+		;
 
 RelOp 		::= 
 			  (RelopEquals) 		EQUALS

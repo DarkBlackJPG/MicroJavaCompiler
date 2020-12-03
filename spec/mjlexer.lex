@@ -90,10 +90,10 @@ import java_cup.runtime.Symbol;
 <COMMENT> . {yybegin(COMMENT);}
 <COMMENT> "\r\n" { yybegin(YYINITIAL); }
 
-[0-9]+  { return new_symbol(sym.NUM_CONST, new Integer (yytext())); }
+[0-9]+  { return new_symbol(sym.NUM_CONST, new Integer(Integer.parseInt(yytext()))); }
 ([a-z]|[A-Z])[a-z|A-Z|0-9|_]* 	{return new_symbol (sym.IDENT, yytext()); }
 "'"[ -~]"'"		{ return new_symbol(sym.CHAR_CONST, new Character(yytext().charAt(1)));}
-"true"|"false"	{ return new_symbol(sym.BOOL_CONST, new Boolean(yytext())); }
+"true"|"false"	{ return new_symbol(sym.BOOL_CONST, new Boolean(Boolean.parseBool(yytext()))); }
 
 
 . { System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1)); }

@@ -1,0 +1,37 @@
+// generated with ast extension for cup
+// version 0.8
+// 3/11/2020 22:59:1
+
+
+package rs.ac.bg.etf.pp1.ast;
+
+public class EmptyStatement_TODO extends Statement {
+
+    public EmptyStatement_TODO () {
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void childrenAccept(Visitor visitor) {
+    }
+
+    public void traverseTopDown(Visitor visitor) {
+        accept(visitor);
+    }
+
+    public void traverseBottomUp(Visitor visitor) {
+        accept(visitor);
+    }
+
+    public String toString(String tab) {
+        StringBuffer buffer=new StringBuffer();
+        buffer.append(tab);
+        buffer.append("EmptyStatement_TODO(\n");
+
+        buffer.append(tab);
+        buffer.append(") [EmptyStatement_TODO]");
+        return buffer.toString();
+    }
+}

@@ -1,0 +1,263 @@
+
+
+package rs.ac.bg.etf.pp1;
+
+import java_cup.runtime.*;
+import org.apache.log4j.*;
+import rs.ac.bg.etf.pp1.ast.*;
+
+parser code {:
+
+	Logger log = Logger.getLogger(getClass());
+   
+   
+    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
+     
+    public void report_fatal_error(String message, Object info) throws java.lang.Exception {
+      done_parsing();
+      report_error(message, info);
+    }
+  
+    public void syntax_error(Symbol cur_token) {
+        report_error("\nSintaksna greska", cur_token);
+    }
+  
+    public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
+        report_fatal_error("Fatalna greska, parsiranje se ne moze nastaviti", cur_token);
+    }
+
+    public void report_error(String message, Object info) {
+    	StringBuilder msg = new StringBuilder(message); 
+    	if (info instanceof Symbol)
+            msg.append (" na liniji ").append(((Symbol)info).left);
+        log.error(msg.toString());
+    }
+
+
+:}
+
+
+scan with {:
+	Symbol s = this.getScanner().next_token();
+	if (s != null && s.value != null) 
+		log.info(s.toString() + " " + s.value.toString());
+	return s;
+:}
+
+
+
+/* ==================== TERMINALS ==================== */
+
+terminal String IDENT;
+terminal Integer NUM_CONST;
+terminal Character CHAR_CONST;
+terminal Boolean BOOL_CONST;
+
+terminal COMMA;
+
+terminal PROG;
+
+terminal TIMES;
+terminal DIVIDE;
+terminal MODULO;
+
+terminal PLUS;
+terminal MINUS;
+
+terminal EQUALS;
+terminal NOT_EQUAL;
+terminal LARGER_THAN;
+terminal LARGER_EQUAL;
+terminal LESS_THAN;
+terminal LESS_EQUAL;
+
+terminal ASSIGN;
+
+terminal BRACES_BEGIN;
+terminal BRACES_END;
+terminal BRACKET_BEGIN;
+terminal BRACKET_END;
+terminal PARENTHESES_BEGIN;
+terminal PARENTHESES_END;
+
+terminal CONST;
+
+terminal SEMI;
+
+terminal CLASS;
+terminal EXTENDS;
+terminal VOID;
+
+/* ================== NON-TERMINALS ================== */
+
+nonterminal Program Program;
+
+nonterminal MulOp MulOp;
+
+nonterminal RelOp RelOp;
+
+nonterminal AssignOp AssignOp;
+
+nonterminal AddOp AddOp;
+
+nonterminal Declarations Declarations;
+
+nonterminal MethodDeclarations MethodDeclarations;
+
+nonterminal Decls Decls;
+
+nonterminal Type Type;
+
+nonterminal ConstList ConstList;
+
+nonterminal Const Const;
+
+nonterminal Literals Literals;
+
+nonterminal VariableDeclarations VariableDeclarations;
+
+nonterminal VariableList VariableList;
+
+nonterminal VariableDeclaration VariableDeclaration;
+
+nonterminal ClassDeclaration ClassDeclaration;
+
+nonterminal ClassBody ClassBody;
+
+nonterminal FieldList FieldList;
+
+nonterminal ClassMethodList ClassMethodList;
+
+nonterminal ReturnType ReturnType;
+
+nonterminal MethodDeclaration MethodDeclaration;
+
+nonterminal MethodVariables MethodVariables;
+
+nonterminal FormPars FormPars;
+
+nonterminal Statement Statement;
+
+/* ===================== GRAMMAR ===================== */
+
+Program 	::= 
+			  (Program) 			PROG 
+			  						IDENT:programName
+			  						Declarations:D1
+			  						BRACES_BEGIN
+			  						MethodDeclarations:M2
+			  						BRACES_END {: RESULT=new Program(programName, D1, M2); RESULT.setLine(programNameleft); :};
+
+Declarations ::=
+				(DeclarationList) Declarations:D1 Decls:D2 {: RESULT=new DeclarationList(D1, D2); RESULT.setLine(D1left); :}
+				| (NoDecls) {: RESULT=new NoDecls(); :}
+				;
+				
+Decls		::= 
+				(ConstDeclarations) CONST Type:T1 ConstList:C2 SEMI {: RESULT=new ConstDeclarations(T1, C2); RESULT.setLine(T1left); :}
+				| (VarDeclarations) VariableDeclarations:V1 {: RESULT=new VarDeclarations(V1); RESULT.setLine(V1left); :}
+				| (ClassDeclarations) CLASS ClassDeclaration:C1 BRACES_BEGIN ClassBody:C2 BRACES_END {: RESULT=new ClassDeclarations(C1, C2); RESULT.setLine(C1left); :}
+				;
+
+ConstList 	::= 
+				(SingleConst) Const:C1 {: RESULT=new SingleConst(C1); RESULT.setLine(C1left); :}
+				| (MoreConsts) ConstList:C1 COMMA Const:C2 {: RESULT=new MoreConsts(C1, C2); RESULT.setLine(C1left); :};
+				
+Const		::=
+				(ConstDefinition) IDENT:identification ASSIGN Literals:L1 {: RESULT=new ConstDefinition(identification, L1); RESULT.setLine(identificationleft); :};
+
+/* BoolLiteral ima neki random bag da generise neki kod koji ne moze da koristi */
+
+Literals	::=
+				(NumericLiteral) NUM_CONST:numValue {: RESULT=new NumericLiteral(numValue); RESULT.setLine(numValueleft); :}
+				| (BoolLiteral) BOOL_CONST:boolValue {: RESULT=new BoolLiteral(boolValue); RESULT.setLine(boolValueleft); :}
+				| (CharLiteral) CHAR_CONST:charValue {: RESULT=new CharLiteral(charValue); RESULT.setLine(charValueleft); :}
+				;
+
+
+VariableDeclarations ::= 
+					(VariableDecls) Type:T1 VariableList:V2 SEMI {: RESULT=new VariableDecls(T1, V2); RESULT.setLine(T1left); :}
+					;		
+	
+VariableList ::= 
+				(SingleVariable) VariableDeclaration:V1 {: RESULT=new SingleVariable(V1); RESULT.setLine(V1left); :}
+				| (MoreVariables) VariableList:V1 COMMA VariableDeclaration:V2 {: RESULT=new MoreVariables(V1, V2); RESULT.setLine(V1left); :}
+				;
+				
+VariableDeclaration ::= 
+					(NonArrayVariable) IDENT:variableName {: RESULT=new NonArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
+					| (ArrayVariable) IDENT:variableName BRACKET_BEGIN BRACKET_END {: RESULT=new ArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
+					;
+
+ClassDeclaration ::= 
+				(RootClass) IDENT:className {: RESULT=new RootClass(className); RESULT.setLine(classNameleft); :}
+				| (ChildClass) IDENT:className EXTENDS Type:T1 {: RESULT=new ChildClass(className, T1); RESULT.setLine(classNameleft); :}
+				;
+
+
+ClassBody ::= 
+			(ClassBodyWithMethods) FieldList:F1 BRACES_BEGIN ClassMethodList:C2 BRACES_END {: RESULT=new ClassBodyWithMethods(F1, C2); RESULT.setLine(F1left); :}
+			| (ClassBodyWithoutMethods) FieldList:F1 {: RESULT=new ClassBodyWithoutMethods(F1); RESULT.setLine(F1left); :}
+			;
+			
+FieldList ::=
+			(HasFieldVariables) FieldList:F1 VariableDeclarations:V2 {: RESULT=new HasFieldVariables(F1, V2); RESULT.setLine(F1left); :}
+			| (NoFields) {: RESULT=new NoFields(); :}
+			;
+			
+
+ClassMethodList ::=
+				(HasMethods) ClassMethodList:C1 MethodDeclaration:M2 {: RESULT=new HasMethods(C1, M2); RESULT.setLine(C1left); :}
+				|
+				(NoMethods) {: RESULT=new NoMethods(); :}
+				; 
+
+MethodDeclaration ::= 
+				(OneMethodDeclaration) ReturnType:R1
+				IDENT:I2 
+				PARENTHESES_BEGIN 
+					FormPars:F3 
+				PARENTHESES_END
+				
+				MethodVariables:M4 
+				
+				BRACES_BEGIN
+					Statement:S5
+				BRACES_END {: RESULT=new OneMethodDeclaration(R1, I2, F3, M4, S5); RESULT.setLine(R1left); :}
+				;
+
+MethodVariables ::= 
+				(HasMethodVariables) MethodVariables:M1 VariableDeclarations:V2 {: RESULT=new HasMethodVariables(M1, V2); RESULT.setLine(M1left); :}
+				|
+				(NoVariables) {: RESULT=new NoVariables(); :}
+				;
+
+Statement ::= (EmptyStatement_TODO) {: RESULT=new EmptyStatement_TODO(); :};
+
+Type ::= 
+		(Type) IDENT:type {: RESULT=new Type(type); RESULT.setLine(typeleft); :}
+		;
+
+RelOp 		::= 
+			  (RelopEquals) 		EQUALS {: RESULT=new RelopEquals(); :}
+			| (RelopNotEqual)		NOT_EQUAL {: RESULT=new RelopNotEqual(); :}
+			| (RelopLargerThan) 	LARGER_THAN {: RESULT=new RelopLargerThan(); :}
+			| (RelopLargerEqual) 	LARGER_EQUAL {: RESULT=new RelopLargerEqual(); :}
+			| (RelopLessThan)		LESS_THAN {: RESULT=new RelopLessThan(); :}
+			| (RelopLessEqual) 		LESS_EQUAL {: RESULT=new RelopLessEqual(); :}
+			;
+		
+AssignOp 	::= 
+			   (AssignOp) 			ASSIGN {: RESULT=new AssignOp(); :}
+			;
+
+AddOp		 ::= 
+			  (AddopPlus) 			PLUS {: RESULT=new AddopPlus(); :}
+			| (AddopMinus) 			MINUS {: RESULT=new AddopMinus(); :}
+			;
+
+MulOp 		::= 
+			  (MulopTimes) 			TIMES {: RESULT=new MulopTimes(); :}
+			| (MulopDivide)			DIVIDE {: RESULT=new MulopDivide(); :}
+			| (MulopModulo)			MODULO {: RESULT=new MulopModulo(); :}
+			;
