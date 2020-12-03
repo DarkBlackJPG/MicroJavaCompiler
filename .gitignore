@@ -2,3 +2,6 @@
 .project
 *.class
 logs/*
+src/rs/ac/bg/etf/pp1/ast/*
+*_astbuild.cup
+bin/*

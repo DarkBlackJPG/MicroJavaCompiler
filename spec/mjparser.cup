@@ -1,0 +1,123 @@
+
+
+package rs.ac.bg.etf.pp1;
+
+import java_cup.runtime.*;
+import org.apache.log4j.*;
+import rs.ac.bg.etf.pp1.ast.*;
+
+parser code {:
+
+	Logger log = Logger.getLogger(getClass());
+   
+   
+    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
+     
+    public void report_fatal_error(String message, Object info) throws java.lang.Exception {
+      done_parsing();
+      report_error(message, info);
+    }
+  
+    public void syntax_error(Symbol cur_token) {
+        report_error("\nSintaksna greska", cur_token);
+    }
+  
+    public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
+        report_fatal_error("Fatalna greska, parsiranje se ne moze nastaviti", cur_token);
+    }
+
+    public void report_error(String message, Object info) {
+    	StringBuilder msg = new StringBuilder(message); 
+    	if (info instanceof Symbol)
+            msg.append (" na liniji ").append(((Symbol)info).left);
+        log.error(msg.toString());
+    }
+
+
+:}
+
+
+scan with {:
+	Symbol s = this.getScanner().next_token();
+	if (s != null && s.value != null) 
+		log.info(s.toString() + " " + s.value.toString());
+	return s;
+:}
+
+
+
+/* ==================== TERMINALS ==================== */
+
+terminal IDENT;
+terminal PROGRAM;
+
+terminal TIMES;
+terminal DIVIDE;
+terminal MODULO;
+
+terminal PLUS;
+terminal MINUS;
+
+terminal EQUALS;
+terminal NOT_EQUAL;
+terminal LARGER_THAN;
+terminal LARGER_EQUAL;
+terminal LESS_THAN;
+terminal LESS_EQUAL;
+
+terminal ASSIGN;
+
+/* ================== NON-TERMINALS ================== */
+
+nonterminal Program;
+
+nonterminal MulOp;
+
+nonterminal RelOp;
+
+nonterminal AssignOp;
+
+nonterminal AddOp;
+
+/* ===================== GRAMMAR ===================== */
+
+Program ::= PROGRAM IDENT
+		|
+		/* TODO Delete this */
+		(MulOp) MulOp
+		|
+		RelOp
+		|
+		AssignOp
+		|
+		AddOp
+		;
+
+RelOp 	::= 
+		(RelopEquals) EQUALS
+		|
+		(RelopNotEqual)	NOT_EQUAL
+		|
+		(RelopLargerThan) LARGER_THAN
+		|
+		(RelopLargerEqual) LARGER_EQUAL
+		|
+		(RelopLessThan)	LESS_THAN
+		|
+		(RelopLessEqual) LESS_EQUAL
+		;
+		
+AssignOp ::= (AssignOp) ASSIGN
+		;
+
+AddOp ::= (AddopPlus) PLUS
+		|
+		(AddopMinus) MINUS
+		;
+
+MulOp ::= (MulopTimes) TIMES
+		| 
+		(MulopDivide) DIVIDE
+		|
+		(MulopModulo) MODULO
+		;
