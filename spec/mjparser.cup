@@ -48,8 +48,14 @@ scan with {:
 
 /* ==================== TERMINALS ==================== */
 
-terminal IDENT;
-terminal PROGRAM;
+terminal String IDENT;
+terminal Integer NUM_CONST;
+terminal Character CHAR_CONST;
+terminal Boolean BOOL_CONST;
+
+terminal COMMA;
+
+terminal PROG;
 
 terminal TIMES;
 terminal DIVIDE;
@@ -67,6 +73,13 @@ terminal LESS_EQUAL;
 
 terminal ASSIGN;
 
+terminal BRACES_BEGIN;
+terminal BRACES_END;
+
+terminal CONST;
+
+terminal SEMI;
+
 /* ================== NON-TERMINALS ================== */
 
 nonterminal Program;
@@ -79,45 +92,73 @@ nonterminal AssignOp;
 
 nonterminal AddOp;
 
+nonterminal Declarations;
+
+nonterminal MethodDeclarations;
+
+nonterminal Decls;
+
+nonterminal Type;
+
+nonterminal ConstList;
+
+nonterminal Const;
+
+nonterminal Literals;
+
 /* ===================== GRAMMAR ===================== */
 
-Program ::= PROGRAM IDENT
-		|
-		/* TODO Delete this */
-		(MulOp) MulOp
-		|
-		RelOp
-		|
-		AssignOp
-		|
-		AddOp
-		;
+Program 	::= 
+			  (Program) 			PROG 
+			  						IDENT:programName
+			  						Declarations
+			  						BRACES_BEGIN
+			  						MethodDeclarations
+			  						BRACES_END;
 
-RelOp 	::= 
-		(RelopEquals) EQUALS
-		|
-		(RelopNotEqual)	NOT_EQUAL
-		|
-		(RelopLargerThan) LARGER_THAN
-		|
-		(RelopLargerEqual) LARGER_EQUAL
-		|
-		(RelopLessThan)	LESS_THAN
-		|
-		(RelopLessEqual) LESS_EQUAL
-		;
+Declarations ::=
+				(DeclarationList) Decls
+				| (NoDecls)
+				;
+				
+Decls		::= 
+				(ConstDeclarations) CONST Type ConstList SEMI
+				;
+
+ConstList 	::= 
+				(SingleConst) Const
+				| (MoreConsts) ConstList COMMA Const;
+				
+Const		::=
+				(ConstDefinition) IDENT:identification ASSIGN Literals;
+
+Literals	::=
+				(NumericLiteral) NUM_CONST:value
+				| (BooleanLiteral) BOOL_CONST:value
+				| (CharLiteral) CHAR_CONST:value
+				;
+				
+
+RelOp 		::= 
+			  (RelopEquals) 		EQUALS
+			| (RelopNotEqual)		NOT_EQUAL
+			| (RelopLargerThan) 	LARGER_THAN
+			| (RelopLargerEqual) 	LARGER_EQUAL
+			| (RelopLessThan)		LESS_THAN
+			| (RelopLessEqual) 		LESS_EQUAL
+			;
 		
-AssignOp ::= (AssignOp) ASSIGN
-		;
+AssignOp 	::= 
+			   (AssignOp) 			ASSIGN
+			;
 
-AddOp ::= (AddopPlus) PLUS
-		|
-		(AddopMinus) MINUS
-		;
+AddOp		 ::= 
+			  (AddopPlus) 			PLUS
+			| (AddopMinus) 			MINUS
+			;
 
-MulOp ::= (MulopTimes) TIMES
-		| 
-		(MulopDivide) DIVIDE
-		|
-		(MulopModulo) MODULO
-		;
+MulOp 		::= 
+			  (MulopTimes) 			TIMES
+			| (MulopDivide)			DIVIDE
+			| (MulopModulo)			MODULO
+			;
