@@ -1,13 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 3/11/2020 22:59:1
+// 21/11/2020 21:18:6
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class EmptyStatement_TODO extends Statement {
+public class EmptyStatement extends StatementList {
 
-    public EmptyStatement_TODO () {
+    public EmptyStatement () {
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +28,10 @@ public class EmptyStatement_TODO extends Statement {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("EmptyStatement_TODO(\n");
+        buffer.append("EmptyStatement(\n");
 
         buffer.append(tab);
-        buffer.append(") [EmptyStatement_TODO]");
+        buffer.append(") [EmptyStatement]");
         return buffer.toString();
     }
 }

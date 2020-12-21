@@ -51,7 +51,7 @@ scan with {:
 terminal String IDENT;
 terminal Integer NUM_CONST;
 terminal Character CHAR_CONST;
-terminal Boolean BOOL_CONST;
+terminal Integer BOOL_CONST;
 
 terminal COMMA;
 
@@ -75,8 +75,10 @@ terminal ASSIGN;
 
 terminal BRACES_BEGIN;
 terminal BRACES_END;
+
 terminal BRACKET_BEGIN;
 terminal BRACKET_END;
+
 terminal PARENTHESES_BEGIN;
 terminal PARENTHESES_END;
 
@@ -87,6 +89,19 @@ terminal SEMI;
 terminal CLASS;
 terminal EXTENDS;
 terminal VOID;
+
+terminal IF;
+terminal BREAK;
+terminal CONTINUE;
+terminal RETURN;
+terminal OR;
+terminal NEW;
+terminal AND;
+terminal DOT;
+terminal INCREMENT;
+terminal DECREMENT;
+terminal PRINT;
+
 
 /* ================== NON-TERMINALS ================== */
 
@@ -138,6 +153,33 @@ nonterminal FormPars;
 
 nonterminal Statement;
 
+nonterminal DesignatorStatement;
+
+nonterminal Condition;
+
+nonterminal ReturnStmts;
+
+nonterminal Expr;
+
+nonterminal StatementList;
+
+nonterminal CondExpression;
+
+nonterminal CondTerm;
+
+nonterminal CondFactor;
+
+nonterminal Term;
+
+nonterminal Factor;
+
+nonterminal Designator;
+
+nonterminal DesignatorList;
+
+nonterminal ActPars;
+
+nonterminal PrintStmtList;
 /* ===================== GRAMMAR ===================== */
 
 Program 	::= 
@@ -170,8 +212,8 @@ Const		::=
 
 Literals	::=
 				(NumericLiteral) NUM_CONST:numValue
-				| (BoolLiteral) BOOL_CONST:boolValue
 				| (CharLiteral) CHAR_CONST:charValue
+				| (BooleanLiteral) BOOL_CONST:booleanValue
 				;
 
 
@@ -232,9 +274,78 @@ MethodVariables ::=
 				(NoVariables)
 				;
 
-Statement ::= (EmptyStatement_TODO);
 
-Type ::= 
+Statement 		::= (DesignatorStatement) DesignatorStatement SEMI
+				| (BreakStmt) BREAK SEMI
+				| (ContinueStmt) CONTINUE SEMI
+				| (ReturnStmt) RETURN ReturnStmts SEMI
+				| (PrintStmt) PRINT PARENTHESES_BEGIN PrintStmtList PARENTHESES_END SEMI
+				| (StatementsList) BRACES_BEGIN StatementList BRACES_END
+				;
+PrintStmtList ::= (NoNumConst) Expr
+				| (WithNumConst) Expr COMMA NUM_CONST;
+				
+StatementList ::= (NonEmptyStatementList) StatementList Statement
+					| (EmptyStatement) ;
+					
+					
+DesignatorStatement ::= (AssignDesignator) Designator ASSIGN Expr
+					| (MethodCallDesignator) Designator PARENTHESES_BEGIN ActPars PARENTHESES_END
+					| (IncrementDesignator) Designator INCREMENT
+					| (DecrementDesignator) Designator DECREMENT
+					;
+
+Condition ::= (EMPTY);
+
+ReturnStmts ::= (NonEmptyReturn) Expr 
+			| (EmptyReturn);
+
+CondExpression ::= 
+				(ConditionExpressionWithoutOr) CondTerm 
+				| (ConditionExpressionWithOr) CondExpression OR CondTerm
+				;
+
+CondTerm ::= (ConditionTermWithAnd) CondExpression AND CondFactor
+			| (ConditionTermFactor) CondFactor
+			;
+			
+CondFactor ::= (ExpressionConditionFactor) Expr
+			| (RelOpConditionFactor) Expr RelOp Expr
+			;
+			
+			
+Expr ::= (Term) Term
+	| (NegativeTerm) MINUS Term
+	| (AddOperationTerm) Expr AddOp Term;
+
+Term ::= (NonMullOpTerm) Factor
+		| (MullOpTerm) Term MulOp Factor
+		;
+	
+Factor ::=
+		(NoParamsDesignator) Designator 
+		| (ParamsDesignator) Designator PARENTHESES_BEGIN ActPars PARENTHESES_END
+		| (NumericConstant) NUM_CONST:numValue
+		| (CharacterConstant) CHAR_CONST:charValue
+		| (BooleanConstant) BOOL_CONST:boolValue
+		| (NewType) NEW Type
+		| (NewTypeArray) NEW Type BRACKET_BEGIN Expr BRACKET_END
+		| (ParenthesesExpression) PARENTHESES_BEGIN Expr PARENTHESES_END
+		;
+
+ActPars ::= (ActParsWithoutComma) Expr
+		| (ActParsWithComma) ActPars COMMA Expr;
+Designator ::= (CleanDesignator) IDENT:identification
+			| (FieldCallDesignator) DesignatorList DOT IDENT:identification
+			| (ArrayElementDesignator) DesignatorList BRACKET_BEGIN Expr BRACKET_END
+			;
+
+DesignatorList ::= (CleanDesignatorList) IDENT:identification
+				| (FieldCallDesignatorList) DesignatorList DOT IDENT:identification
+				| (ArrayElementDesignatorList) DesignatorList BRACKET_BEGIN Expr BRACKET_END
+				;
+
+Type 			::= 
 		(Type) IDENT:type
 		;
 
