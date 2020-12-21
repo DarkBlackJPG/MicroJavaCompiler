@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 21/11/2020 21:18:6
+// 21/11/2020 22:57:44
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,11 +8,14 @@ package rs.ac.bg.etf.pp1.ast;
 public class AssignDesignator extends DesignatorStatement {
 
     private Designator Designator;
+    private AssignOp AssignOp;
     private Expr Expr;
 
-    public AssignDesignator (Designator Designator, Expr Expr) {
+    public AssignDesignator (Designator Designator, AssignOp AssignOp, Expr Expr) {
         this.Designator=Designator;
         if(Designator!=null) Designator.setParent(this);
+        this.AssignOp=AssignOp;
+        if(AssignOp!=null) AssignOp.setParent(this);
         this.Expr=Expr;
         if(Expr!=null) Expr.setParent(this);
     }
@@ -23,6 +26,14 @@ public class AssignDesignator extends DesignatorStatement {
 
     public void setDesignator(Designator Designator) {
         this.Designator=Designator;
+    }
+
+    public AssignOp getAssignOp() {
+        return AssignOp;
+    }
+
+    public void setAssignOp(AssignOp AssignOp) {
+        this.AssignOp=AssignOp;
     }
 
     public Expr getExpr() {
@@ -39,17 +50,20 @@ public class AssignDesignator extends DesignatorStatement {
 
     public void childrenAccept(Visitor visitor) {
         if(Designator!=null) Designator.accept(visitor);
+        if(AssignOp!=null) AssignOp.accept(visitor);
         if(Expr!=null) Expr.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(Designator!=null) Designator.traverseTopDown(visitor);
+        if(AssignOp!=null) AssignOp.traverseTopDown(visitor);
         if(Expr!=null) Expr.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(Designator!=null) Designator.traverseBottomUp(visitor);
+        if(AssignOp!=null) AssignOp.traverseBottomUp(visitor);
         if(Expr!=null) Expr.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -61,6 +75,12 @@ public class AssignDesignator extends DesignatorStatement {
 
         if(Designator!=null)
             buffer.append(Designator.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
+        buffer.append("\n");
+
+        if(AssignOp!=null)
+            buffer.append(AssignOp.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

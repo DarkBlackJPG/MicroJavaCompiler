@@ -57,7 +57,7 @@ terminal COMMA;
 
 terminal PROG;
 
-terminal TIMES;
+terminal MULTIPLY;
 terminal DIVIDE;
 terminal MODULO;
 
@@ -91,6 +91,7 @@ terminal EXTENDS;
 terminal VOID;
 
 terminal IF;
+terminal ELSE;
 terminal BREAK;
 terminal CONTINUE;
 terminal RETURN;
@@ -101,6 +102,12 @@ terminal DOT;
 terminal INCREMENT;
 terminal DECREMENT;
 terminal PRINT;
+terminal DO;
+terminal WHILE;
+terminal SWITCH;
+terminal CASE;
+terminal COLON;
+terminal READ;
 
 
 /* ================== NON-TERMINALS ================== */
@@ -180,7 +187,17 @@ nonterminal DesignatorList;
 nonterminal ActPars;
 
 nonterminal PrintStmtList;
+
+nonterminal ConditionStart;
+ 
+nonterminal ConditionEnd;
+
+nonterminal SwitchCaseList;
+
+nonterminal CaseStatementList;
 /* ===================== GRAMMAR ===================== */
+
+precedence left ELSE;
 
 Program 	::= 
 			  (Program) 			PROG 
@@ -206,7 +223,7 @@ ConstList 	::=
 				| (MoreConsts) ConstList COMMA Const;
 				
 Const		::=
-				(ConstDefinition) IDENT:identification ASSIGN Literals;
+				(ConstDefinition) IDENT:identification AssignOp Literals;
 
 /* BoolLiteral ima neki random bag da generise neki kod koji ne moze da koristi */
 
@@ -267,6 +284,10 @@ MethodDeclaration ::=
 					Statement
 				BRACES_END
 				;
+				
+ReturnType ::= (TypedReturn) Type
+			| (VoidReturn) VOID
+			;
 
 MethodVariables ::= 
 				(HasMethodVariables) MethodVariables VariableDeclarations
@@ -275,27 +296,44 @@ MethodVariables ::=
 				;
 
 
-Statement 		::= (DesignatorStatement) DesignatorStatement SEMI
+Statement 		::= (StatementDesignatorStatement) DesignatorStatement SEMI
+				| (IfThenStatement) IF ConditionStart PARENTHESES_BEGIN Condition PARENTHESES_END ConditionEnd Statement
+				| (IfThenElseStatement) IF ConditionStart PARENTHESES_BEGIN Condition PARENTHESES_END ConditionEnd Statement ELSE Statement
+				| (DoWhileStatement) DO Statement WHILE PARENTHESES_BEGIN Condition PARENTHESES_END
+				| (SwitchStatement) SWITCH PARENTHESES_BEGIN Expr PARENTHESES_END BRACES_BEGIN SwitchCaseList BRACES_END
 				| (BreakStmt) BREAK SEMI
 				| (ContinueStmt) CONTINUE SEMI
 				| (ReturnStmt) RETURN ReturnStmts SEMI
+				| (ReadStmt) READ PARENTHESES_BEGIN Designator PARENTHESES_END
 				| (PrintStmt) PRINT PARENTHESES_BEGIN PrintStmtList PARENTHESES_END SEMI
 				| (StatementsList) BRACES_BEGIN StatementList BRACES_END
 				;
+				
+SwitchCaseList ::= (EmptySwitchCaseList)
+				| (NonEmptySwitchCaseList) CASE NUM_CONST:numberValue COLON CaseStatementList
+				;
+
+CaseStatementList ::= (NonEmptyCaseStatement) CaseStatementList Statement
+					| (NonEmptyCaseStatement)
+					;
+
+ConditionStart ::= (ConditionStart);				
+ConditionEnd ::= (ConditionEnd);				
+
 PrintStmtList ::= (NoNumConst) Expr
-				| (WithNumConst) Expr COMMA NUM_CONST;
+				| (WithNumConst) Expr COMMA NUM_CONST:intValue;
 				
 StatementList ::= (NonEmptyStatementList) StatementList Statement
 					| (EmptyStatement) ;
 					
 					
-DesignatorStatement ::= (AssignDesignator) Designator ASSIGN Expr
+DesignatorStatement ::= (AssignDesignator) Designator AssignOp Expr
 					| (MethodCallDesignator) Designator PARENTHESES_BEGIN ActPars PARENTHESES_END
 					| (IncrementDesignator) Designator INCREMENT
 					| (DecrementDesignator) Designator DECREMENT
 					;
 
-Condition ::= (EMPTY);
+Condition ::= (Condition) CondExpression ;
 
 ReturnStmts ::= (NonEmptyReturn) Expr 
 			| (EmptyReturn);
@@ -305,7 +343,7 @@ CondExpression ::=
 				| (ConditionExpressionWithOr) CondExpression OR CondTerm
 				;
 
-CondTerm ::= (ConditionTermWithAnd) CondExpression AND CondFactor
+CondTerm ::= (ConditionTermWithAnd) CondTerm AND CondFactor
 			| (ConditionTermFactor) CondFactor
 			;
 			
@@ -314,7 +352,7 @@ CondFactor ::= (ExpressionConditionFactor) Expr
 			;
 			
 			
-Expr ::= (Term) Term
+Expr ::= (ExpressionTerm) Term
 	| (NegativeTerm) MINUS Term
 	| (AddOperationTerm) Expr AddOp Term;
 
@@ -368,7 +406,7 @@ AddOp		 ::=
 			;
 
 MulOp 		::= 
-			  (MulopTimes) 			TIMES
+			  (MulopTimes) 			MULTIPLY
 			| (MulopDivide)			DIVIDE
 			| (MulopModulo)			MODULO
 			;

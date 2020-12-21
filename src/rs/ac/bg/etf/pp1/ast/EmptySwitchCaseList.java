@@ -1,13 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 21/11/2020 21:18:6
+// 21/11/2020 22:57:44
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class EMPTY extends Condition {
+public class EmptySwitchCaseList extends SwitchCaseList {
 
-    public EMPTY () {
+    public EmptySwitchCaseList () {
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +28,10 @@ public class EMPTY extends Condition {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("EMPTY(\n");
+        buffer.append("EmptySwitchCaseList(\n");
 
         buffer.append(tab);
-        buffer.append(") [EMPTY]");
+        buffer.append(") [EmptySwitchCaseList]");
         return buffer.toString();
     }
 }

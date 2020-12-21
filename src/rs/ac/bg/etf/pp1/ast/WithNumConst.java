@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 21/11/2020 21:18:6
+// 21/11/2020 22:57:44
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,12 +8,12 @@ package rs.ac.bg.etf.pp1.ast;
 public class WithNumConst extends PrintStmtList {
 
     private Expr Expr;
-    private Integer N2;
+    private Integer intValue;
 
-    public WithNumConst (Expr Expr, Integer N2) {
+    public WithNumConst (Expr Expr, Integer intValue) {
         this.Expr=Expr;
         if(Expr!=null) Expr.setParent(this);
-        this.N2=N2;
+        this.intValue=intValue;
     }
 
     public Expr getExpr() {
@@ -24,12 +24,12 @@ public class WithNumConst extends PrintStmtList {
         this.Expr=Expr;
     }
 
-    public Integer getN2() {
-        return N2;
+    public Integer getIntValue() {
+        return intValue;
     }
 
-    public void setN2(Integer N2) {
-        this.N2=N2;
+    public void setIntValue(Integer intValue) {
+        this.intValue=intValue;
     }
 
     public void accept(Visitor visitor) {
@@ -61,7 +61,7 @@ public class WithNumConst extends PrintStmtList {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+N2);
+        buffer.append(" "+tab+intValue);
         buffer.append("\n");
 
         buffer.append(tab);

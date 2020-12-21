@@ -42,7 +42,6 @@ import java_cup.runtime.Symbol;
 "return" 	{ return new_symbol(sym.RETURN, yytext()); }
 "void" 		{ return new_symbol(sym.VOID, yytext()); }
 "class"		{ return new_symbol(sym.CLASS, yytext()); }
-"enum"		{ return new_symbol(sym.ENUM, yytext()); }
 "else"		{ return new_symbol(sym.ELSE, yytext()); }
 "const"		{ return new_symbol(sym.CONST, yytext()); }
 "if"		{ return new_symbol(sym.IF, yytext()); }
@@ -72,7 +71,7 @@ import java_cup.runtime.Symbol;
 "=" 		{ return new_symbol(sym.ASSIGN, yytext()); }
 "++"		{return new_symbol(sym.INCREMENT, yytext()); }
 "--"		{return new_symbol(sym.DECREMENT, yytext()); }
-";"			{ return new_symbol(sym.TERMINATE, yytext()); }
+";"			{ return new_symbol(sym.SEMI, yytext()); }
 "," 		{ return new_symbol(sym.COMMA, yytext()); }
 "."			{ return new_symbol(sym.DOT, yytext()); }
 "(" 		{ return new_symbol(sym.PARENTHESES_BEGIN, yytext()); }

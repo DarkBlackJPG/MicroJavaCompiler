@@ -1,28 +1,28 @@
 // generated with ast extension for cup
 // version 0.8
-// 21/11/2020 21:18:6
+// 21/11/2020 22:57:44
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ConditionTermWithAnd extends CondTerm {
 
-    private CondExpression CondExpression;
+    private CondTerm CondTerm;
     private CondFactor CondFactor;
 
-    public ConditionTermWithAnd (CondExpression CondExpression, CondFactor CondFactor) {
-        this.CondExpression=CondExpression;
-        if(CondExpression!=null) CondExpression.setParent(this);
+    public ConditionTermWithAnd (CondTerm CondTerm, CondFactor CondFactor) {
+        this.CondTerm=CondTerm;
+        if(CondTerm!=null) CondTerm.setParent(this);
         this.CondFactor=CondFactor;
         if(CondFactor!=null) CondFactor.setParent(this);
     }
 
-    public CondExpression getCondExpression() {
-        return CondExpression;
+    public CondTerm getCondTerm() {
+        return CondTerm;
     }
 
-    public void setCondExpression(CondExpression CondExpression) {
-        this.CondExpression=CondExpression;
+    public void setCondTerm(CondTerm CondTerm) {
+        this.CondTerm=CondTerm;
     }
 
     public CondFactor getCondFactor() {
@@ -38,18 +38,18 @@ public class ConditionTermWithAnd extends CondTerm {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(CondExpression!=null) CondExpression.accept(visitor);
+        if(CondTerm!=null) CondTerm.accept(visitor);
         if(CondFactor!=null) CondFactor.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(CondExpression!=null) CondExpression.traverseTopDown(visitor);
+        if(CondTerm!=null) CondTerm.traverseTopDown(visitor);
         if(CondFactor!=null) CondFactor.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(CondExpression!=null) CondExpression.traverseBottomUp(visitor);
+        if(CondTerm!=null) CondTerm.traverseBottomUp(visitor);
         if(CondFactor!=null) CondFactor.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -59,8 +59,8 @@ public class ConditionTermWithAnd extends CondTerm {
         buffer.append(tab);
         buffer.append("ConditionTermWithAnd(\n");
 
-        if(CondExpression!=null)
-            buffer.append(CondExpression.toString("  "+tab));
+        if(CondTerm!=null)
+            buffer.append(CondTerm.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

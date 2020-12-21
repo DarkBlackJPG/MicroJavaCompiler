@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 21/11/2020 21:18:6
+// 21/11/2020 22:57:44
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,10 +8,13 @@ package rs.ac.bg.etf.pp1.ast;
 public class ConstDefinition extends Const {
 
     private String identification;
+    private AssignOp AssignOp;
     private Literals Literals;
 
-    public ConstDefinition (String identification, Literals Literals) {
+    public ConstDefinition (String identification, AssignOp AssignOp, Literals Literals) {
         this.identification=identification;
+        this.AssignOp=AssignOp;
+        if(AssignOp!=null) AssignOp.setParent(this);
         this.Literals=Literals;
         if(Literals!=null) Literals.setParent(this);
     }
@@ -22,6 +25,14 @@ public class ConstDefinition extends Const {
 
     public void setIdentification(String identification) {
         this.identification=identification;
+    }
+
+    public AssignOp getAssignOp() {
+        return AssignOp;
+    }
+
+    public void setAssignOp(AssignOp AssignOp) {
+        this.AssignOp=AssignOp;
     }
 
     public Literals getLiterals() {
@@ -37,15 +48,18 @@ public class ConstDefinition extends Const {
     }
 
     public void childrenAccept(Visitor visitor) {
+        if(AssignOp!=null) AssignOp.accept(visitor);
         if(Literals!=null) Literals.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
+        if(AssignOp!=null) AssignOp.traverseTopDown(visitor);
         if(Literals!=null) Literals.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
+        if(AssignOp!=null) AssignOp.traverseBottomUp(visitor);
         if(Literals!=null) Literals.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -56,6 +70,12 @@ public class ConstDefinition extends Const {
         buffer.append("ConstDefinition(\n");
 
         buffer.append(" "+tab+identification);
+        buffer.append("\n");
+
+        if(AssignOp!=null)
+            buffer.append(AssignOp.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
         buffer.append("\n");
 
         if(Literals!=null)
