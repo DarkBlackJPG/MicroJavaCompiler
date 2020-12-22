@@ -108,6 +108,7 @@ terminal SWITCH;
 terminal CASE;
 terminal COLON;
 terminal READ;
+terminal QUESTION_MARK;
 
 
 /* ================== NON-TERMINALS ================== */
@@ -188,17 +189,19 @@ nonterminal ActPars ActPars;
 
 nonterminal PrintStmtList PrintStmtList;
 
-nonterminal ConditionStart ConditionStart;
- 
-nonterminal ConditionEnd ConditionEnd;
-
 nonterminal SwitchCaseList SwitchCaseList;
 
 nonterminal CaseStatementList CaseStatementList;
+nonterminal RegularExpr RegularExpr;
+nonterminal TernaryExpr TernaryExpr;
+
+
+
+
 /* ===================== GRAMMAR ===================== */
 
 precedence left ELSE;
-
+start with Program;
 Program 	::= 
 			  (Program) 			PROG 
 			  						IDENT:programName
@@ -297,8 +300,8 @@ MethodVariables ::=
 
 
 Statement 		::= (StatementDesignatorStatement) DesignatorStatement:D1 SEMI {: RESULT=new StatementDesignatorStatement(D1); RESULT.setLine(D1left); :}
-				| (IfThenStatement) IF ConditionStart:C1 PARENTHESES_BEGIN Condition:C2 PARENTHESES_END ConditionEnd:C3 Statement:S4 {: RESULT=new IfThenStatement(C1, C2, C3, S4); RESULT.setLine(C1left); :}
-				| (IfThenElseStatement) IF ConditionStart:C1 PARENTHESES_BEGIN Condition:C2 PARENTHESES_END ConditionEnd:C3 Statement:S4 ELSE Statement:S5 {: RESULT=new IfThenElseStatement(C1, C2, C3, S4, S5); RESULT.setLine(C1left); :}
+				| (IfThenStatement) IF PARENTHESES_BEGIN Condition:C1 PARENTHESES_END Statement:S2 {: RESULT=new IfThenStatement(C1, S2); RESULT.setLine(C1left); :}
+				| (IfThenElseStatement) IF PARENTHESES_BEGIN Condition:C1 PARENTHESES_END Statement:S2 ELSE Statement:S3 {: RESULT=new IfThenElseStatement(C1, S2, S3); RESULT.setLine(C1left); :}
 				| (DoWhileStatement) DO Statement:S1 WHILE PARENTHESES_BEGIN Condition:C2 PARENTHESES_END {: RESULT=new DoWhileStatement(S1, C2); RESULT.setLine(S1left); :}
 				| (SwitchStatement) SWITCH PARENTHESES_BEGIN Expr:E1 PARENTHESES_END BRACES_BEGIN SwitchCaseList:S2 BRACES_END {: RESULT=new SwitchStatement(E1, S2); RESULT.setLine(E1left); :}
 				| (BreakStmt) BREAK SEMI {: RESULT=new BreakStmt(); :}
@@ -309,16 +312,16 @@ Statement 		::= (StatementDesignatorStatement) DesignatorStatement:D1 SEMI {: RE
 				| (StatementsList) BRACES_BEGIN StatementList:S1 BRACES_END {: RESULT=new StatementsList(S1); RESULT.setLine(S1left); :}
 				;
 				
-SwitchCaseList ::= (EmptySwitchCaseList) {: RESULT=new EmptySwitchCaseList(); :}
-				| (NonEmptySwitchCaseList) CASE NUM_CONST:numberValue COLON CaseStatementList:C1 {: RESULT=new NonEmptySwitchCaseList(numberValue, C1); RESULT.setLine(numberValueleft); :}
+SwitchCaseList ::= 
+				(EmptySwitchCaseList) {: RESULT=new EmptySwitchCaseList(); :} /* epsilon */
+				| (NonEmptySwitchCaseList) CASE NUM_CONST:numberValue COLON CaseStatementList:C1 {: RESULT=new NonEmptySwitchCaseList(numberValue, C1); RESULT.setLine(numberValueleft); :} 
 				;
 
-CaseStatementList ::= (NonEmptyCaseStatement) CaseStatementList:C1 Statement:S2 {: RESULT=new NonEmptyCaseStatement(C1, S2); RESULT.setLine(C1left); :}
-					| (NonEmptyCaseStatement) {: RESULT=new NonEmptyCaseStatement(); :}
+CaseStatementList ::= (NonEmptyCaseStatementList) CaseStatementList:C1 Statement:S2 {: RESULT=new NonEmptyCaseStatementList(C1, S2); RESULT.setLine(C1left); :} |
+					(EmptyCaseStatementList) {: RESULT=new EmptyCaseStatementList(); :}
+					
+					
 					;
-
-ConditionStart ::= (ConditionStart) {: RESULT=new ConditionStart(); :};				
-ConditionEnd ::= (ConditionEnd) {: RESULT=new ConditionEnd(); :};				
 
 PrintStmtList ::= (NoNumConst) Expr:E1 {: RESULT=new NoNumConst(E1); RESULT.setLine(E1left); :}
 				| (WithNumConst) Expr:E1 COMMA NUM_CONST:intValue {: RESULT=new WithNumConst(E1, intValue); RESULT.setLine(E1left); :};
@@ -350,11 +353,18 @@ CondTerm ::= (ConditionTermWithAnd) CondTerm:C1 AND CondFactor:C2 {: RESULT=new 
 CondFactor ::= (ExpressionConditionFactor) Expr:E1 {: RESULT=new ExpressionConditionFactor(E1); RESULT.setLine(E1left); :}
 			| (RelOpConditionFactor) Expr:E1 RelOp:R2 Expr:E3 {: RESULT=new RelOpConditionFactor(E1, R2, E3); RESULT.setLine(E1left); :}
 			;
-			
-			
-Expr ::= (ExpressionTerm) Term:T1 {: RESULT=new ExpressionTerm(T1); RESULT.setLine(T1left); :}
+
+
+Expr ::= (RegularExprProduction) RegularExpr:R1 {: RESULT=new RegularExprProduction(R1); RESULT.setLine(R1left); :}
+	| (TernaryExprProduction) TernaryExpr:T1 {: RESULT=new TernaryExprProduction(T1); RESULT.setLine(T1left); :}
+	;
+	
+RegularExpr ::= (ExpressionTerm) Term:T1 {: RESULT=new ExpressionTerm(T1); RESULT.setLine(T1left); :}
 	| (NegativeTerm) MINUS Term:T1 {: RESULT=new NegativeTerm(T1); RESULT.setLine(T1left); :}
-	| (AddOperationTerm) Expr:E1 AddOp:A2 Term:T3 {: RESULT=new AddOperationTerm(E1, A2, T3); RESULT.setLine(E1left); :};
+	| (AddOperationTerm) Expr:E1 AddOp:A2 Term:T3 {: RESULT=new AddOperationTerm(E1, A2, T3); RESULT.setLine(E1left); :}
+	;
+	
+TernaryExpr ::= (TernaryExpressionStmt) Condition:C1 QUESTION_MARK Expr:E2 COLON Expr:E3 {: RESULT=new TernaryExpressionStmt(C1, E2, E3); RESULT.setLine(C1left); :};
 
 Term ::= (NonMullOpTerm) Factor:F1 {: RESULT=new NonMullOpTerm(F1); RESULT.setLine(F1left); :}
 		| (MullOpTerm) Term:T1 MulOp:M2 Factor:F3 {: RESULT=new MullOpTerm(T1, M2, F3); RESULT.setLine(T1left); :}

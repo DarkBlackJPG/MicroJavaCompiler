@@ -5,7 +5,7 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public abstract class AddOp implements SyntaxNode {
+public abstract class TernaryExpr implements SyntaxNode {
 
     private SyntaxNode parent;
 

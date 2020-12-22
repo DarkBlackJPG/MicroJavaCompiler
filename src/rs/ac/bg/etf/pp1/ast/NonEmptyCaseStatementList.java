@@ -5,23 +5,16 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class NonEmptySwitchCaseList extends SwitchCaseList {
+public class NonEmptyCaseStatementList extends CaseStatementList {
 
-    private Integer numberValue;
     private CaseStatementList CaseStatementList;
+    private Statement Statement;
 
-    public NonEmptySwitchCaseList (Integer numberValue, CaseStatementList CaseStatementList) {
-        this.numberValue=numberValue;
+    public NonEmptyCaseStatementList (CaseStatementList CaseStatementList, Statement Statement) {
         this.CaseStatementList=CaseStatementList;
         if(CaseStatementList!=null) CaseStatementList.setParent(this);
-    }
-
-    public Integer getNumberValue() {
-        return numberValue;
-    }
-
-    public void setNumberValue(Integer numberValue) {
-        this.numberValue=numberValue;
+        this.Statement=Statement;
+        if(Statement!=null) Statement.setParent(this);
     }
 
     public CaseStatementList getCaseStatementList() {
@@ -32,31 +25,39 @@ public class NonEmptySwitchCaseList extends SwitchCaseList {
         this.CaseStatementList=CaseStatementList;
     }
 
+    public Statement getStatement() {
+        return Statement;
+    }
+
+    public void setStatement(Statement Statement) {
+        this.Statement=Statement;
+    }
+
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
     public void childrenAccept(Visitor visitor) {
         if(CaseStatementList!=null) CaseStatementList.accept(visitor);
+        if(Statement!=null) Statement.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(CaseStatementList!=null) CaseStatementList.traverseTopDown(visitor);
+        if(Statement!=null) Statement.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(CaseStatementList!=null) CaseStatementList.traverseBottomUp(visitor);
+        if(Statement!=null) Statement.traverseBottomUp(visitor);
         accept(visitor);
     }
 
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("NonEmptySwitchCaseList(\n");
-
-        buffer.append(" "+tab+numberValue);
-        buffer.append("\n");
+        buffer.append("NonEmptyCaseStatementList(\n");
 
         if(CaseStatementList!=null)
             buffer.append(CaseStatementList.toString("  "+tab));
@@ -64,8 +65,14 @@ public class NonEmptySwitchCaseList extends SwitchCaseList {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
+        if(Statement!=null)
+            buffer.append(Statement.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
+        buffer.append("\n");
+
         buffer.append(tab);
-        buffer.append(") [NonEmptySwitchCaseList]");
+        buffer.append(") [NonEmptyCaseStatementList]");
         return buffer.toString();
     }
 }

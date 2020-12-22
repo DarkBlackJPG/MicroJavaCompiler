@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 21/11/2020 22:57:44
+// 22/11/2020 1:40:0
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -23,12 +23,14 @@ public interface Visitor {
     public void visit(CondFactor CondFactor);
     public void visit(ClassBody ClassBody);
     public void visit(CondExpression CondExpression);
+    public void visit(TernaryExpr TernaryExpr);
     public void visit(ClassMethodList ClassMethodList);
     public void visit(MulOp MulOp);
     public void visit(VariableDeclarations VariableDeclarations);
     public void visit(SwitchCaseList SwitchCaseList);
     public void visit(Literals Literals);
     public void visit(RelOp RelOp);
+    public void visit(RegularExpr RegularExpr);
     public void visit(Declarations Declarations);
     public void visit(ReturnStmts ReturnStmts);
     public void visit(Expr Expr);
@@ -74,9 +76,12 @@ public interface Visitor {
     public void visit(NoParamsDesignator NoParamsDesignator);
     public void visit(MullOpTerm MullOpTerm);
     public void visit(NonMullOpTerm NonMullOpTerm);
+    public void visit(TernaryExpressionStmt TernaryExpressionStmt);
     public void visit(AddOperationTerm AddOperationTerm);
     public void visit(NegativeTerm NegativeTerm);
     public void visit(ExpressionTerm ExpressionTerm);
+    public void visit(TernaryExprProduction TernaryExprProduction);
+    public void visit(RegularExprProduction RegularExprProduction);
     public void visit(RelOpConditionFactor RelOpConditionFactor);
     public void visit(ExpressionConditionFactor ExpressionConditionFactor);
     public void visit(ConditionTermFactor ConditionTermFactor);
@@ -94,10 +99,8 @@ public interface Visitor {
     public void visit(NonEmptyStatementList NonEmptyStatementList);
     public void visit(WithNumConst WithNumConst);
     public void visit(NoNumConst NoNumConst);
-    public void visit(ConditionEnd ConditionEnd);
-    public void visit(ConditionStart ConditionStart);
-    public void visit(NonEmptyCaseStatement NonEmptyCaseStatement);
-    public void visit(NonEmptyCaseStatement NonEmptyCaseStatement);
+    public void visit(EmptyCaseStatementList EmptyCaseStatementList);
+    public void visit(NonEmptyCaseStatementList NonEmptyCaseStatementList);
     public void visit(NonEmptySwitchCaseList NonEmptySwitchCaseList);
     public void visit(EmptySwitchCaseList EmptySwitchCaseList);
     public void visit(StatementsList StatementsList);

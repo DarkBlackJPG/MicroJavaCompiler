@@ -1,31 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 21/11/2020 22:57:44
+// 22/11/2020 1:40:0
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ConditionStart implements SyntaxNode {
+public class EmptyCaseStatementList extends CaseStatementList {
 
-    private SyntaxNode parent;
-    private int line;
-    public ConditionStart () {
-    }
-
-    public SyntaxNode getParent() {
-        return parent;
-    }
-
-    public void setParent(SyntaxNode parent) {
-        this.parent=parent;
-    }
-
-    public int getLine() {
-        return line;
-    }
-
-    public void setLine(int line) {
-        this.line=line;
+    public EmptyCaseStatementList () {
     }
 
     public void accept(Visitor visitor) {
@@ -46,10 +28,10 @@ public class ConditionStart implements SyntaxNode {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ConditionStart(\n");
+        buffer.append("EmptyCaseStatementList(\n");
 
         buffer.append(tab);
-        buffer.append(") [ConditionStart]");
+        buffer.append(") [EmptyCaseStatementList]");
         return buffer.toString();
     }
 }

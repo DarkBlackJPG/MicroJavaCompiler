@@ -108,6 +108,7 @@ terminal SWITCH;
 terminal CASE;
 terminal COLON;
 terminal READ;
+terminal QUESTION_MARK;
 
 
 /* ================== NON-TERMINALS ================== */
@@ -188,17 +189,19 @@ nonterminal ActPars;
 
 nonterminal PrintStmtList;
 
-nonterminal ConditionStart;
- 
-nonterminal ConditionEnd;
-
 nonterminal SwitchCaseList;
 
 nonterminal CaseStatementList;
+nonterminal RegularExpr;
+nonterminal TernaryExpr;
+
+
+
+
 /* ===================== GRAMMAR ===================== */
 
 precedence left ELSE;
-
+start with Program;
 Program 	::= 
 			  (Program) 			PROG 
 			  						IDENT:programName
@@ -297,8 +300,8 @@ MethodVariables ::=
 
 
 Statement 		::= (StatementDesignatorStatement) DesignatorStatement SEMI
-				| (IfThenStatement) IF ConditionStart PARENTHESES_BEGIN Condition PARENTHESES_END ConditionEnd Statement
-				| (IfThenElseStatement) IF ConditionStart PARENTHESES_BEGIN Condition PARENTHESES_END ConditionEnd Statement ELSE Statement
+				| (IfThenStatement) IF PARENTHESES_BEGIN Condition PARENTHESES_END Statement
+				| (IfThenElseStatement) IF PARENTHESES_BEGIN Condition PARENTHESES_END Statement ELSE Statement
 				| (DoWhileStatement) DO Statement WHILE PARENTHESES_BEGIN Condition PARENTHESES_END
 				| (SwitchStatement) SWITCH PARENTHESES_BEGIN Expr PARENTHESES_END BRACES_BEGIN SwitchCaseList BRACES_END
 				| (BreakStmt) BREAK SEMI
@@ -309,16 +312,16 @@ Statement 		::= (StatementDesignatorStatement) DesignatorStatement SEMI
 				| (StatementsList) BRACES_BEGIN StatementList BRACES_END
 				;
 				
-SwitchCaseList ::= (EmptySwitchCaseList)
-				| (NonEmptySwitchCaseList) CASE NUM_CONST:numberValue COLON CaseStatementList
+SwitchCaseList ::= 
+				(EmptySwitchCaseList) /* epsilon */
+				| (NonEmptySwitchCaseList) CASE NUM_CONST:numberValue COLON CaseStatementList 
 				;
 
-CaseStatementList ::= (NonEmptyCaseStatement) CaseStatementList Statement
-					| (NonEmptyCaseStatement)
+CaseStatementList ::= (NonEmptyCaseStatementList) CaseStatementList Statement |
+					(EmptyCaseStatementList)
+					
+					
 					;
-
-ConditionStart ::= (ConditionStart);				
-ConditionEnd ::= (ConditionEnd);				
 
 PrintStmtList ::= (NoNumConst) Expr
 				| (WithNumConst) Expr COMMA NUM_CONST:intValue;
@@ -350,11 +353,18 @@ CondTerm ::= (ConditionTermWithAnd) CondTerm AND CondFactor
 CondFactor ::= (ExpressionConditionFactor) Expr
 			| (RelOpConditionFactor) Expr RelOp Expr
 			;
-			
-			
-Expr ::= (ExpressionTerm) Term
+
+
+Expr ::= (RegularExprProduction) RegularExpr
+	| (TernaryExprProduction) TernaryExpr
+	;
+	
+RegularExpr ::= (ExpressionTerm) Term
 	| (NegativeTerm) MINUS Term
-	| (AddOperationTerm) Expr AddOp Term;
+	| (AddOperationTerm) Expr AddOp Term
+	;
+	
+TernaryExpr ::= (TernaryExpressionStmt) Condition QUESTION_MARK Expr COLON Expr;
 
 Term ::= (NonMullOpTerm) Factor
 		| (MullOpTerm) Term MulOp Factor

@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 21/11/2020 22:57:44
+// 22/11/2020 1:40:0
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -23,12 +23,14 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(CondFactor CondFactor) { }
     public void visit(ClassBody ClassBody) { }
     public void visit(CondExpression CondExpression) { }
+    public void visit(TernaryExpr TernaryExpr) { }
     public void visit(ClassMethodList ClassMethodList) { }
     public void visit(MulOp MulOp) { }
     public void visit(VariableDeclarations VariableDeclarations) { }
     public void visit(SwitchCaseList SwitchCaseList) { }
     public void visit(Literals Literals) { }
     public void visit(RelOp RelOp) { }
+    public void visit(RegularExpr RegularExpr) { }
     public void visit(Declarations Declarations) { }
     public void visit(ReturnStmts ReturnStmts) { }
     public void visit(Expr Expr) { }
@@ -74,9 +76,12 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(NoParamsDesignator NoParamsDesignator) { visit(); }
     public void visit(MullOpTerm MullOpTerm) { visit(); }
     public void visit(NonMullOpTerm NonMullOpTerm) { visit(); }
+    public void visit(TernaryExpressionStmt TernaryExpressionStmt) { visit(); }
     public void visit(AddOperationTerm AddOperationTerm) { visit(); }
     public void visit(NegativeTerm NegativeTerm) { visit(); }
     public void visit(ExpressionTerm ExpressionTerm) { visit(); }
+    public void visit(TernaryExprProduction TernaryExprProduction) { visit(); }
+    public void visit(RegularExprProduction RegularExprProduction) { visit(); }
     public void visit(RelOpConditionFactor RelOpConditionFactor) { visit(); }
     public void visit(ExpressionConditionFactor ExpressionConditionFactor) { visit(); }
     public void visit(ConditionTermFactor ConditionTermFactor) { visit(); }
@@ -94,10 +99,8 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(NonEmptyStatementList NonEmptyStatementList) { visit(); }
     public void visit(WithNumConst WithNumConst) { visit(); }
     public void visit(NoNumConst NoNumConst) { visit(); }
-    public void visit(ConditionEnd ConditionEnd) { visit(); }
-    public void visit(ConditionStart ConditionStart) { visit(); }
-    public void visit(NonEmptyCaseStatement NonEmptyCaseStatement) { visit(); }
-    public void visit(NonEmptyCaseStatement NonEmptyCaseStatement) { visit(); }
+    public void visit(EmptyCaseStatementList EmptyCaseStatementList) { visit(); }
+    public void visit(NonEmptyCaseStatementList NonEmptyCaseStatementList) { visit(); }
     public void visit(NonEmptySwitchCaseList NonEmptySwitchCaseList) { visit(); }
     public void visit(EmptySwitchCaseList EmptySwitchCaseList) { visit(); }
     public void visit(StatementsList StatementsList) { visit(); }
