@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 1:40:0
+// 22/11/2020 19:29:48
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -40,11 +40,15 @@ public interface Visitor {
     public void visit(AddOp AddOp);
     public void visit(VariableDeclaration VariableDeclaration);
     public void visit(DesignatorStatement DesignatorStatement);
+    public void visit(ExprTern ExprTern);
     public void visit(Const Const);
+    public void visit(ExprNoTern ExprNoTern);
     public void visit(Statement Statement);
     public void visit(Decls Decls);
+    public void visit(RelationalExpression RelationalExpression);
     public void visit(FieldList FieldList);
     public void visit(FormPars FormPars);
+    public void visit(ExprNoTernAddOpList ExprNoTernAddOpList);
     public void visit(MulopModulo MulopModulo);
     public void visit(MulopDivide MulopDivide);
     public void visit(MulopTimes MulopTimes);
@@ -77,20 +81,22 @@ public interface Visitor {
     public void visit(MullOpTerm MullOpTerm);
     public void visit(NonMullOpTerm NonMullOpTerm);
     public void visit(TernaryExpressionStmt TernaryExpressionStmt);
+    public void visit(OneTerm OneTerm);
+    public void visit(TermList TermList);
     public void visit(AddOperationTerm AddOperationTerm);
     public void visit(NegativeTerm NegativeTerm);
-    public void visit(ExpressionTerm ExpressionTerm);
-    public void visit(TernaryExprProduction TernaryExprProduction);
-    public void visit(RegularExprProduction RegularExprProduction);
-    public void visit(RelOpConditionFactor RelOpConditionFactor);
+    public void visit(ExpressionWithTernary ExpressionWithTernary);
+    public void visit(ExpressionWithoutTernary ExpressionWithoutTernary);
+    public void visit(EmptyRelationalExpression EmptyRelationalExpression);
+    public void visit(NonEmptyRelationalExpression NonEmptyRelationalExpression);
     public void visit(ExpressionConditionFactor ExpressionConditionFactor);
     public void visit(ConditionTermFactor ConditionTermFactor);
     public void visit(ConditionTermWithAnd ConditionTermWithAnd);
     public void visit(ConditionExpressionWithOr ConditionExpressionWithOr);
     public void visit(ConditionExpressionWithoutOr ConditionExpressionWithoutOr);
+    public void visit(Condition Condition);
     public void visit(EmptyReturn EmptyReturn);
     public void visit(NonEmptyReturn NonEmptyReturn);
-    public void visit(Condition Condition);
     public void visit(DecrementDesignator DecrementDesignator);
     public void visit(IncrementDesignator IncrementDesignator);
     public void visit(MethodCallDesignator MethodCallDesignator);

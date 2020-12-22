@@ -1,25 +1,25 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 1:40:0
+// 22/11/2020 19:29:48
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class NegativeTerm extends RegularExpr {
+public class NegativeTerm extends ExprNoTern {
 
-    private Term Term;
+    private ExprNoTernAddOpList ExprNoTernAddOpList;
 
-    public NegativeTerm (Term Term) {
-        this.Term=Term;
-        if(Term!=null) Term.setParent(this);
+    public NegativeTerm (ExprNoTernAddOpList ExprNoTernAddOpList) {
+        this.ExprNoTernAddOpList=ExprNoTernAddOpList;
+        if(ExprNoTernAddOpList!=null) ExprNoTernAddOpList.setParent(this);
     }
 
-    public Term getTerm() {
-        return Term;
+    public ExprNoTernAddOpList getExprNoTernAddOpList() {
+        return ExprNoTernAddOpList;
     }
 
-    public void setTerm(Term Term) {
-        this.Term=Term;
+    public void setExprNoTernAddOpList(ExprNoTernAddOpList ExprNoTernAddOpList) {
+        this.ExprNoTernAddOpList=ExprNoTernAddOpList;
     }
 
     public void accept(Visitor visitor) {
@@ -27,16 +27,16 @@ public class NegativeTerm extends RegularExpr {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Term!=null) Term.accept(visitor);
+        if(ExprNoTernAddOpList!=null) ExprNoTernAddOpList.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Term!=null) Term.traverseTopDown(visitor);
+        if(ExprNoTernAddOpList!=null) ExprNoTernAddOpList.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Term!=null) Term.traverseBottomUp(visitor);
+        if(ExprNoTernAddOpList!=null) ExprNoTernAddOpList.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -45,8 +45,8 @@ public class NegativeTerm extends RegularExpr {
         buffer.append(tab);
         buffer.append("NegativeTerm(\n");
 
-        if(Term!=null)
-            buffer.append(Term.toString("  "+tab));
+        if(ExprNoTernAddOpList!=null)
+            buffer.append(ExprNoTernAddOpList.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

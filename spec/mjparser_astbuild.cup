@@ -192,8 +192,15 @@ nonterminal PrintStmtList PrintStmtList;
 nonterminal SwitchCaseList SwitchCaseList;
 
 nonterminal CaseStatementList CaseStatementList;
+
 nonterminal RegularExpr RegularExpr;
+
 nonterminal TernaryExpr TernaryExpr;
+
+nonterminal RelationalExpression RelationalExpression;
+nonterminal ExprTern ExprTern;
+nonterminal ExprNoTern ExprNoTern;
+nonterminal ExprNoTernAddOpList ExprNoTernAddOpList;
 
 
 
@@ -336,10 +343,12 @@ DesignatorStatement ::= (AssignDesignator) Designator:D1 AssignOp:A2 Expr:E3 {: 
 					| (DecrementDesignator) Designator:D1 DECREMENT {: RESULT=new DecrementDesignator(D1); RESULT.setLine(D1left); :}
 					;
 
-Condition ::= (Condition) CondExpression:C1 {: RESULT=new Condition(C1); RESULT.setLine(C1left); :} ;
 
 ReturnStmts ::= (NonEmptyReturn) Expr:E1 {: RESULT=new NonEmptyReturn(E1); RESULT.setLine(E1left); :} 
-			| (EmptyReturn) {: RESULT=new EmptyReturn(); :};
+			| (EmptyReturn) {: RESULT=new EmptyReturn(); :}
+			;
+
+Condition ::= (Condition) CondExpression:C1 {: RESULT=new Condition(C1); RESULT.setLine(C1left); :} ;
 
 CondExpression ::= 
 				(ConditionExpressionWithoutOr) CondTerm:C1 {: RESULT=new ConditionExpressionWithoutOr(C1); RESULT.setLine(C1left); :} 
@@ -350,21 +359,29 @@ CondTerm ::= (ConditionTermWithAnd) CondTerm:C1 AND CondFactor:C2 {: RESULT=new 
 			| (ConditionTermFactor) CondFactor:C1 {: RESULT=new ConditionTermFactor(C1); RESULT.setLine(C1left); :}
 			;
 			
-CondFactor ::= (ExpressionConditionFactor) Expr:E1 {: RESULT=new ExpressionConditionFactor(E1); RESULT.setLine(E1left); :}
-			| (RelOpConditionFactor) Expr:E1 RelOp:R2 Expr:E3 {: RESULT=new RelOpConditionFactor(E1, R2, E3); RESULT.setLine(E1left); :}
+CondFactor ::= (ExpressionConditionFactor) Expr:E1 RelationalExpression:R2 {: RESULT=new ExpressionConditionFactor(E1, R2); RESULT.setLine(E1left); :}
 			;
 
+RelationalExpression ::= (NonEmptyRelationalExpression) RelOp:R1 Expr:E2 {: RESULT=new NonEmptyRelationalExpression(R1, E2); RESULT.setLine(R1left); :}
+					| (EmptyRelationalExpression) {: RESULT=new EmptyRelationalExpression(); :}
+					;
 
-Expr ::= (RegularExprProduction) RegularExpr:R1 {: RESULT=new RegularExprProduction(R1); RESULT.setLine(R1left); :}
-	| (TernaryExprProduction) TernaryExpr:T1 {: RESULT=new TernaryExprProduction(T1); RESULT.setLine(T1left); :}
+Expr ::= (ExpressionWithoutTernary) ExprNoTern:E1 {: RESULT=new ExpressionWithoutTernary(E1); RESULT.setLine(E1left); :}
+		|
+		(ExpressionWithTernary) ExprTern:E1 {: RESULT=new ExpressionWithTernary(E1); RESULT.setLine(E1left); :}
+		;
+
+ExprNoTern ::= (NegativeTerm) MINUS ExprNoTernAddOpList:E1 {: RESULT=new NegativeTerm(E1); RESULT.setLine(E1left); :}
+	| (AddOperationTerm) ExprNoTernAddOpList:E1 {: RESULT=new AddOperationTerm(E1); RESULT.setLine(E1left); :}
 	;
 	
-RegularExpr ::= (ExpressionTerm) Term:T1 {: RESULT=new ExpressionTerm(T1); RESULT.setLine(T1left); :}
-	| (NegativeTerm) MINUS Term:T1 {: RESULT=new NegativeTerm(T1); RESULT.setLine(T1left); :}
-	| (AddOperationTerm) Expr:E1 AddOp:A2 Term:T3 {: RESULT=new AddOperationTerm(E1, A2, T3); RESULT.setLine(E1left); :}
-	;
+ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:E1 AddOp:A2 Term:T3 {: RESULT=new TermList(E1, A2, T3); RESULT.setLine(E1left); :}
+						| (OneTerm) Term:T1 {: RESULT=new OneTerm(T1); RESULT.setLine(T1left); :}
+						;
 	
-TernaryExpr ::= (TernaryExpressionStmt) Condition:C1 QUESTION_MARK Expr:E2 COLON Expr:E3 {: RESULT=new TernaryExpressionStmt(C1, E2, E3); RESULT.setLine(C1left); :};
+ExprTern ::= (TernaryExpressionStmt) QUESTION_MARK Expr:E1 COLON Expr:E2 {: RESULT=new TernaryExpressionStmt(E1, E2); RESULT.setLine(E1left); :}
+			;
+
 
 Term ::= (NonMullOpTerm) Factor:F1 {: RESULT=new NonMullOpTerm(F1); RESULT.setLine(F1left); :}
 		| (MullOpTerm) Term:T1 MulOp:M2 Factor:F3 {: RESULT=new MullOpTerm(T1, M2, F3); RESULT.setLine(T1left); :}

@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 1:40:0
+// 22/11/2020 19:29:48
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -40,11 +40,15 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(AddOp AddOp) { }
     public void visit(VariableDeclaration VariableDeclaration) { }
     public void visit(DesignatorStatement DesignatorStatement) { }
+    public void visit(ExprTern ExprTern) { }
     public void visit(Const Const) { }
+    public void visit(ExprNoTern ExprNoTern) { }
     public void visit(Statement Statement) { }
     public void visit(Decls Decls) { }
+    public void visit(RelationalExpression RelationalExpression) { }
     public void visit(FieldList FieldList) { }
     public void visit(FormPars FormPars) { }
+    public void visit(ExprNoTernAddOpList ExprNoTernAddOpList) { }
     public void visit(MulopModulo MulopModulo) { visit(); }
     public void visit(MulopDivide MulopDivide) { visit(); }
     public void visit(MulopTimes MulopTimes) { visit(); }
@@ -77,20 +81,22 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(MullOpTerm MullOpTerm) { visit(); }
     public void visit(NonMullOpTerm NonMullOpTerm) { visit(); }
     public void visit(TernaryExpressionStmt TernaryExpressionStmt) { visit(); }
+    public void visit(OneTerm OneTerm) { visit(); }
+    public void visit(TermList TermList) { visit(); }
     public void visit(AddOperationTerm AddOperationTerm) { visit(); }
     public void visit(NegativeTerm NegativeTerm) { visit(); }
-    public void visit(ExpressionTerm ExpressionTerm) { visit(); }
-    public void visit(TernaryExprProduction TernaryExprProduction) { visit(); }
-    public void visit(RegularExprProduction RegularExprProduction) { visit(); }
-    public void visit(RelOpConditionFactor RelOpConditionFactor) { visit(); }
+    public void visit(ExpressionWithTernary ExpressionWithTernary) { visit(); }
+    public void visit(ExpressionWithoutTernary ExpressionWithoutTernary) { visit(); }
+    public void visit(EmptyRelationalExpression EmptyRelationalExpression) { visit(); }
+    public void visit(NonEmptyRelationalExpression NonEmptyRelationalExpression) { visit(); }
     public void visit(ExpressionConditionFactor ExpressionConditionFactor) { visit(); }
     public void visit(ConditionTermFactor ConditionTermFactor) { visit(); }
     public void visit(ConditionTermWithAnd ConditionTermWithAnd) { visit(); }
     public void visit(ConditionExpressionWithOr ConditionExpressionWithOr) { visit(); }
     public void visit(ConditionExpressionWithoutOr ConditionExpressionWithoutOr) { visit(); }
+    public void visit(Condition Condition) { visit(); }
     public void visit(EmptyReturn EmptyReturn) { visit(); }
     public void visit(NonEmptyReturn NonEmptyReturn) { visit(); }
-    public void visit(Condition Condition) { visit(); }
     public void visit(DecrementDesignator DecrementDesignator) { visit(); }
     public void visit(IncrementDesignator IncrementDesignator) { visit(); }
     public void visit(MethodCallDesignator MethodCallDesignator) { visit(); }

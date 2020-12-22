@@ -1,31 +1,20 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 1:40:0
+// 22/11/2020 19:29:48
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class RelOpConditionFactor extends CondFactor {
+public class NonEmptyRelationalExpression extends RelationalExpression {
 
-    private Expr Expr;
     private RelOp RelOp;
-    private Expr Expr1;
+    private Expr Expr;
 
-    public RelOpConditionFactor (Expr Expr, RelOp RelOp, Expr Expr1) {
-        this.Expr=Expr;
-        if(Expr!=null) Expr.setParent(this);
+    public NonEmptyRelationalExpression (RelOp RelOp, Expr Expr) {
         this.RelOp=RelOp;
         if(RelOp!=null) RelOp.setParent(this);
-        this.Expr1=Expr1;
-        if(Expr1!=null) Expr1.setParent(this);
-    }
-
-    public Expr getExpr() {
-        return Expr;
-    }
-
-    public void setExpr(Expr Expr) {
         this.Expr=Expr;
+        if(Expr!=null) Expr.setParent(this);
     }
 
     public RelOp getRelOp() {
@@ -36,12 +25,12 @@ public class RelOpConditionFactor extends CondFactor {
         this.RelOp=RelOp;
     }
 
-    public Expr getExpr1() {
-        return Expr1;
+    public Expr getExpr() {
+        return Expr;
     }
 
-    public void setExpr1(Expr Expr1) {
-        this.Expr1=Expr1;
+    public void setExpr(Expr Expr) {
+        this.Expr=Expr;
     }
 
     public void accept(Visitor visitor) {
@@ -49,35 +38,26 @@ public class RelOpConditionFactor extends CondFactor {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Expr!=null) Expr.accept(visitor);
         if(RelOp!=null) RelOp.accept(visitor);
-        if(Expr1!=null) Expr1.accept(visitor);
+        if(Expr!=null) Expr.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Expr!=null) Expr.traverseTopDown(visitor);
         if(RelOp!=null) RelOp.traverseTopDown(visitor);
-        if(Expr1!=null) Expr1.traverseTopDown(visitor);
+        if(Expr!=null) Expr.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Expr!=null) Expr.traverseBottomUp(visitor);
         if(RelOp!=null) RelOp.traverseBottomUp(visitor);
-        if(Expr1!=null) Expr1.traverseBottomUp(visitor);
+        if(Expr!=null) Expr.traverseBottomUp(visitor);
         accept(visitor);
     }
 
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("RelOpConditionFactor(\n");
-
-        if(Expr!=null)
-            buffer.append(Expr.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
+        buffer.append("NonEmptyRelationalExpression(\n");
 
         if(RelOp!=null)
             buffer.append(RelOp.toString("  "+tab));
@@ -85,14 +65,14 @@ public class RelOpConditionFactor extends CondFactor {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(Expr1!=null)
-            buffer.append(Expr1.toString("  "+tab));
+        if(Expr!=null)
+            buffer.append(Expr.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [RelOpConditionFactor]");
+        buffer.append(") [NonEmptyRelationalExpression]");
         return buffer.toString();
     }
 }

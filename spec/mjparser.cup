@@ -192,8 +192,15 @@ nonterminal PrintStmtList;
 nonterminal SwitchCaseList;
 
 nonterminal CaseStatementList;
+
 nonterminal RegularExpr;
+
 nonterminal TernaryExpr;
+
+nonterminal RelationalExpression;
+nonterminal ExprTern;
+nonterminal ExprNoTern;
+nonterminal ExprNoTernAddOpList;
 
 
 
@@ -336,10 +343,12 @@ DesignatorStatement ::= (AssignDesignator) Designator AssignOp Expr
 					| (DecrementDesignator) Designator DECREMENT
 					;
 
-Condition ::= (Condition) CondExpression ;
 
 ReturnStmts ::= (NonEmptyReturn) Expr 
-			| (EmptyReturn);
+			| (EmptyReturn)
+			;
+
+Condition ::= (Condition) CondExpression ;
 
 CondExpression ::= 
 				(ConditionExpressionWithoutOr) CondTerm 
@@ -350,21 +359,29 @@ CondTerm ::= (ConditionTermWithAnd) CondTerm AND CondFactor
 			| (ConditionTermFactor) CondFactor
 			;
 			
-CondFactor ::= (ExpressionConditionFactor) Expr
-			| (RelOpConditionFactor) Expr RelOp Expr
+CondFactor ::= (ExpressionConditionFactor) Expr RelationalExpression
 			;
 
+RelationalExpression ::= (NonEmptyRelationalExpression) RelOp Expr
+					| (EmptyRelationalExpression)
+					;
 
-Expr ::= (RegularExprProduction) RegularExpr
-	| (TernaryExprProduction) TernaryExpr
+Expr ::= (ExpressionWithoutTernary) ExprNoTern
+		|
+		(ExpressionWithTernary) ExprTern
+		;
+
+ExprNoTern ::= (NegativeTerm) MINUS ExprNoTernAddOpList
+	| (AddOperationTerm) ExprNoTernAddOpList
 	;
 	
-RegularExpr ::= (ExpressionTerm) Term
-	| (NegativeTerm) MINUS Term
-	| (AddOperationTerm) Expr AddOp Term
-	;
+ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList AddOp Term
+						| (OneTerm) Term
+						;
 	
-TernaryExpr ::= (TernaryExpressionStmt) Condition QUESTION_MARK Expr COLON Expr;
+ExprTern ::= (TernaryExpressionStmt) QUESTION_MARK Expr COLON Expr
+			;
+
 
 Term ::= (NonMullOpTerm) Factor
 		| (MullOpTerm) Term MulOp Factor

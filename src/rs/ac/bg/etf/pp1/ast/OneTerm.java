@@ -1,15 +1,15 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 1:40:0
+// 22/11/2020 19:29:48
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ExpressionTerm extends RegularExpr {
+public class OneTerm extends ExprNoTernAddOpList {
 
     private Term Term;
 
-    public ExpressionTerm (Term Term) {
+    public OneTerm (Term Term) {
         this.Term=Term;
         if(Term!=null) Term.setParent(this);
     }
@@ -43,7 +43,7 @@ public class ExpressionTerm extends RegularExpr {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ExpressionTerm(\n");
+        buffer.append("OneTerm(\n");
 
         if(Term!=null)
             buffer.append(Term.toString("  "+tab));
@@ -52,7 +52,7 @@ public class ExpressionTerm extends RegularExpr {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [ExpressionTerm]");
+        buffer.append(") [OneTerm]");
         return buffer.toString();
     }
 }
