@@ -1,11 +1,11 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/11/2020 13:17:15
+// 23/11/2020 15:46:59
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ConstDeclarations extends Decls {
+public class ConstDeclarations extends ErrorDecls {
 
     private Type Type;
     private ConstList ConstList;

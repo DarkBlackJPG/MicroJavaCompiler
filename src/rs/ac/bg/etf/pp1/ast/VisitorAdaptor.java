@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/11/2020 13:17:15
+// 23/11/2020 15:46:59
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -11,6 +11,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(MethodVariables MethodVariables) { }
     public void visit(MethodDeclarations MethodDeclarations) { }
     public void visit(MethodDeclaration MethodDeclaration) { }
+    public void visit(ErrorConstList ErrorConstList) { }
     public void visit(PrintStmtList PrintStmtList) { }
     public void visit(MethodStatements MethodStatements) { }
     public void visit(StatementList StatementList) { }
@@ -45,6 +46,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(Const Const) { }
     public void visit(ExprNoTern ExprNoTern) { }
     public void visit(Statement Statement) { }
+    public void visit(ErrorDecls ErrorDecls) { }
     public void visit(ActParsChoice ActParsChoice) { }
     public void visit(Decls Decls) { }
     public void visit(RelationalExpression RelationalExpression) { }
@@ -149,6 +151,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(RootClass RootClass) { visit(); }
     public void visit(ArrayVariable ArrayVariable) { visit(); }
     public void visit(NonArrayVariable NonArrayVariable) { visit(); }
+    public void visit(VariableListDerived1 VariableListDerived1) { visit(); }
     public void visit(MoreVariables MoreVariables) { visit(); }
     public void visit(SingleVariable SingleVariable) { visit(); }
     public void visit(VariableDecls VariableDecls) { visit(); }
@@ -156,11 +159,15 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(CharLiteral CharLiteral) { visit(); }
     public void visit(NumericLiteral NumericLiteral) { visit(); }
     public void visit(ConstDefinition ConstDefinition) { visit(); }
+    public void visit(ErrorConstListDerived1 ErrorConstListDerived1) { visit(); }
     public void visit(MoreConsts MoreConsts) { visit(); }
+    public void visit(ErrorConstListDecl ErrorConstListDecl) { visit(); }
     public void visit(SingleConst SingleConst) { visit(); }
-    public void visit(ClassDeclarations ClassDeclarations) { visit(); }
+    public void visit(ErrorDeclsDerived1 ErrorDeclsDerived1) { visit(); }
     public void visit(VarDeclarations VarDeclarations) { visit(); }
     public void visit(ConstDeclarations ConstDeclarations) { visit(); }
+    public void visit(ClassDeclarations ClassDeclarations) { visit(); }
+    public void visit(ErrorDeclarations ErrorDeclarations) { visit(); }
     public void visit(MethodDeclList MethodDeclList) { visit(); }
     public void visit(SingleMethod SingleMethod) { visit(); }
     public void visit(NoDecls NoDecls) { visit(); }

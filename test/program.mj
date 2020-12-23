@@ -3,7 +3,11 @@ program MJProgram
 {	
 	void main() 
 	int x;
+	boolean a;
 	{
-		x = 2;
+		if ((a > c ? 3 : 4)) {
+			
+		} 
+		
 	}
 }

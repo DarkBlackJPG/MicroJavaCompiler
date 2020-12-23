@@ -9,10 +9,7 @@ import rs.ac.bg.etf.pp1.ast.*;
 parser code {:
 
 	Logger log = Logger.getLogger(getClass());
-   
-   
-    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
-     
+
     public void report_fatal_error(String message, Object info) throws java.lang.Exception {
       done_parsing();
       report_error(message, info);
@@ -187,6 +184,8 @@ nonterminal Designator Designator;
 
 nonterminal DesignatorList DesignatorList;
 
+nonterminal ErrorDecls ErrorDecls;
+
 nonterminal SwichCaseDefinition SwichCaseDefinition;
 
 nonterminal ActPars ActPars;
@@ -209,6 +208,7 @@ nonterminal ExprNoTernAddOpList ExprNoTernAddOpList;
 
 nonterminal MethodStatements MethodStatements;
 nonterminal ActParsChoice ActParsChoice;
+nonterminal ErrorConstList ErrorConstList;
 
 /*
 nonterminal TernaryCondition;
@@ -244,14 +244,30 @@ MethodDeclarations ::= (SingleMethod) MethodDeclaration:M1 {: RESULT=new SingleM
 					| (MethodDeclList) MethodDeclarations:M1 MethodDeclaration:M2 {: RESULT=new MethodDeclList(M1, M2); RESULT.setLine(M1left); :}
 					;
 Decls		::= 
-				(ConstDeclarations) CONST Type:T1 ConstList:C2 SEMI {: RESULT=new ConstDeclarations(T1, C2); RESULT.setLine(T1left); :}
-				| (VarDeclarations) VariableDeclarations:V1 {: RESULT=new VarDeclarations(V1); RESULT.setLine(V1left); :}
+				(ErrorDeclarations) ErrorDecls:E1 {: RESULT=new ErrorDeclarations(E1); RESULT.setLine(E1left); :}
 				| (ClassDeclarations) CLASS ClassDeclaration:C1 BRACES_BEGIN ClassBody:C2 BRACES_END {: RESULT=new ClassDeclarations(C1, C2); RESULT.setLine(C1left); :}
+				;
+
+ErrorDecls ::= (ConstDeclarations) CONST Type:T1 ConstList:C2 SEMI {: RESULT=new ConstDeclarations(T1, C2); RESULT.setLine(T1left); :}
+				| (VarDeclarations) VariableDeclarations:V1 SEMI {: RESULT=new VarDeclarations(V1); RESULT.setLine(V1left); :}
+				|
+					error SEMI:l
+					{:
+						parser.report_error("Izvrsen oporavak do ; u linijij" + lleft, null);
+					:} {: RESULT=new ErrorDeclsDerived1(); :}
 				;
 
 ConstList 	::= 
 				(SingleConst) Const:C1 {: RESULT=new SingleConst(C1); RESULT.setLine(C1left); :}
-				| (MoreConsts) ConstList:C1 COMMA Const:C2 {: RESULT=new MoreConsts(C1, C2); RESULT.setLine(C1left); :};
+				| (ErrorConstListDecl) ErrorConstList:E1 {: RESULT=new ErrorConstListDecl(E1); RESULT.setLine(E1left); :};
+				
+ErrorConstList ::= (MoreConsts) ConstList:C1 COMMA Const:C2 {: RESULT=new MoreConsts(C1, C2); RESULT.setLine(C1left); :}
+					|
+					error COMMA:l
+					{:
+						parser.report_error("Izvrsen oporavak do ; u linijij" + lleft, null);
+					:} {: RESULT=new ErrorConstListDerived1(); :}
+					;
 				
 Const		::=
 				(ConstDefinition) IDENT:identification AssignOp:A1 Literals:L2 {: RESULT=new ConstDefinition(identification, A1, L2); RESULT.setLine(identificationleft); :};
@@ -264,12 +280,17 @@ Literals	::=
 
 
 VariableDeclarations ::= 
-					(VariableDecls) Type:T1 VariableList:V2 SEMI {: RESULT=new VariableDecls(T1, V2); RESULT.setLine(T1left); :}
+					(VariableDecls) Type:T1 VariableList:V2 {: RESULT=new VariableDecls(T1, V2); RESULT.setLine(T1left); :} 
+					
 					;		
 	
 VariableList ::= 
 				(SingleVariable) VariableDeclaration:V1 {: RESULT=new SingleVariable(V1); RESULT.setLine(V1left); :}
 				| (MoreVariables) VariableList:V1 COMMA VariableDeclaration:V2 {: RESULT=new MoreVariables(V1, V2); RESULT.setLine(V1left); :}
+				| error COMMA:l
+				{:
+					parser.report_error("Izvrsen oporavak do , u linijij" + lleft, null);
+				:} {: RESULT=new VariableListDerived1(); :}
 				;
 				
 VariableDeclaration ::= 

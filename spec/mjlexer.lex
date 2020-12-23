@@ -94,7 +94,6 @@ import java_cup.runtime.Symbol;
 "'"[ -~]"'"		{ return new_symbol(sym.CHAR_CONST, new Character(yytext().charAt(1)));}
 "true" | "false"	{ return new_symbol(sym.BOOL_CONST, new Boolean(Boolean.parseBool(yytext()))); }
 
-
 . { System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1)); }
 
 

@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/11/2020 13:17:15
+// 23/11/2020 15:46:59
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -11,6 +11,7 @@ public interface Visitor {
     public void visit(MethodVariables MethodVariables);
     public void visit(MethodDeclarations MethodDeclarations);
     public void visit(MethodDeclaration MethodDeclaration);
+    public void visit(ErrorConstList ErrorConstList);
     public void visit(PrintStmtList PrintStmtList);
     public void visit(MethodStatements MethodStatements);
     public void visit(StatementList StatementList);
@@ -45,6 +46,7 @@ public interface Visitor {
     public void visit(Const Const);
     public void visit(ExprNoTern ExprNoTern);
     public void visit(Statement Statement);
+    public void visit(ErrorDecls ErrorDecls);
     public void visit(ActParsChoice ActParsChoice);
     public void visit(Decls Decls);
     public void visit(RelationalExpression RelationalExpression);
@@ -149,6 +151,7 @@ public interface Visitor {
     public void visit(RootClass RootClass);
     public void visit(ArrayVariable ArrayVariable);
     public void visit(NonArrayVariable NonArrayVariable);
+    public void visit(VariableListDerived1 VariableListDerived1);
     public void visit(MoreVariables MoreVariables);
     public void visit(SingleVariable SingleVariable);
     public void visit(VariableDecls VariableDecls);
@@ -156,11 +159,15 @@ public interface Visitor {
     public void visit(CharLiteral CharLiteral);
     public void visit(NumericLiteral NumericLiteral);
     public void visit(ConstDefinition ConstDefinition);
+    public void visit(ErrorConstListDerived1 ErrorConstListDerived1);
     public void visit(MoreConsts MoreConsts);
+    public void visit(ErrorConstListDecl ErrorConstListDecl);
     public void visit(SingleConst SingleConst);
-    public void visit(ClassDeclarations ClassDeclarations);
+    public void visit(ErrorDeclsDerived1 ErrorDeclsDerived1);
     public void visit(VarDeclarations VarDeclarations);
     public void visit(ConstDeclarations ConstDeclarations);
+    public void visit(ClassDeclarations ClassDeclarations);
+    public void visit(ErrorDeclarations ErrorDeclarations);
     public void visit(MethodDeclList MethodDeclList);
     public void visit(SingleMethod SingleMethod);
     public void visit(NoDecls NoDecls);

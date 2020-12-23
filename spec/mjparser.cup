@@ -9,10 +9,7 @@ import rs.ac.bg.etf.pp1.ast.*;
 parser code {:
 
 	Logger log = Logger.getLogger(getClass());
-   
-   
-    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
-     
+
     public void report_fatal_error(String message, Object info) throws java.lang.Exception {
       done_parsing();
       report_error(message, info);
@@ -187,6 +184,8 @@ nonterminal Designator;
 
 nonterminal DesignatorList;
 
+nonterminal ErrorDecls;
+
 nonterminal SwichCaseDefinition;
 
 nonterminal ActPars;
@@ -209,6 +208,7 @@ nonterminal ExprNoTernAddOpList;
 
 nonterminal MethodStatements;
 nonterminal ActParsChoice;
+nonterminal ErrorConstList;
 
 /*
 nonterminal TernaryCondition;
@@ -244,14 +244,30 @@ MethodDeclarations ::= (SingleMethod) MethodDeclaration
 					| (MethodDeclList) MethodDeclarations MethodDeclaration
 					;
 Decls		::= 
-				(ConstDeclarations) CONST Type ConstList SEMI
-				| (VarDeclarations) VariableDeclarations
+				(ErrorDeclarations) ErrorDecls
 				| (ClassDeclarations) CLASS ClassDeclaration BRACES_BEGIN ClassBody BRACES_END
+				;
+
+ErrorDecls ::= (ConstDeclarations) CONST Type ConstList SEMI
+				| (VarDeclarations) VariableDeclarations SEMI
+				|
+					error SEMI:l
+					{:
+						parser.report_error("Izvrsen oporavak do ; u linijij" + lleft, null);
+					:}
 				;
 
 ConstList 	::= 
 				(SingleConst) Const
-				| (MoreConsts) ConstList COMMA Const;
+				| (ErrorConstListDecl) ErrorConstList;
+				
+ErrorConstList ::= (MoreConsts) ConstList COMMA Const
+					|
+					error COMMA:l
+					{:
+						parser.report_error("Izvrsen oporavak do ; u linijij" + lleft, null);
+					:}
+					;
 				
 Const		::=
 				(ConstDefinition) IDENT:identification AssignOp Literals;
@@ -264,12 +280,17 @@ Literals	::=
 
 
 VariableDeclarations ::= 
-					(VariableDecls) Type VariableList SEMI
+					(VariableDecls) Type VariableList 
+					
 					;		
 	
 VariableList ::= 
 				(SingleVariable) VariableDeclaration
 				| (MoreVariables) VariableList COMMA VariableDeclaration
+				| error COMMA:l
+				{:
+					parser.report_error("Izvrsen oporavak do , u linijij" + lleft, null);
+				:}
 				;
 				
 VariableDeclaration ::= 
