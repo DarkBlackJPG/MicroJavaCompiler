@@ -1,15 +1,15 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 19:29:48
+// 23/11/2020 13:17:15
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ExpressionWithoutTernary extends Expr {
+public class ExprNoTernStatement extends Expr {
 
     private ExprNoTern ExprNoTern;
 
-    public ExpressionWithoutTernary (ExprNoTern ExprNoTern) {
+    public ExprNoTernStatement (ExprNoTern ExprNoTern) {
         this.ExprNoTern=ExprNoTern;
         if(ExprNoTern!=null) ExprNoTern.setParent(this);
     }
@@ -43,7 +43,7 @@ public class ExpressionWithoutTernary extends Expr {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ExpressionWithoutTernary(\n");
+        buffer.append("ExprNoTernStatement(\n");
 
         if(ExprNoTern!=null)
             buffer.append(ExprNoTern.toString("  "+tab));
@@ -52,7 +52,7 @@ public class ExpressionWithoutTernary extends Expr {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [ExpressionWithoutTernary]");
+        buffer.append(") [ExprNoTernStatement]");
         return buffer.toString();
     }
 }

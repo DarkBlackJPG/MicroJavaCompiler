@@ -1,35 +1,36 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 19:29:48
+// 23/11/2020 13:17:15
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class NonEmptySwitchCaseList extends SwitchCaseList {
 
-    private Integer numberValue;
-    private CaseStatementList CaseStatementList;
+    private SwitchCaseList SwitchCaseList;
+    private SwichCaseDefinition SwichCaseDefinition;
 
-    public NonEmptySwitchCaseList (Integer numberValue, CaseStatementList CaseStatementList) {
-        this.numberValue=numberValue;
-        this.CaseStatementList=CaseStatementList;
-        if(CaseStatementList!=null) CaseStatementList.setParent(this);
+    public NonEmptySwitchCaseList (SwitchCaseList SwitchCaseList, SwichCaseDefinition SwichCaseDefinition) {
+        this.SwitchCaseList=SwitchCaseList;
+        if(SwitchCaseList!=null) SwitchCaseList.setParent(this);
+        this.SwichCaseDefinition=SwichCaseDefinition;
+        if(SwichCaseDefinition!=null) SwichCaseDefinition.setParent(this);
     }
 
-    public Integer getNumberValue() {
-        return numberValue;
+    public SwitchCaseList getSwitchCaseList() {
+        return SwitchCaseList;
     }
 
-    public void setNumberValue(Integer numberValue) {
-        this.numberValue=numberValue;
+    public void setSwitchCaseList(SwitchCaseList SwitchCaseList) {
+        this.SwitchCaseList=SwitchCaseList;
     }
 
-    public CaseStatementList getCaseStatementList() {
-        return CaseStatementList;
+    public SwichCaseDefinition getSwichCaseDefinition() {
+        return SwichCaseDefinition;
     }
 
-    public void setCaseStatementList(CaseStatementList CaseStatementList) {
-        this.CaseStatementList=CaseStatementList;
+    public void setSwichCaseDefinition(SwichCaseDefinition SwichCaseDefinition) {
+        this.SwichCaseDefinition=SwichCaseDefinition;
     }
 
     public void accept(Visitor visitor) {
@@ -37,16 +38,19 @@ public class NonEmptySwitchCaseList extends SwitchCaseList {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(CaseStatementList!=null) CaseStatementList.accept(visitor);
+        if(SwitchCaseList!=null) SwitchCaseList.accept(visitor);
+        if(SwichCaseDefinition!=null) SwichCaseDefinition.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(CaseStatementList!=null) CaseStatementList.traverseTopDown(visitor);
+        if(SwitchCaseList!=null) SwitchCaseList.traverseTopDown(visitor);
+        if(SwichCaseDefinition!=null) SwichCaseDefinition.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(CaseStatementList!=null) CaseStatementList.traverseBottomUp(visitor);
+        if(SwitchCaseList!=null) SwitchCaseList.traverseBottomUp(visitor);
+        if(SwichCaseDefinition!=null) SwichCaseDefinition.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -55,11 +59,14 @@ public class NonEmptySwitchCaseList extends SwitchCaseList {
         buffer.append(tab);
         buffer.append("NonEmptySwitchCaseList(\n");
 
-        buffer.append(" "+tab+numberValue);
+        if(SwitchCaseList!=null)
+            buffer.append(SwitchCaseList.toString("  "+tab));
+        else
+            buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(CaseStatementList!=null)
-            buffer.append(CaseStatementList.toString("  "+tab));
+        if(SwichCaseDefinition!=null)
+            buffer.append(SwichCaseDefinition.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

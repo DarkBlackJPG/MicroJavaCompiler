@@ -1,12 +1,9 @@
 program MJProgram
-	int x, y;
+	int x; int y;
 {	
-	void main() {
-		switch(true) {
-			case true:
-				break;
-			case false:
-				break;
-		}
+	void main() 
+	int x;
+	{
+		x = 2;
 	}
 }

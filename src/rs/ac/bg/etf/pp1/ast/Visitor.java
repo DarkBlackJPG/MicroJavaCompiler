@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 19:29:48
+// 23/11/2020 13:17:15
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -12,29 +12,30 @@ public interface Visitor {
     public void visit(MethodDeclarations MethodDeclarations);
     public void visit(MethodDeclaration MethodDeclaration);
     public void visit(PrintStmtList PrintStmtList);
+    public void visit(MethodStatements MethodStatements);
     public void visit(StatementList StatementList);
     public void visit(CaseStatementList CaseStatementList);
     public void visit(VariableList VariableList);
     public void visit(Factor Factor);
     public void visit(CondTerm CondTerm);
+    public void visit(FormalParameters FormalParameters);
     public void visit(ConstList ConstList);
     public void visit(Designator Designator);
     public void visit(Term Term);
     public void visit(CondFactor CondFactor);
     public void visit(ClassBody ClassBody);
     public void visit(CondExpression CondExpression);
-    public void visit(TernaryExpr TernaryExpr);
     public void visit(ClassMethodList ClassMethodList);
     public void visit(MulOp MulOp);
     public void visit(VariableDeclarations VariableDeclarations);
     public void visit(SwitchCaseList SwitchCaseList);
     public void visit(Literals Literals);
     public void visit(RelOp RelOp);
-    public void visit(RegularExpr RegularExpr);
     public void visit(Declarations Declarations);
     public void visit(ReturnStmts ReturnStmts);
     public void visit(Expr Expr);
     public void visit(ClassDeclaration ClassDeclaration);
+    public void visit(FormParamsBrackets FormParamsBrackets);
     public void visit(ActPars ActPars);
     public void visit(DesignatorList DesignatorList);
     public void visit(AddOp AddOp);
@@ -44,9 +45,11 @@ public interface Visitor {
     public void visit(Const Const);
     public void visit(ExprNoTern ExprNoTern);
     public void visit(Statement Statement);
+    public void visit(ActParsChoice ActParsChoice);
     public void visit(Decls Decls);
     public void visit(RelationalExpression RelationalExpression);
     public void visit(FieldList FieldList);
+    public void visit(SwichCaseDefinition SwichCaseDefinition);
     public void visit(FormPars FormPars);
     public void visit(ExprNoTernAddOpList ExprNoTernAddOpList);
     public void visit(MulopModulo MulopModulo);
@@ -70,6 +73,8 @@ public interface Visitor {
     public void visit(CleanDesignator CleanDesignator);
     public void visit(ActParsWithComma ActParsWithComma);
     public void visit(ActParsWithoutComma ActParsWithoutComma);
+    public void visit(NonEmptyActPars NonEmptyActPars);
+    public void visit(EmptyActPars EmptyActPars);
     public void visit(ParenthesesExpression ParenthesesExpression);
     public void visit(NewTypeArray NewTypeArray);
     public void visit(NewType NewType);
@@ -85,8 +90,8 @@ public interface Visitor {
     public void visit(TermList TermList);
     public void visit(AddOperationTerm AddOperationTerm);
     public void visit(NegativeTerm NegativeTerm);
-    public void visit(ExpressionWithTernary ExpressionWithTernary);
-    public void visit(ExpressionWithoutTernary ExpressionWithoutTernary);
+    public void visit(ExprTernStatement ExprTernStatement);
+    public void visit(ExprNoTernStatement ExprNoTernStatement);
     public void visit(EmptyRelationalExpression EmptyRelationalExpression);
     public void visit(NonEmptyRelationalExpression NonEmptyRelationalExpression);
     public void visit(ExpressionConditionFactor ExpressionConditionFactor);
@@ -107,6 +112,7 @@ public interface Visitor {
     public void visit(NoNumConst NoNumConst);
     public void visit(EmptyCaseStatementList EmptyCaseStatementList);
     public void visit(NonEmptyCaseStatementList NonEmptyCaseStatementList);
+    public void visit(SingleSwitchCaseDefinition SingleSwitchCaseDefinition);
     public void visit(NonEmptySwitchCaseList NonEmptySwitchCaseList);
     public void visit(EmptySwitchCaseList EmptySwitchCaseList);
     public void visit(StatementsList StatementsList);
@@ -124,6 +130,14 @@ public interface Visitor {
     public void visit(HasMethodVariables HasMethodVariables);
     public void visit(VoidReturn VoidReturn);
     public void visit(TypedReturn TypedReturn);
+    public void visit(DoesntHaveBrackets DoesntHaveBrackets);
+    public void visit(HasBrackets HasBrackets);
+    public void visit(FormParsDefinitionList FormParsDefinitionList);
+    public void visit(FormParsDefinition FormParsDefinition);
+    public void visit(EmptyFormPars EmptyFormPars);
+    public void visit(NonEmptyFormalPars NonEmptyFormalPars);
+    public void visit(EmptyMethodStatements EmptyMethodStatements);
+    public void visit(NonEmptyMethodStatements NonEmptyMethodStatements);
     public void visit(OneMethodDeclaration OneMethodDeclaration);
     public void visit(NoMethods NoMethods);
     public void visit(HasMethods HasMethods);
@@ -147,6 +161,8 @@ public interface Visitor {
     public void visit(ClassDeclarations ClassDeclarations);
     public void visit(VarDeclarations VarDeclarations);
     public void visit(ConstDeclarations ConstDeclarations);
+    public void visit(MethodDeclList MethodDeclList);
+    public void visit(SingleMethod SingleMethod);
     public void visit(NoDecls NoDecls);
     public void visit(DeclarationList DeclarationList);
     public void visit(Program Program);

@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 19:29:48
+// 23/11/2020 13:17:15
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,13 +8,13 @@ package rs.ac.bg.etf.pp1.ast;
 public class NonEmptyRelationalExpression extends RelationalExpression {
 
     private RelOp RelOp;
-    private Expr Expr;
+    private ExprNoTern ExprNoTern;
 
-    public NonEmptyRelationalExpression (RelOp RelOp, Expr Expr) {
+    public NonEmptyRelationalExpression (RelOp RelOp, ExprNoTern ExprNoTern) {
         this.RelOp=RelOp;
         if(RelOp!=null) RelOp.setParent(this);
-        this.Expr=Expr;
-        if(Expr!=null) Expr.setParent(this);
+        this.ExprNoTern=ExprNoTern;
+        if(ExprNoTern!=null) ExprNoTern.setParent(this);
     }
 
     public RelOp getRelOp() {
@@ -25,12 +25,12 @@ public class NonEmptyRelationalExpression extends RelationalExpression {
         this.RelOp=RelOp;
     }
 
-    public Expr getExpr() {
-        return Expr;
+    public ExprNoTern getExprNoTern() {
+        return ExprNoTern;
     }
 
-    public void setExpr(Expr Expr) {
-        this.Expr=Expr;
+    public void setExprNoTern(ExprNoTern ExprNoTern) {
+        this.ExprNoTern=ExprNoTern;
     }
 
     public void accept(Visitor visitor) {
@@ -39,18 +39,18 @@ public class NonEmptyRelationalExpression extends RelationalExpression {
 
     public void childrenAccept(Visitor visitor) {
         if(RelOp!=null) RelOp.accept(visitor);
-        if(Expr!=null) Expr.accept(visitor);
+        if(ExprNoTern!=null) ExprNoTern.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(RelOp!=null) RelOp.traverseTopDown(visitor);
-        if(Expr!=null) Expr.traverseTopDown(visitor);
+        if(ExprNoTern!=null) ExprNoTern.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(RelOp!=null) RelOp.traverseBottomUp(visitor);
-        if(Expr!=null) Expr.traverseBottomUp(visitor);
+        if(ExprNoTern!=null) ExprNoTern.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -65,8 +65,8 @@ public class NonEmptyRelationalExpression extends RelationalExpression {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(Expr!=null)
-            buffer.append(Expr.toString("  "+tab));
+        if(ExprNoTern!=null)
+            buffer.append(ExprNoTern.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

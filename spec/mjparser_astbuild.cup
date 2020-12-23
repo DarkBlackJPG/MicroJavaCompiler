@@ -175,6 +175,8 @@ nonterminal CondExpression CondExpression;
 
 nonterminal CondTerm CondTerm;
 
+nonterminal FormalParameters FormalParameters;
+
 nonterminal CondFactor CondFactor;
 
 nonterminal Term Term;
@@ -185,6 +187,8 @@ nonterminal Designator Designator;
 
 nonterminal DesignatorList DesignatorList;
 
+nonterminal SwichCaseDefinition SwichCaseDefinition;
+
 nonterminal ActPars ActPars;
 
 nonterminal PrintStmtList PrintStmtList;
@@ -193,16 +197,30 @@ nonterminal SwitchCaseList SwitchCaseList;
 
 nonterminal CaseStatementList CaseStatementList;
 
-nonterminal RegularExpr RegularExpr;
-
-nonterminal TernaryExpr TernaryExpr;
-
 nonterminal RelationalExpression RelationalExpression;
+
 nonterminal ExprTern ExprTern;
+
 nonterminal ExprNoTern ExprNoTern;
+
+nonterminal FormParamsBrackets FormParamsBrackets;
+
 nonterminal ExprNoTernAddOpList ExprNoTernAddOpList;
 
+nonterminal MethodStatements MethodStatements;
+nonterminal ActParsChoice ActParsChoice;
 
+/*
+nonterminal TernaryCondition;
+
+nonterminal TernaryCondExpression;
+
+nonterminal TernaryCondTerm ;
+			
+nonterminal TernaryCondFactor;
+
+nonterminal TernaryRelationalExpression ;
+*/
 
 
 /* ===================== GRAMMAR ===================== */
@@ -215,13 +233,16 @@ Program 	::=
 			  						Declarations:D1
 			  						BRACES_BEGIN
 			  						MethodDeclarations:M2
-			  						BRACES_END {: RESULT=new Program(programName, D1, M2); RESULT.setLine(programNameleft); :};
+			  						BRACES_END {: RESULT=new Program(programName, D1, M2); RESULT.setLine(programNameleft); :}
+			  	;
 
 Declarations ::=
 				(DeclarationList) Declarations:D1 Decls:D2 {: RESULT=new DeclarationList(D1, D2); RESULT.setLine(D1left); :}
 				| (NoDecls) {: RESULT=new NoDecls(); :}
 				;
-				
+MethodDeclarations ::= (SingleMethod) MethodDeclaration:M1 {: RESULT=new SingleMethod(M1); RESULT.setLine(M1left); :}
+					| (MethodDeclList) MethodDeclarations:M1 MethodDeclaration:M2 {: RESULT=new MethodDeclList(M1, M2); RESULT.setLine(M1left); :}
+					;
 Decls		::= 
 				(ConstDeclarations) CONST Type:T1 ConstList:C2 SEMI {: RESULT=new ConstDeclarations(T1, C2); RESULT.setLine(T1left); :}
 				| (VarDeclarations) VariableDeclarations:V1 {: RESULT=new VarDeclarations(V1); RESULT.setLine(V1left); :}
@@ -234,8 +255,6 @@ ConstList 	::=
 				
 Const		::=
 				(ConstDefinition) IDENT:identification AssignOp:A1 Literals:L2 {: RESULT=new ConstDefinition(identification, A1, L2); RESULT.setLine(identificationleft); :};
-
-/* BoolLiteral ima neki random bag da generise neki kod koji ne moze da koristi */
 
 Literals	::=
 				(NumericLiteral) NUM_CONST:numValue {: RESULT=new NumericLiteral(numValue); RESULT.setLine(numValueleft); :}
@@ -281,20 +300,24 @@ ClassMethodList ::=
 				(NoMethods) {: RESULT=new NoMethods(); :}
 				; 
 
-MethodDeclaration ::= 
-				(OneMethodDeclaration) ReturnType:R1
-				IDENT:I2 
-				PARENTHESES_BEGIN 
-					FormPars:F3 
-				PARENTHESES_END
-				
-				MethodVariables:M4 
-				
-				BRACES_BEGIN
-					Statement:S5
-				BRACES_END {: RESULT=new OneMethodDeclaration(R1, I2, F3, M4, S5); RESULT.setLine(R1left); :}
+MethodDeclaration ::= (OneMethodDeclaration) ReturnType:R1 IDENT:methodIdentification PARENTHESES_BEGIN FormalParameters:F2 PARENTHESES_END MethodVariables:M3 BRACES_BEGIN MethodStatements:M4 BRACES_END {: RESULT=new OneMethodDeclaration(R1, methodIdentification, F2, M3, M4); RESULT.setLine(R1left); :}
 				;
-				
+
+MethodStatements ::= (NonEmptyMethodStatements) MethodStatements:M1 Statement:S2 {: RESULT=new NonEmptyMethodStatements(M1, S2); RESULT.setLine(M1left); :}
+				| (EmptyMethodStatements) {: RESULT=new EmptyMethodStatements(); :}
+				;
+
+FormalParameters ::= (NonEmptyFormalPars) FormPars:F1 {: RESULT=new NonEmptyFormalPars(F1); RESULT.setLine(F1left); :}
+					| (EmptyFormPars) {: RESULT=new EmptyFormPars(); :}
+					;
+
+FormPars ::= (FormParsDefinition) Type:T1 IDENT:formParamName FormParamsBrackets:F2 {: RESULT=new FormParsDefinition(T1, formParamName, F2); RESULT.setLine(T1left); :}
+			|
+			(FormParsDefinitionList) FormPars:F1 COMMA Type:T2 IDENT:paramName FormParamsBrackets:F3 {: RESULT=new FormParsDefinitionList(F1, T2, paramName, F3); RESULT.setLine(F1left); :}
+			;
+FormParamsBrackets ::= (HasBrackets) BRACKET_BEGIN BRACKET_END {: RESULT=new HasBrackets(); :}
+					| (DoesntHaveBrackets) {: RESULT=new DoesntHaveBrackets(); :}
+					;
 ReturnType ::= (TypedReturn) Type:T1 {: RESULT=new TypedReturn(T1); RESULT.setLine(T1left); :}
 			| (VoidReturn) VOID {: RESULT=new VoidReturn(); :}
 			;
@@ -309,25 +332,25 @@ MethodVariables ::=
 Statement 		::= (StatementDesignatorStatement) DesignatorStatement:D1 SEMI {: RESULT=new StatementDesignatorStatement(D1); RESULT.setLine(D1left); :}
 				| (IfThenStatement) IF PARENTHESES_BEGIN Condition:C1 PARENTHESES_END Statement:S2 {: RESULT=new IfThenStatement(C1, S2); RESULT.setLine(C1left); :}
 				| (IfThenElseStatement) IF PARENTHESES_BEGIN Condition:C1 PARENTHESES_END Statement:S2 ELSE Statement:S3 {: RESULT=new IfThenElseStatement(C1, S2, S3); RESULT.setLine(C1left); :}
-				| (DoWhileStatement) DO Statement:S1 WHILE PARENTHESES_BEGIN Condition:C2 PARENTHESES_END {: RESULT=new DoWhileStatement(S1, C2); RESULT.setLine(S1left); :}
+				| (DoWhileStatement) DO Statement:S1 WHILE PARENTHESES_BEGIN Condition:C2 PARENTHESES_END SEMI {: RESULT=new DoWhileStatement(S1, C2); RESULT.setLine(S1left); :}
 				| (SwitchStatement) SWITCH PARENTHESES_BEGIN Expr:E1 PARENTHESES_END BRACES_BEGIN SwitchCaseList:S2 BRACES_END {: RESULT=new SwitchStatement(E1, S2); RESULT.setLine(E1left); :}
 				| (BreakStmt) BREAK SEMI {: RESULT=new BreakStmt(); :}
 				| (ContinueStmt) CONTINUE SEMI {: RESULT=new ContinueStmt(); :}
 				| (ReturnStmt) RETURN ReturnStmts:R1 SEMI {: RESULT=new ReturnStmt(R1); RESULT.setLine(R1left); :}
-				| (ReadStmt) READ PARENTHESES_BEGIN Designator:D1 PARENTHESES_END {: RESULT=new ReadStmt(D1); RESULT.setLine(D1left); :}
+				| (ReadStmt) READ PARENTHESES_BEGIN Designator:D1 PARENTHESES_END SEMI {: RESULT=new ReadStmt(D1); RESULT.setLine(D1left); :}
 				| (PrintStmt) PRINT PARENTHESES_BEGIN PrintStmtList:P1 PARENTHESES_END SEMI {: RESULT=new PrintStmt(P1); RESULT.setLine(P1left); :}
 				| (StatementsList) BRACES_BEGIN StatementList:S1 BRACES_END {: RESULT=new StatementsList(S1); RESULT.setLine(S1left); :}
 				;
 				
 SwitchCaseList ::= 
 				(EmptySwitchCaseList) {: RESULT=new EmptySwitchCaseList(); :} /* epsilon */
-				| (NonEmptySwitchCaseList) CASE NUM_CONST:numberValue COLON CaseStatementList:C1 {: RESULT=new NonEmptySwitchCaseList(numberValue, C1); RESULT.setLine(numberValueleft); :} 
+				| (NonEmptySwitchCaseList) SwitchCaseList:S1 SwichCaseDefinition:S2 {: RESULT=new NonEmptySwitchCaseList(S1, S2); RESULT.setLine(S1left); :}
 				;
+				
+SwichCaseDefinition ::= (SingleSwitchCaseDefinition) CASE NUM_CONST:numberValue COLON CaseStatementList:C1 {: RESULT=new SingleSwitchCaseDefinition(numberValue, C1); RESULT.setLine(numberValueleft); :} ;
 
 CaseStatementList ::= (NonEmptyCaseStatementList) CaseStatementList:C1 Statement:S2 {: RESULT=new NonEmptyCaseStatementList(C1, S2); RESULT.setLine(C1left); :} |
 					(EmptyCaseStatementList) {: RESULT=new EmptyCaseStatementList(); :}
-					
-					
 					;
 
 PrintStmtList ::= (NoNumConst) Expr:E1 {: RESULT=new NoNumConst(E1); RESULT.setLine(E1left); :}
@@ -350,6 +373,7 @@ ReturnStmts ::= (NonEmptyReturn) Expr:E1 {: RESULT=new NonEmptyReturn(E1); RESUL
 
 Condition ::= (Condition) CondExpression:C1 {: RESULT=new Condition(C1); RESULT.setLine(C1left); :} ;
 
+
 CondExpression ::= 
 				(ConditionExpressionWithoutOr) CondTerm:C1 {: RESULT=new ConditionExpressionWithoutOr(C1); RESULT.setLine(C1left); :} 
 				| (ConditionExpressionWithOr) CondExpression:C1 OR CondTerm:C2 {: RESULT=new ConditionExpressionWithOr(C1, C2); RESULT.setLine(C1left); :}
@@ -359,19 +383,38 @@ CondTerm ::= (ConditionTermWithAnd) CondTerm:C1 AND CondFactor:C2 {: RESULT=new 
 			| (ConditionTermFactor) CondFactor:C1 {: RESULT=new ConditionTermFactor(C1); RESULT.setLine(C1left); :}
 			;
 			
-CondFactor ::= (ExpressionConditionFactor) Expr:E1 RelationalExpression:R2 {: RESULT=new ExpressionConditionFactor(E1, R2); RESULT.setLine(E1left); :}
+CondFactor ::= (ExpressionConditionFactor) ExprNoTern:E1 RelationalExpression:R2 {: RESULT=new ExpressionConditionFactor(E1, R2); RESULT.setLine(E1left); :}
 			;
 
-RelationalExpression ::= (NonEmptyRelationalExpression) RelOp:R1 Expr:E2 {: RESULT=new NonEmptyRelationalExpression(R1, E2); RESULT.setLine(R1left); :}
+RelationalExpression ::= (NonEmptyRelationalExpression) RelOp:R1 ExprNoTern:E2 {: RESULT=new NonEmptyRelationalExpression(R1, E2); RESULT.setLine(R1left); :}
 					| (EmptyRelationalExpression) {: RESULT=new EmptyRelationalExpression(); :}
 					;
 
-Expr ::= (ExpressionWithoutTernary) ExprNoTern:E1 {: RESULT=new ExpressionWithoutTernary(E1); RESULT.setLine(E1left); :}
-		|
-		(ExpressionWithTernary) ExprTern:E1 {: RESULT=new ExpressionWithTernary(E1); RESULT.setLine(E1left); :}
-		;
+/*
+TernaryCondition ::= (TernaryCondition) TernaryCondExpression ;
 
-ExprNoTern ::= (NegativeTerm) MINUS ExprNoTernAddOpList:E1 {: RESULT=new NegativeTerm(E1); RESULT.setLine(E1left); :}
+
+TernaryCondExpression ::= 
+				(TernaryConditionExpressionWithoutOr) TernaryCondTerm 
+				| (TernaryConditionExpressionWithOr) TernaryCondExpression OR TernaryCondTerm
+				;
+
+TernaryCondTerm ::= (TernaryConditionTermWithAnd) TernaryCondTerm AND TernaryCondFactor
+			| (TernaryConditionTermFactor) TernaryCondFactor
+			;
+			
+TernaryCondFactor ::= (TernaryExpressionConditionFactor) ExprNoTern
+			;
+
+TernaryRelationalExpression ::= (TernaryNonEmptyRelationalExpression) RelOp ExprNoTern
+					| (TernaryEmptyRelationalExpression)
+					;
+*/
+Expr ::=  (ExprNoTernStatement) ExprNoTern:E1 {: RESULT=new ExprNoTernStatement(E1); RESULT.setLine(E1left); :}
+		|(ExprTernStatement) ExprTern:E1 {: RESULT=new ExprTernStatement(E1); RESULT.setLine(E1left); :}
+	;
+	
+ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList:E1 {: RESULT=new NegativeTerm(E1); RESULT.setLine(E1left); :}
 	| (AddOperationTerm) ExprNoTernAddOpList:E1 {: RESULT=new AddOperationTerm(E1); RESULT.setLine(E1left); :}
 	;
 	
@@ -379,7 +422,7 @@ ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:E1 AddOp:A2 Term:T3 {: RE
 						| (OneTerm) Term:T1 {: RESULT=new OneTerm(T1); RESULT.setLine(T1left); :}
 						;
 	
-ExprTern ::= (TernaryExpressionStmt) QUESTION_MARK Expr:E1 COLON Expr:E2 {: RESULT=new TernaryExpressionStmt(E1, E2); RESULT.setLine(E1left); :}
+ExprTern ::= (TernaryExpressionStmt) Condition:C1 QUESTION_MARK Expr:E2 COLON Expr:E3 {: RESULT=new TernaryExpressionStmt(C1, E2, E3); RESULT.setLine(C1left); :}
 			;
 
 
@@ -389,7 +432,7 @@ Term ::= (NonMullOpTerm) Factor:F1 {: RESULT=new NonMullOpTerm(F1); RESULT.setLi
 	
 Factor ::=
 		(NoParamsDesignator) Designator:D1 {: RESULT=new NoParamsDesignator(D1); RESULT.setLine(D1left); :} 
-		| (ParamsDesignator) Designator:D1 PARENTHESES_BEGIN ActPars:A2 PARENTHESES_END {: RESULT=new ParamsDesignator(D1, A2); RESULT.setLine(D1left); :}
+		| (ParamsDesignator) Designator:D1 PARENTHESES_BEGIN ActParsChoice:A2 PARENTHESES_END {: RESULT=new ParamsDesignator(D1, A2); RESULT.setLine(D1left); :}
 		| (NumericConstant) NUM_CONST:numValue {: RESULT=new NumericConstant(numValue); RESULT.setLine(numValueleft); :}
 		| (CharacterConstant) CHAR_CONST:charValue {: RESULT=new CharacterConstant(charValue); RESULT.setLine(charValueleft); :}
 		| (BooleanConstant) BOOL_CONST:boolValue {: RESULT=new BooleanConstant(boolValue); RESULT.setLine(boolValueleft); :}
@@ -398,8 +441,14 @@ Factor ::=
 		| (ParenthesesExpression) PARENTHESES_BEGIN Expr:E1 PARENTHESES_END {: RESULT=new ParenthesesExpression(E1); RESULT.setLine(E1left); :}
 		;
 
+ActParsChoice ::= (EmptyActPars) {: RESULT=new EmptyActPars(); :}
+		| (NonEmptyActPars) ActPars:A1 {: RESULT=new NonEmptyActPars(A1); RESULT.setLine(A1left); :}
+		;
+
 ActPars ::= (ActParsWithoutComma) Expr:E1 {: RESULT=new ActParsWithoutComma(E1); RESULT.setLine(E1left); :}
 		| (ActParsWithComma) ActPars:A1 COMMA Expr:E2 {: RESULT=new ActParsWithComma(A1, E2); RESULT.setLine(A1left); :};
+		
+		
 Designator ::= (CleanDesignator) IDENT:identification {: RESULT=new CleanDesignator(identification); RESULT.setLine(identificationleft); :}
 			| (FieldCallDesignator) DesignatorList:D1 DOT IDENT:identification {: RESULT=new FieldCallDesignator(D1, identification); RESULT.setLine(D1left); :}
 			| (ArrayElementDesignator) DesignatorList:D1 BRACKET_BEGIN Expr:E2 BRACKET_END {: RESULT=new ArrayElementDesignator(D1, E2); RESULT.setLine(D1left); :}

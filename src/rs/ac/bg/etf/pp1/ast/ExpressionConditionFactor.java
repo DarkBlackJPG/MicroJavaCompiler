@@ -1,28 +1,28 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 19:29:48
+// 23/11/2020 13:17:15
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ExpressionConditionFactor extends CondFactor {
 
-    private Expr Expr;
+    private ExprNoTern ExprNoTern;
     private RelationalExpression RelationalExpression;
 
-    public ExpressionConditionFactor (Expr Expr, RelationalExpression RelationalExpression) {
-        this.Expr=Expr;
-        if(Expr!=null) Expr.setParent(this);
+    public ExpressionConditionFactor (ExprNoTern ExprNoTern, RelationalExpression RelationalExpression) {
+        this.ExprNoTern=ExprNoTern;
+        if(ExprNoTern!=null) ExprNoTern.setParent(this);
         this.RelationalExpression=RelationalExpression;
         if(RelationalExpression!=null) RelationalExpression.setParent(this);
     }
 
-    public Expr getExpr() {
-        return Expr;
+    public ExprNoTern getExprNoTern() {
+        return ExprNoTern;
     }
 
-    public void setExpr(Expr Expr) {
-        this.Expr=Expr;
+    public void setExprNoTern(ExprNoTern ExprNoTern) {
+        this.ExprNoTern=ExprNoTern;
     }
 
     public RelationalExpression getRelationalExpression() {
@@ -38,18 +38,18 @@ public class ExpressionConditionFactor extends CondFactor {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Expr!=null) Expr.accept(visitor);
+        if(ExprNoTern!=null) ExprNoTern.accept(visitor);
         if(RelationalExpression!=null) RelationalExpression.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Expr!=null) Expr.traverseTopDown(visitor);
+        if(ExprNoTern!=null) ExprNoTern.traverseTopDown(visitor);
         if(RelationalExpression!=null) RelationalExpression.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Expr!=null) Expr.traverseBottomUp(visitor);
+        if(ExprNoTern!=null) ExprNoTern.traverseBottomUp(visitor);
         if(RelationalExpression!=null) RelationalExpression.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -59,8 +59,8 @@ public class ExpressionConditionFactor extends CondFactor {
         buffer.append(tab);
         buffer.append("ExpressionConditionFactor(\n");
 
-        if(Expr!=null)
-            buffer.append(Expr.toString("  "+tab));
+        if(ExprNoTern!=null)
+            buffer.append(ExprNoTern.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

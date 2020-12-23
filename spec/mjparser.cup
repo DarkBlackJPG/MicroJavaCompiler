@@ -175,6 +175,8 @@ nonterminal CondExpression;
 
 nonterminal CondTerm;
 
+nonterminal FormalParameters;
+
 nonterminal CondFactor;
 
 nonterminal Term;
@@ -185,6 +187,8 @@ nonterminal Designator;
 
 nonterminal DesignatorList;
 
+nonterminal SwichCaseDefinition;
+
 nonterminal ActPars;
 
 nonterminal PrintStmtList;
@@ -193,16 +197,30 @@ nonterminal SwitchCaseList;
 
 nonterminal CaseStatementList;
 
-nonterminal RegularExpr;
-
-nonterminal TernaryExpr;
-
 nonterminal RelationalExpression;
+
 nonterminal ExprTern;
+
 nonterminal ExprNoTern;
+
+nonterminal FormParamsBrackets;
+
 nonterminal ExprNoTernAddOpList;
 
+nonterminal MethodStatements;
+nonterminal ActParsChoice;
 
+/*
+nonterminal TernaryCondition;
+
+nonterminal TernaryCondExpression;
+
+nonterminal TernaryCondTerm ;
+			
+nonterminal TernaryCondFactor;
+
+nonterminal TernaryRelationalExpression ;
+*/
 
 
 /* ===================== GRAMMAR ===================== */
@@ -215,13 +233,16 @@ Program 	::=
 			  						Declarations
 			  						BRACES_BEGIN
 			  						MethodDeclarations
-			  						BRACES_END;
+			  						BRACES_END
+			  	;
 
 Declarations ::=
 				(DeclarationList) Declarations Decls
 				| (NoDecls)
 				;
-				
+MethodDeclarations ::= (SingleMethod) MethodDeclaration
+					| (MethodDeclList) MethodDeclarations MethodDeclaration
+					;
 Decls		::= 
 				(ConstDeclarations) CONST Type ConstList SEMI
 				| (VarDeclarations) VariableDeclarations
@@ -234,8 +255,6 @@ ConstList 	::=
 				
 Const		::=
 				(ConstDefinition) IDENT:identification AssignOp Literals;
-
-/* BoolLiteral ima neki random bag da generise neki kod koji ne moze da koristi */
 
 Literals	::=
 				(NumericLiteral) NUM_CONST:numValue
@@ -281,20 +300,24 @@ ClassMethodList ::=
 				(NoMethods)
 				; 
 
-MethodDeclaration ::= 
-				(OneMethodDeclaration) ReturnType
-				IDENT 
-				PARENTHESES_BEGIN 
-					FormPars 
-				PARENTHESES_END
-				
-				MethodVariables 
-				
-				BRACES_BEGIN
-					Statement
-				BRACES_END
+MethodDeclaration ::= (OneMethodDeclaration) ReturnType IDENT:methodIdentification PARENTHESES_BEGIN FormalParameters PARENTHESES_END MethodVariables BRACES_BEGIN MethodStatements BRACES_END
 				;
-				
+
+MethodStatements ::= (NonEmptyMethodStatements) MethodStatements Statement
+				| (EmptyMethodStatements)
+				;
+
+FormalParameters ::= (NonEmptyFormalPars) FormPars
+					| (EmptyFormPars)
+					;
+
+FormPars ::= (FormParsDefinition) Type IDENT:formParamName FormParamsBrackets
+			|
+			(FormParsDefinitionList) FormPars COMMA Type IDENT:paramName FormParamsBrackets
+			;
+FormParamsBrackets ::= (HasBrackets) BRACKET_BEGIN BRACKET_END
+					| (DoesntHaveBrackets)
+					;
 ReturnType ::= (TypedReturn) Type
 			| (VoidReturn) VOID
 			;
@@ -309,25 +332,25 @@ MethodVariables ::=
 Statement 		::= (StatementDesignatorStatement) DesignatorStatement SEMI
 				| (IfThenStatement) IF PARENTHESES_BEGIN Condition PARENTHESES_END Statement
 				| (IfThenElseStatement) IF PARENTHESES_BEGIN Condition PARENTHESES_END Statement ELSE Statement
-				| (DoWhileStatement) DO Statement WHILE PARENTHESES_BEGIN Condition PARENTHESES_END
+				| (DoWhileStatement) DO Statement WHILE PARENTHESES_BEGIN Condition PARENTHESES_END SEMI
 				| (SwitchStatement) SWITCH PARENTHESES_BEGIN Expr PARENTHESES_END BRACES_BEGIN SwitchCaseList BRACES_END
 				| (BreakStmt) BREAK SEMI
 				| (ContinueStmt) CONTINUE SEMI
 				| (ReturnStmt) RETURN ReturnStmts SEMI
-				| (ReadStmt) READ PARENTHESES_BEGIN Designator PARENTHESES_END
+				| (ReadStmt) READ PARENTHESES_BEGIN Designator PARENTHESES_END SEMI
 				| (PrintStmt) PRINT PARENTHESES_BEGIN PrintStmtList PARENTHESES_END SEMI
 				| (StatementsList) BRACES_BEGIN StatementList BRACES_END
 				;
 				
 SwitchCaseList ::= 
 				(EmptySwitchCaseList) /* epsilon */
-				| (NonEmptySwitchCaseList) CASE NUM_CONST:numberValue COLON CaseStatementList 
+				| (NonEmptySwitchCaseList) SwitchCaseList SwichCaseDefinition
 				;
+				
+SwichCaseDefinition ::= (SingleSwitchCaseDefinition) CASE NUM_CONST:numberValue COLON CaseStatementList ;
 
 CaseStatementList ::= (NonEmptyCaseStatementList) CaseStatementList Statement |
 					(EmptyCaseStatementList)
-					
-					
 					;
 
 PrintStmtList ::= (NoNumConst) Expr
@@ -350,6 +373,7 @@ ReturnStmts ::= (NonEmptyReturn) Expr
 
 Condition ::= (Condition) CondExpression ;
 
+
 CondExpression ::= 
 				(ConditionExpressionWithoutOr) CondTerm 
 				| (ConditionExpressionWithOr) CondExpression OR CondTerm
@@ -359,19 +383,38 @@ CondTerm ::= (ConditionTermWithAnd) CondTerm AND CondFactor
 			| (ConditionTermFactor) CondFactor
 			;
 			
-CondFactor ::= (ExpressionConditionFactor) Expr RelationalExpression
+CondFactor ::= (ExpressionConditionFactor) ExprNoTern RelationalExpression
 			;
 
-RelationalExpression ::= (NonEmptyRelationalExpression) RelOp Expr
+RelationalExpression ::= (NonEmptyRelationalExpression) RelOp ExprNoTern
 					| (EmptyRelationalExpression)
 					;
 
-Expr ::= (ExpressionWithoutTernary) ExprNoTern
-		|
-		(ExpressionWithTernary) ExprTern
-		;
+/*
+TernaryCondition ::= (TernaryCondition) TernaryCondExpression ;
 
-ExprNoTern ::= (NegativeTerm) MINUS ExprNoTernAddOpList
+
+TernaryCondExpression ::= 
+				(TernaryConditionExpressionWithoutOr) TernaryCondTerm 
+				| (TernaryConditionExpressionWithOr) TernaryCondExpression OR TernaryCondTerm
+				;
+
+TernaryCondTerm ::= (TernaryConditionTermWithAnd) TernaryCondTerm AND TernaryCondFactor
+			| (TernaryConditionTermFactor) TernaryCondFactor
+			;
+			
+TernaryCondFactor ::= (TernaryExpressionConditionFactor) ExprNoTern
+			;
+
+TernaryRelationalExpression ::= (TernaryNonEmptyRelationalExpression) RelOp ExprNoTern
+					| (TernaryEmptyRelationalExpression)
+					;
+*/
+Expr ::=  (ExprNoTernStatement) ExprNoTern
+		|(ExprTernStatement) ExprTern
+	;
+	
+ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList
 	| (AddOperationTerm) ExprNoTernAddOpList
 	;
 	
@@ -379,7 +422,7 @@ ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList AddOp Term
 						| (OneTerm) Term
 						;
 	
-ExprTern ::= (TernaryExpressionStmt) QUESTION_MARK Expr COLON Expr
+ExprTern ::= (TernaryExpressionStmt) Condition QUESTION_MARK Expr COLON Expr
 			;
 
 
@@ -389,7 +432,7 @@ Term ::= (NonMullOpTerm) Factor
 	
 Factor ::=
 		(NoParamsDesignator) Designator 
-		| (ParamsDesignator) Designator PARENTHESES_BEGIN ActPars PARENTHESES_END
+		| (ParamsDesignator) Designator PARENTHESES_BEGIN ActParsChoice PARENTHESES_END
 		| (NumericConstant) NUM_CONST:numValue
 		| (CharacterConstant) CHAR_CONST:charValue
 		| (BooleanConstant) BOOL_CONST:boolValue
@@ -398,8 +441,14 @@ Factor ::=
 		| (ParenthesesExpression) PARENTHESES_BEGIN Expr PARENTHESES_END
 		;
 
+ActParsChoice ::= (EmptyActPars)
+		| (NonEmptyActPars) ActPars
+		;
+
 ActPars ::= (ActParsWithoutComma) Expr
 		| (ActParsWithComma) ActPars COMMA Expr;
+		
+		
 Designator ::= (CleanDesignator) IDENT:identification
 			| (FieldCallDesignator) DesignatorList DOT IDENT:identification
 			| (ArrayElementDesignator) DesignatorList BRACKET_BEGIN Expr BRACKET_END

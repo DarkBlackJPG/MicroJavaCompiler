@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 22/11/2020 19:29:48
+// 23/11/2020 13:17:15
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,21 +8,21 @@ package rs.ac.bg.etf.pp1.ast;
 public class OneMethodDeclaration extends MethodDeclaration {
 
     private ReturnType ReturnType;
-    private String I2;
-    private FormPars FormPars;
+    private String methodIdentification;
+    private FormalParameters FormalParameters;
     private MethodVariables MethodVariables;
-    private Statement Statement;
+    private MethodStatements MethodStatements;
 
-    public OneMethodDeclaration (ReturnType ReturnType, String I2, FormPars FormPars, MethodVariables MethodVariables, Statement Statement) {
+    public OneMethodDeclaration (ReturnType ReturnType, String methodIdentification, FormalParameters FormalParameters, MethodVariables MethodVariables, MethodStatements MethodStatements) {
         this.ReturnType=ReturnType;
         if(ReturnType!=null) ReturnType.setParent(this);
-        this.I2=I2;
-        this.FormPars=FormPars;
-        if(FormPars!=null) FormPars.setParent(this);
+        this.methodIdentification=methodIdentification;
+        this.FormalParameters=FormalParameters;
+        if(FormalParameters!=null) FormalParameters.setParent(this);
         this.MethodVariables=MethodVariables;
         if(MethodVariables!=null) MethodVariables.setParent(this);
-        this.Statement=Statement;
-        if(Statement!=null) Statement.setParent(this);
+        this.MethodStatements=MethodStatements;
+        if(MethodStatements!=null) MethodStatements.setParent(this);
     }
 
     public ReturnType getReturnType() {
@@ -33,20 +33,20 @@ public class OneMethodDeclaration extends MethodDeclaration {
         this.ReturnType=ReturnType;
     }
 
-    public String getI2() {
-        return I2;
+    public String getMethodIdentification() {
+        return methodIdentification;
     }
 
-    public void setI2(String I2) {
-        this.I2=I2;
+    public void setMethodIdentification(String methodIdentification) {
+        this.methodIdentification=methodIdentification;
     }
 
-    public FormPars getFormPars() {
-        return FormPars;
+    public FormalParameters getFormalParameters() {
+        return FormalParameters;
     }
 
-    public void setFormPars(FormPars FormPars) {
-        this.FormPars=FormPars;
+    public void setFormalParameters(FormalParameters FormalParameters) {
+        this.FormalParameters=FormalParameters;
     }
 
     public MethodVariables getMethodVariables() {
@@ -57,12 +57,12 @@ public class OneMethodDeclaration extends MethodDeclaration {
         this.MethodVariables=MethodVariables;
     }
 
-    public Statement getStatement() {
-        return Statement;
+    public MethodStatements getMethodStatements() {
+        return MethodStatements;
     }
 
-    public void setStatement(Statement Statement) {
-        this.Statement=Statement;
+    public void setMethodStatements(MethodStatements MethodStatements) {
+        this.MethodStatements=MethodStatements;
     }
 
     public void accept(Visitor visitor) {
@@ -71,24 +71,24 @@ public class OneMethodDeclaration extends MethodDeclaration {
 
     public void childrenAccept(Visitor visitor) {
         if(ReturnType!=null) ReturnType.accept(visitor);
-        if(FormPars!=null) FormPars.accept(visitor);
+        if(FormalParameters!=null) FormalParameters.accept(visitor);
         if(MethodVariables!=null) MethodVariables.accept(visitor);
-        if(Statement!=null) Statement.accept(visitor);
+        if(MethodStatements!=null) MethodStatements.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(ReturnType!=null) ReturnType.traverseTopDown(visitor);
-        if(FormPars!=null) FormPars.traverseTopDown(visitor);
+        if(FormalParameters!=null) FormalParameters.traverseTopDown(visitor);
         if(MethodVariables!=null) MethodVariables.traverseTopDown(visitor);
-        if(Statement!=null) Statement.traverseTopDown(visitor);
+        if(MethodStatements!=null) MethodStatements.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(ReturnType!=null) ReturnType.traverseBottomUp(visitor);
-        if(FormPars!=null) FormPars.traverseBottomUp(visitor);
+        if(FormalParameters!=null) FormalParameters.traverseBottomUp(visitor);
         if(MethodVariables!=null) MethodVariables.traverseBottomUp(visitor);
-        if(Statement!=null) Statement.traverseBottomUp(visitor);
+        if(MethodStatements!=null) MethodStatements.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -103,11 +103,11 @@ public class OneMethodDeclaration extends MethodDeclaration {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+I2);
+        buffer.append(" "+tab+methodIdentification);
         buffer.append("\n");
 
-        if(FormPars!=null)
-            buffer.append(FormPars.toString("  "+tab));
+        if(FormalParameters!=null)
+            buffer.append(FormalParameters.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
@@ -118,8 +118,8 @@ public class OneMethodDeclaration extends MethodDeclaration {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(Statement!=null)
-            buffer.append(Statement.toString("  "+tab));
+        if(MethodStatements!=null)
+            buffer.append(MethodStatements.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
