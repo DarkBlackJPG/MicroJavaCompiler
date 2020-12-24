@@ -5,7 +5,7 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public abstract class RelOp implements SyntaxNode {
+public abstract class ErrorVariableDeclarations implements SyntaxNode {
 
     private SyntaxNode parent;
 

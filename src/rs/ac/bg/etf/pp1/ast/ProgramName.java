@@ -1,13 +1,24 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/11/2020 15:46:59
+// 24/11/2020 20:56:45
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class VariableListDerived1 extends VariableList {
+public class ProgramName extends ProgName {
 
-    public VariableListDerived1 () {
+    private String programName;
+
+    public ProgramName (String programName) {
+        this.programName=programName;
+    }
+
+    public String getProgramName() {
+        return programName;
+    }
+
+    public void setProgramName(String programName) {
+        this.programName=programName;
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +39,13 @@ public class VariableListDerived1 extends VariableList {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("VariableListDerived1(\n");
+        buffer.append("ProgramName(\n");
+
+        buffer.append(" "+tab+programName);
+        buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [VariableListDerived1]");
+        buffer.append(") [ProgramName]");
         return buffer.toString();
     }
 }

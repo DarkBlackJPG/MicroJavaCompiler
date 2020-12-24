@@ -1,13 +1,12 @@
-program MJProgram
-	int x; int y;
+program MyProgram
+	const char marko = 's';
+	int marko1;
+	int marko0;
+	int marko3;
+	char y[];
 {	
 	void main() 
-	int x;
-	boolean a;
 	{
-		if ((a > c ? 3 : 4)) {
-			
-		} 
-		
+		y[1] = 2;		
 	}
 }

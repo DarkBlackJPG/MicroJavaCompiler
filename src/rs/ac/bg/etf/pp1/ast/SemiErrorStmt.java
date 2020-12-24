@@ -1,13 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/11/2020 15:46:59
+// 24/11/2020 20:56:45
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ErrorDeclsDerived1 extends ErrorDecls {
+public class SemiErrorStmt extends VariableDeclarations {
 
-    public ErrorDeclsDerived1 () {
+    public SemiErrorStmt () {
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +28,10 @@ public class ErrorDeclsDerived1 extends ErrorDecls {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ErrorDeclsDerived1(\n");
+        buffer.append("SemiErrorStmt(\n");
 
         buffer.append(tab);
-        buffer.append(") [ErrorDeclsDerived1]");
+        buffer.append(") [SemiErrorStmt]");
         return buffer.toString();
     }
 }

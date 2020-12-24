@@ -1,11 +1,11 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/11/2020 15:46:59
+// 24/11/2020 20:56:45
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public abstract class ErrorDecls implements SyntaxNode {
+public abstract class ErrorVariables implements SyntaxNode {
 
     private SyntaxNode parent;
 

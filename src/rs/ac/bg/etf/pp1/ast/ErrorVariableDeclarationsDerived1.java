@@ -5,9 +5,9 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class MulopModulo extends MulOp {
+public class ErrorVariableDeclarationsDerived1 extends ErrorVariableDeclarations {
 
-    public MulopModulo () {
+    public ErrorVariableDeclarationsDerived1 () {
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +28,10 @@ public class MulopModulo extends MulOp {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("MulopModulo(\n");
+        buffer.append("ErrorVariableDeclarationsDerived1(\n");
 
         buffer.append(tab);
-        buffer.append(") [MulopModulo]");
+        buffer.append(") [ErrorVariableDeclarationsDerived1]");
         return buffer.toString();
     }
 }

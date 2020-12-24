@@ -1,13 +1,24 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/11/2020 15:46:59
+// 24/11/2020 20:56:45
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ErrorConstListDerived1 extends ErrorConstList {
+public class ErrorNonArrayVariable extends ErrorVariables {
 
-    public ErrorConstListDerived1 () {
+    private String variableName;
+
+    public ErrorNonArrayVariable (String variableName) {
+        this.variableName=variableName;
+    }
+
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public void setVariableName(String variableName) {
+        this.variableName=variableName;
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +39,13 @@ public class ErrorConstListDerived1 extends ErrorConstList {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ErrorConstListDerived1(\n");
+        buffer.append("ErrorNonArrayVariable(\n");
+
+        buffer.append(" "+tab+variableName);
+        buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [ErrorConstListDerived1]");
+        buffer.append(") [ErrorNonArrayVariable]");
         return buffer.toString();
     }
 }

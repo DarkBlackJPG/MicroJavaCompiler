@@ -1,20 +1,28 @@
 // generated with ast extension for cup
 // version 0.8
-// 23/11/2020 15:46:59
+// 24/11/2020 20:56:45
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class MoreVariables extends VariableList {
 
+    private ErrorVariables ErrorVariables;
     private VariableList VariableList;
-    private VariableDeclaration VariableDeclaration;
 
-    public MoreVariables (VariableList VariableList, VariableDeclaration VariableDeclaration) {
+    public MoreVariables (ErrorVariables ErrorVariables, VariableList VariableList) {
+        this.ErrorVariables=ErrorVariables;
+        if(ErrorVariables!=null) ErrorVariables.setParent(this);
         this.VariableList=VariableList;
         if(VariableList!=null) VariableList.setParent(this);
-        this.VariableDeclaration=VariableDeclaration;
-        if(VariableDeclaration!=null) VariableDeclaration.setParent(this);
+    }
+
+    public ErrorVariables getErrorVariables() {
+        return ErrorVariables;
+    }
+
+    public void setErrorVariables(ErrorVariables ErrorVariables) {
+        this.ErrorVariables=ErrorVariables;
     }
 
     public VariableList getVariableList() {
@@ -25,32 +33,24 @@ public class MoreVariables extends VariableList {
         this.VariableList=VariableList;
     }
 
-    public VariableDeclaration getVariableDeclaration() {
-        return VariableDeclaration;
-    }
-
-    public void setVariableDeclaration(VariableDeclaration VariableDeclaration) {
-        this.VariableDeclaration=VariableDeclaration;
-    }
-
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
     public void childrenAccept(Visitor visitor) {
+        if(ErrorVariables!=null) ErrorVariables.accept(visitor);
         if(VariableList!=null) VariableList.accept(visitor);
-        if(VariableDeclaration!=null) VariableDeclaration.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
+        if(ErrorVariables!=null) ErrorVariables.traverseTopDown(visitor);
         if(VariableList!=null) VariableList.traverseTopDown(visitor);
-        if(VariableDeclaration!=null) VariableDeclaration.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
+        if(ErrorVariables!=null) ErrorVariables.traverseBottomUp(visitor);
         if(VariableList!=null) VariableList.traverseBottomUp(visitor);
-        if(VariableDeclaration!=null) VariableDeclaration.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -59,14 +59,14 @@ public class MoreVariables extends VariableList {
         buffer.append(tab);
         buffer.append("MoreVariables(\n");
 
-        if(VariableList!=null)
-            buffer.append(VariableList.toString("  "+tab));
+        if(ErrorVariables!=null)
+            buffer.append(ErrorVariables.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(VariableDeclaration!=null)
-            buffer.append(VariableDeclaration.toString("  "+tab));
+        if(VariableList!=null)
+            buffer.append(VariableList.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

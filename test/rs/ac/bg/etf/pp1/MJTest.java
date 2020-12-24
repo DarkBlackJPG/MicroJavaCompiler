@@ -13,6 +13,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import rs.ac.bg.etf.pp1.ast.Program;
 import rs.ac.bg.etf.pp1.util.Log4JUtils;
+import rs.etf.pp1.symboltable.Tab;
 
 public class MJTest {
 
@@ -31,12 +32,11 @@ public class MJTest {
 			
 			br = new BufferedReader(new FileReader(sourceCode));
 			
+			
 			Yylex lexer = new Yylex(br);
-			
 			MJParser parser = new MJParser(lexer);
-			
 			Symbol s = parser.parse();
-			
+			Tab.init();
 			Program prog = (Program)(s.value);
 			
 			log.info("========================");
@@ -44,6 +44,14 @@ public class MJTest {
 			log.info("========================");
 			
 			
+			SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
+			prog.traverseBottomUp(semanticAnalyzer);
+			
+			log.info(" Print count calls = " + semanticAnalyzer.printCallCount);
+			log.info(" Deklarisanih promenljivih ima = " + semanticAnalyzer.varDeclCount);
+			log.info(" Deklarisanih nizova ima = " + semanticAnalyzer.varArrayDeclCount);
+			log.info("===================================");
+			Tab.dump();
 			
 			
 //			while ((currToken = lexer.next_token()).sym != sym.EOF) {

@@ -9,13 +9,17 @@ import rs.ac.bg.etf.pp1.ast.*;
 parser code {:
 
 	Logger log = Logger.getLogger(getClass());
-
+   
+   
+    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
+     
     public void report_fatal_error(String message, Object info) throws java.lang.Exception {
       done_parsing();
       report_error(message, info);
     }
   
     public void syntax_error(Symbol cur_token) {
+    	
         report_error("\nSintaksna greska", cur_token);
     }
   
@@ -29,6 +33,7 @@ parser code {:
             msg.append (" na liniji ").append(((Symbol)info).left);
         log.error(msg.toString());
     }
+    
 
 
 :}
@@ -37,10 +42,9 @@ parser code {:
 scan with {:
 	Symbol s = this.getScanner().next_token();
 	if (s != null && s.value != null) 
-		log.info(s.toString() + " " + s.value.toString());
+		log.info(s.toString() + " " + s.value.toString() + "\t" + s.left);
 	return s;
 :}
-
 
 
 /* ==================== TERMINALS ==================== */
@@ -48,7 +52,7 @@ scan with {:
 terminal String IDENT;
 terminal Integer NUM_CONST;
 terminal Character CHAR_CONST;
-terminal Integer BOOL_CONST;
+terminal String BOOL_CONST;
 
 terminal COMMA;
 
@@ -110,7 +114,19 @@ terminal QUESTION_MARK;
 
 /* ================== NON-TERMINALS ================== */
 
-nonterminal Program;
+/*
+nonterminal TernaryCondition;
+
+nonterminal TernaryCondExpression;
+
+nonterminal TernaryCondTerm ;
+			
+nonterminal TernaryCondFactor;
+
+nonterminal TernaryRelationalExpression ;
+*/
+
+
 
 nonterminal MulOp;
 
@@ -126,13 +142,13 @@ nonterminal MethodDeclarations;
 
 nonterminal Decls;
 
-nonterminal Type;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type;
 
 nonterminal ConstList;
 
 nonterminal Const;
 
-nonterminal Literals;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Literals;
 
 nonterminal VariableDeclarations;
 
@@ -167,6 +183,7 @@ nonterminal ReturnStmts;
 nonterminal Expr;
 
 nonterminal StatementList;
+nonterminal ErrorVariableDeclarations;
 
 nonterminal CondExpression;
 
@@ -184,8 +201,6 @@ nonterminal Designator;
 
 nonterminal DesignatorList;
 
-nonterminal ErrorDecls;
-
 nonterminal SwichCaseDefinition;
 
 nonterminal ActPars;
@@ -198,6 +213,8 @@ nonterminal CaseStatementList;
 
 nonterminal RelationalExpression;
 
+nonterminal ErrorVariables;
+
 nonterminal ExprTern;
 
 nonterminal ExprNoTern;
@@ -207,21 +224,12 @@ nonterminal FormParamsBrackets;
 nonterminal ExprNoTernAddOpList;
 
 nonterminal MethodStatements;
+
 nonterminal ActParsChoice;
-nonterminal ErrorConstList;
 
-/*
-nonterminal TernaryCondition;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Program;
 
-nonterminal TernaryCondExpression;
-
-nonterminal TernaryCondTerm ;
-			
-nonterminal TernaryCondFactor;
-
-nonterminal TernaryRelationalExpression ;
-*/
-
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName;
 
 /* ===================== GRAMMAR ===================== */
 
@@ -229,48 +237,37 @@ precedence left ELSE;
 start with Program;
 Program 	::= 
 			  (Program) 			PROG 
-			  						IDENT:programName
+			  						ProgName
 			  						Declarations
 			  						BRACES_BEGIN
 			  						MethodDeclarations
 			  						BRACES_END
 			  	;
+			  	
+
+ProgName ::= (ProgramName) IDENT:programName;
 
 Declarations ::=
-				(DeclarationList) Declarations Decls
+				(DeclarationList)  Declarations Decls
 				| (NoDecls)
 				;
 MethodDeclarations ::= (SingleMethod) MethodDeclaration
 					| (MethodDeclList) MethodDeclarations MethodDeclaration
 					;
 Decls		::= 
-				(ErrorDeclarations) ErrorDecls
+				(ConstDeclarations) CONST Type:type ConstList SEMI
+				| (VarDeclarations) VariableDeclarations
 				| (ClassDeclarations) CLASS ClassDeclaration BRACES_BEGIN ClassBody BRACES_END
-				;
-
-ErrorDecls ::= (ConstDeclarations) CONST Type ConstList SEMI
-				| (VarDeclarations) VariableDeclarations SEMI
-				|
-					error SEMI:l
-					{:
-						parser.report_error("Izvrsen oporavak do ; u linijij" + lleft, null);
-					:}
 				;
 
 ConstList 	::= 
 				(SingleConst) Const
-				| (ErrorConstListDecl) ErrorConstList;
+				| (MoreConsts) ConstList COMMA Const
+	   			;
 				
-ErrorConstList ::= (MoreConsts) ConstList COMMA Const
-					|
-					error COMMA:l
-					{:
-						parser.report_error("Izvrsen oporavak do ; u linijij" + lleft, null);
-					:}
-					;
 				
 Const		::=
-				(ConstDefinition) IDENT:identification AssignOp Literals;
+				(ConstDefinition) IDENT:identification AssignOp Literals:uuuu;
 
 Literals	::=
 				(NumericLiteral) NUM_CONST:numValue
@@ -280,18 +277,31 @@ Literals	::=
 
 
 VariableDeclarations ::= 
-					(VariableDecls) Type VariableList 
-					
+					(VariableDecls) Type:variableType VariableList SEMI
+					| (SemiErrorStmt) error SEMI
+	   				{:
+	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+	   				 parser.report_error("Izvrsen oporavak do ; u liniji " + symbol.left, null);  
+	   				:}
 					;		
-	
+					
+ErrorVariableDeclarations ::= 
+	   				;
+
 VariableList ::= 
 				(SingleVariable) VariableDeclaration
-				| (MoreVariables) VariableList COMMA VariableDeclaration
-				| error COMMA:l
-				{:
-					parser.report_error("Izvrsen oporavak do , u linijij" + lleft, null);
-				:}
+				| (MoreVariables)  ErrorVariables  VariableList
 				;
+				
+ErrorVariables ::= (ErrorNonArrayVariable) IDENT:variableName COMMA
+					| (ErrorArrayVariable) IDENT:variableName BRACKET_BEGIN BRACKET_END COMMA
+					/*| (CommaErrorStmt) error COMMA
+	   				{:
+	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+	   				 parser.report_error("Izvrsen oporavak do , u liniji " + symbol.left, null);  
+	   				 yyerrok;
+	   				:}*/
+					;
 				
 VariableDeclaration ::= 
 					(NonArrayVariable) IDENT:variableName

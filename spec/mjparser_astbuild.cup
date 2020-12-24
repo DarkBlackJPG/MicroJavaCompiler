@@ -9,13 +9,17 @@ import rs.ac.bg.etf.pp1.ast.*;
 parser code {:
 
 	Logger log = Logger.getLogger(getClass());
-
+   
+   
+    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
+     
     public void report_fatal_error(String message, Object info) throws java.lang.Exception {
       done_parsing();
       report_error(message, info);
     }
   
     public void syntax_error(Symbol cur_token) {
+    	
         report_error("\nSintaksna greska", cur_token);
     }
   
@@ -29,6 +33,7 @@ parser code {:
             msg.append (" na liniji ").append(((Symbol)info).left);
         log.error(msg.toString());
     }
+    
 
 
 :}
@@ -37,10 +42,9 @@ parser code {:
 scan with {:
 	Symbol s = this.getScanner().next_token();
 	if (s != null && s.value != null) 
-		log.info(s.toString() + " " + s.value.toString());
+		log.info(s.toString() + " " + s.value.toString() + "\t" + s.left);
 	return s;
 :}
-
 
 
 /* ==================== TERMINALS ==================== */
@@ -48,7 +52,7 @@ scan with {:
 terminal String IDENT;
 terminal Integer NUM_CONST;
 terminal Character CHAR_CONST;
-terminal Integer BOOL_CONST;
+terminal String BOOL_CONST;
 
 terminal COMMA;
 
@@ -110,7 +114,19 @@ terminal QUESTION_MARK;
 
 /* ================== NON-TERMINALS ================== */
 
-nonterminal Program Program;
+/*
+nonterminal TernaryCondition;
+
+nonterminal TernaryCondExpression;
+
+nonterminal TernaryCondTerm ;
+			
+nonterminal TernaryCondFactor;
+
+nonterminal TernaryRelationalExpression ;
+*/
+
+
 
 nonterminal MulOp MulOp;
 
@@ -126,13 +142,13 @@ nonterminal MethodDeclarations MethodDeclarations;
 
 nonterminal Decls Decls;
 
-nonterminal Type Type;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type;
 
 nonterminal ConstList ConstList;
 
 nonterminal Const Const;
 
-nonterminal Literals Literals;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Literals;
 
 nonterminal VariableDeclarations VariableDeclarations;
 
@@ -167,6 +183,7 @@ nonterminal ReturnStmts ReturnStmts;
 nonterminal Expr Expr;
 
 nonterminal StatementList StatementList;
+nonterminal ErrorVariableDeclarations ErrorVariableDeclarations;
 
 nonterminal CondExpression CondExpression;
 
@@ -184,8 +201,6 @@ nonterminal Designator Designator;
 
 nonterminal DesignatorList DesignatorList;
 
-nonterminal ErrorDecls ErrorDecls;
-
 nonterminal SwichCaseDefinition SwichCaseDefinition;
 
 nonterminal ActPars ActPars;
@@ -198,6 +213,8 @@ nonterminal CaseStatementList CaseStatementList;
 
 nonterminal RelationalExpression RelationalExpression;
 
+nonterminal ErrorVariables ErrorVariables;
+
 nonterminal ExprTern ExprTern;
 
 nonterminal ExprNoTern ExprNoTern;
@@ -207,21 +224,12 @@ nonterminal FormParamsBrackets FormParamsBrackets;
 nonterminal ExprNoTernAddOpList ExprNoTernAddOpList;
 
 nonterminal MethodStatements MethodStatements;
+
 nonterminal ActParsChoice ActParsChoice;
-nonterminal ErrorConstList ErrorConstList;
 
-/*
-nonterminal TernaryCondition;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Program;
 
-nonterminal TernaryCondExpression;
-
-nonterminal TernaryCondTerm ;
-			
-nonterminal TernaryCondFactor;
-
-nonterminal TernaryRelationalExpression ;
-*/
-
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName;
 
 /* ===================== GRAMMAR ===================== */
 
@@ -229,48 +237,37 @@ precedence left ELSE;
 start with Program;
 Program 	::= 
 			  (Program) 			PROG 
-			  						IDENT:programName
-			  						Declarations:D1
+			  						ProgName:P1
+			  						Declarations:D2
 			  						BRACES_BEGIN
-			  						MethodDeclarations:M2
-			  						BRACES_END {: RESULT=new Program(programName, D1, M2); RESULT.setLine(programNameleft); :}
+			  						MethodDeclarations:M3
+			  						BRACES_END {: RESULT=new Program(P1, D2, M3); RESULT.setLine(P1left); :}
 			  	;
+			  	
+
+ProgName ::= (ProgramName) IDENT:programName {: RESULT=new ProgramName(programName); RESULT.setLine(programNameleft); :};
 
 Declarations ::=
-				(DeclarationList) Declarations:D1 Decls:D2 {: RESULT=new DeclarationList(D1, D2); RESULT.setLine(D1left); :}
+				(DeclarationList)  Declarations:D1 Decls:D2 {: RESULT=new DeclarationList(D1, D2); RESULT.setLine(D1left); :}
 				| (NoDecls) {: RESULT=new NoDecls(); :}
 				;
 MethodDeclarations ::= (SingleMethod) MethodDeclaration:M1 {: RESULT=new SingleMethod(M1); RESULT.setLine(M1left); :}
 					| (MethodDeclList) MethodDeclarations:M1 MethodDeclaration:M2 {: RESULT=new MethodDeclList(M1, M2); RESULT.setLine(M1left); :}
 					;
 Decls		::= 
-				(ErrorDeclarations) ErrorDecls:E1 {: RESULT=new ErrorDeclarations(E1); RESULT.setLine(E1left); :}
+				(ConstDeclarations) CONST Type:type ConstList:C1 SEMI {: RESULT=new ConstDeclarations(type, C1); RESULT.setLine(typeleft); :}
+				| (VarDeclarations) VariableDeclarations:V1 {: RESULT=new VarDeclarations(V1); RESULT.setLine(V1left); :}
 				| (ClassDeclarations) CLASS ClassDeclaration:C1 BRACES_BEGIN ClassBody:C2 BRACES_END {: RESULT=new ClassDeclarations(C1, C2); RESULT.setLine(C1left); :}
-				;
-
-ErrorDecls ::= (ConstDeclarations) CONST Type:T1 ConstList:C2 SEMI {: RESULT=new ConstDeclarations(T1, C2); RESULT.setLine(T1left); :}
-				| (VarDeclarations) VariableDeclarations:V1 SEMI {: RESULT=new VarDeclarations(V1); RESULT.setLine(V1left); :}
-				|
-					error SEMI:l
-					{:
-						parser.report_error("Izvrsen oporavak do ; u linijij" + lleft, null);
-					:} {: RESULT=new ErrorDeclsDerived1(); :}
 				;
 
 ConstList 	::= 
 				(SingleConst) Const:C1 {: RESULT=new SingleConst(C1); RESULT.setLine(C1left); :}
-				| (ErrorConstListDecl) ErrorConstList:E1 {: RESULT=new ErrorConstListDecl(E1); RESULT.setLine(E1left); :};
+				| (MoreConsts) ConstList:C1 COMMA Const:C2 {: RESULT=new MoreConsts(C1, C2); RESULT.setLine(C1left); :}
+	   			;
 				
-ErrorConstList ::= (MoreConsts) ConstList:C1 COMMA Const:C2 {: RESULT=new MoreConsts(C1, C2); RESULT.setLine(C1left); :}
-					|
-					error COMMA:l
-					{:
-						parser.report_error("Izvrsen oporavak do ; u linijij" + lleft, null);
-					:} {: RESULT=new ErrorConstListDerived1(); :}
-					;
 				
 Const		::=
-				(ConstDefinition) IDENT:identification AssignOp:A1 Literals:L2 {: RESULT=new ConstDefinition(identification, A1, L2); RESULT.setLine(identificationleft); :};
+				(ConstDefinition) IDENT:identification AssignOp:A1 Literals:uuuu {: RESULT=new ConstDefinition(identification, A1, uuuu); RESULT.setLine(identificationleft); :};
 
 Literals	::=
 				(NumericLiteral) NUM_CONST:numValue {: RESULT=new NumericLiteral(numValue); RESULT.setLine(numValueleft); :}
@@ -280,18 +277,31 @@ Literals	::=
 
 
 VariableDeclarations ::= 
-					(VariableDecls) Type:T1 VariableList:V2 {: RESULT=new VariableDecls(T1, V2); RESULT.setLine(T1left); :} 
-					
+					(VariableDecls) Type:variableType VariableList:V1 SEMI {: RESULT=new VariableDecls(variableType, V1); RESULT.setLine(variableTypeleft); :}
+					| (SemiErrorStmt) error SEMI
+	   				{:
+	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+	   				 parser.report_error("Izvrsen oporavak do ; u liniji " + symbol.left, null);  
+	   				:} {: RESULT=new SemiErrorStmt(); :}
 					;		
-	
+					
+ErrorVariableDeclarations ::= {: RESULT=new ErrorVariableDeclarationsDerived1(); :} 
+	   				;
+
 VariableList ::= 
 				(SingleVariable) VariableDeclaration:V1 {: RESULT=new SingleVariable(V1); RESULT.setLine(V1left); :}
-				| (MoreVariables) VariableList:V1 COMMA VariableDeclaration:V2 {: RESULT=new MoreVariables(V1, V2); RESULT.setLine(V1left); :}
-				| error COMMA:l
-				{:
-					parser.report_error("Izvrsen oporavak do , u linijij" + lleft, null);
-				:} {: RESULT=new VariableListDerived1(); :}
+				| (MoreVariables)  ErrorVariables:E1  VariableList:V2 {: RESULT=new MoreVariables(E1, V2); RESULT.setLine(E1left); :}
 				;
+				
+ErrorVariables ::= (ErrorNonArrayVariable) IDENT:variableName COMMA {: RESULT=new ErrorNonArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
+					| (ErrorArrayVariable) IDENT:variableName BRACKET_BEGIN BRACKET_END COMMA {: RESULT=new ErrorArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
+					/*| (CommaErrorStmt) error COMMA
+	   				{:
+	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+	   				 parser.report_error("Izvrsen oporavak do , u liniji " + symbol.left, null);  
+	   				 yyerrok;
+	   				:}*/
+					;
 				
 VariableDeclaration ::= 
 					(NonArrayVariable) IDENT:variableName {: RESULT=new NonArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
