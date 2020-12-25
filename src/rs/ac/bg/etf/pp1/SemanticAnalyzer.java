@@ -1,5 +1,7 @@
 package rs.ac.bg.etf.pp1;
 
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 
 import rs.ac.bg.etf.pp1.ast.*;
@@ -11,10 +13,38 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	int varDeclCount = 0;
 	int varArrayDeclCount = 0;
 	int constDeclCount = 0;
+	boolean returnTypeIsVoid = false;
+
+	Struct currentReturnMethodType = null;
+
+	Obj currentMethod = null;
 
 	Struct currentType = Tab.noType;
 
 	Logger log = Logger.getLogger(getClass());
+
+	final HashMap<Integer, String> nazivi_tipova = new HashMap<Integer, String>();
+
+	public static final int None = 0;
+	public static final int Int = 1;
+	public static final int Char = 2;
+	public static final int Array = 3;
+	public static final int Class = 4;
+	public static final int Bool = 5;
+	public static final int Enum = 6;
+	public static final int Interface = 7;
+
+	public SemanticAnalyzer() {
+		super();
+		nazivi_tipova.put(Struct.None, "void");
+		nazivi_tipova.put(Struct.Int, "int");
+		nazivi_tipova.put(Struct.Char, "char");
+		nazivi_tipova.put(Struct.Array, "array");
+		nazivi_tipova.put(Struct.Class, "class");
+		nazivi_tipova.put(Struct.Bool, "bool");
+		nazivi_tipova.put(Struct.Enum, "enum");
+		nazivi_tipova.put(Struct.Interface, "interface");
+	}
 
 	public void report_error(String message, SyntaxNode info) {
 		// errorDetected = true;
@@ -92,8 +122,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	public void visit(BooleanLiteral num) {
 		String value = num.getBooleanValue();
 		boolean isTrue = value.equals("true");
-		num.obj = new Obj(Obj.Con, "", new Struct(Struct.Bool), isTrue? 1 : 0,
-				0);
+		num.obj = new Obj(Obj.Con, "", new Struct(Struct.Bool), isTrue ? 1 : 0, 0);
 	}
 
 	public void visit(ConstDefinition vardecl) {
@@ -141,10 +170,78 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 	public void visit(ProgramName programName) {
 		programName.obj = Tab.insert(Obj.Prog, programName.getProgramName(), Tab.noType);
 		Tab.openScope();
+
 	}
 
 	public void visit(Program program) {
 		Tab.chainLocalSymbols(program.getProgName().obj);
 		Tab.closeScope();
+
 	}
+
+	public void visit(TypedReturn typedReturn) {
+		currentReturnMethodType = typedReturn.getType().struct;
+		returnTypeIsVoid = false;
+	}
+
+	public void visit(VoidReturn voidReturn) {
+		currentReturnMethodType = Tab.noType;
+		returnTypeIsVoid = true;
+	}
+
+	public void visit(MethodTypeName methodTypeName) {
+		currentMethod = Tab.insert(Obj.Meth, methodTypeName.getMethodIdentification(), currentReturnMethodType);
+		methodTypeName.obj = currentMethod;
+		Tab.openScope();
+
+		report_info("Obradjuje se metoda sa nazivom: " + methodTypeName.getMethodIdentification(), methodTypeName);
+	}
+
+	public void visit(OneMethodDeclaration methodDeclaration) {
+		Tab.chainLocalSymbols(currentMethod);
+		Tab.closeScope();
+		currentMethod = null;
+		currentReturnMethodType = null;
+	}
+
+	public void visit(CleanDesignator cleanDesignator) {
+		Obj temp = Tab.find(cleanDesignator.getIdentification());
+		if (temp != Tab.noObj) {
+			cleanDesignator.obj = temp;
+		} else {
+			report_error("Ne postoji deklarisana promenljiva sa ovim imenom: " + cleanDesignator.getIdentification(),
+					cleanDesignator);
+		}
+	}
+
+	// TODO treba provera za array tip isto
+	public void visit(IncrementDesignator incrementDesignator) {
+		Obj designator = incrementDesignator.getDesignator().obj;
+		if (designator.getType() != Tab.intType) {
+			report_error("Ocekivan tip int, dobijen tip " + nazivi_tipova.get(designator.getKind()) + "[Line: "
+					+ incrementDesignator.getLine() + "]", null);
+		}
+	}
+
+	// TODO treba provera za array tip
+	public void visit(DecrementDesignator decrementDesignator) {
+		Obj designator = decrementDesignator.getDesignator().obj;
+		if (designator.getType() != Tab.intType) {
+			report_error("Ocekivan tip int, dobijen tip " + nazivi_tipova.get(designator.getKind()) + "[Line: "
+					+ decrementDesignator.getLine() + "]", null);
+		}
+	}
+
+	public void visit(MethodCallDesignator methodCallDesignator) {
+		Obj functionObject = methodCallDesignator.getDesignator().obj;
+		if (functionObject.getKind() == Obj.Meth) {
+			report_info("Pronadjen poziv funkcije [Line" + methodCallDesignator.getLine() + "]", null);
+			//methodCallDesignator.struct = functionObject.getType(); 
+		} else {
+			report_error("Ocekuje se poziv metode, prosledjen tip:  " + nazivi_tipova.get(functionObject.getKind())
+					+ "[Line: " + methodCallDesignator.getLine() + "]", null);
+			//methodCallDesignator.struct = Tab.noType;
+		}
+	}
+
 }

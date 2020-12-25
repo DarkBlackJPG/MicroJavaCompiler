@@ -1,22 +1,20 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/11/2020 20:56:45
+// 25/11/2020 19:46:11
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class OneMethodDeclaration extends MethodDeclaration {
 
-    private ReturnType ReturnType;
-    private String methodIdentification;
+    private MethodTypeName MethodTypeName;
     private FormalParameters FormalParameters;
     private MethodVariables MethodVariables;
     private MethodStatements MethodStatements;
 
-    public OneMethodDeclaration (ReturnType ReturnType, String methodIdentification, FormalParameters FormalParameters, MethodVariables MethodVariables, MethodStatements MethodStatements) {
-        this.ReturnType=ReturnType;
-        if(ReturnType!=null) ReturnType.setParent(this);
-        this.methodIdentification=methodIdentification;
+    public OneMethodDeclaration (MethodTypeName MethodTypeName, FormalParameters FormalParameters, MethodVariables MethodVariables, MethodStatements MethodStatements) {
+        this.MethodTypeName=MethodTypeName;
+        if(MethodTypeName!=null) MethodTypeName.setParent(this);
         this.FormalParameters=FormalParameters;
         if(FormalParameters!=null) FormalParameters.setParent(this);
         this.MethodVariables=MethodVariables;
@@ -25,20 +23,12 @@ public class OneMethodDeclaration extends MethodDeclaration {
         if(MethodStatements!=null) MethodStatements.setParent(this);
     }
 
-    public ReturnType getReturnType() {
-        return ReturnType;
+    public MethodTypeName getMethodTypeName() {
+        return MethodTypeName;
     }
 
-    public void setReturnType(ReturnType ReturnType) {
-        this.ReturnType=ReturnType;
-    }
-
-    public String getMethodIdentification() {
-        return methodIdentification;
-    }
-
-    public void setMethodIdentification(String methodIdentification) {
-        this.methodIdentification=methodIdentification;
+    public void setMethodTypeName(MethodTypeName MethodTypeName) {
+        this.MethodTypeName=MethodTypeName;
     }
 
     public FormalParameters getFormalParameters() {
@@ -70,7 +60,7 @@ public class OneMethodDeclaration extends MethodDeclaration {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(ReturnType!=null) ReturnType.accept(visitor);
+        if(MethodTypeName!=null) MethodTypeName.accept(visitor);
         if(FormalParameters!=null) FormalParameters.accept(visitor);
         if(MethodVariables!=null) MethodVariables.accept(visitor);
         if(MethodStatements!=null) MethodStatements.accept(visitor);
@@ -78,14 +68,14 @@ public class OneMethodDeclaration extends MethodDeclaration {
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(ReturnType!=null) ReturnType.traverseTopDown(visitor);
+        if(MethodTypeName!=null) MethodTypeName.traverseTopDown(visitor);
         if(FormalParameters!=null) FormalParameters.traverseTopDown(visitor);
         if(MethodVariables!=null) MethodVariables.traverseTopDown(visitor);
         if(MethodStatements!=null) MethodStatements.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(ReturnType!=null) ReturnType.traverseBottomUp(visitor);
+        if(MethodTypeName!=null) MethodTypeName.traverseBottomUp(visitor);
         if(FormalParameters!=null) FormalParameters.traverseBottomUp(visitor);
         if(MethodVariables!=null) MethodVariables.traverseBottomUp(visitor);
         if(MethodStatements!=null) MethodStatements.traverseBottomUp(visitor);
@@ -97,13 +87,10 @@ public class OneMethodDeclaration extends MethodDeclaration {
         buffer.append(tab);
         buffer.append("OneMethodDeclaration(\n");
 
-        if(ReturnType!=null)
-            buffer.append(ReturnType.toString("  "+tab));
+        if(MethodTypeName!=null)
+            buffer.append(MethodTypeName.toString("  "+tab));
         else
             buffer.append(tab+"  null");
-        buffer.append("\n");
-
-        buffer.append(" "+tab+methodIdentification);
         buffer.append("\n");
 
         if(FormalParameters!=null)

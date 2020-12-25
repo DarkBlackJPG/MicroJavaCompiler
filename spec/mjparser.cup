@@ -164,9 +164,9 @@ nonterminal FieldList;
 
 nonterminal ClassMethodList;
 
-nonterminal ReturnType;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ReturnType;
 
-nonterminal MethodDeclaration;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj MethodDeclaration;
 
 nonterminal MethodVariables;
 
@@ -180,9 +180,10 @@ nonterminal Condition;
 
 nonterminal ReturnStmts;
 
-nonterminal Expr;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Expr;
 
 nonterminal StatementList;
+
 nonterminal ErrorVariableDeclarations;
 
 nonterminal CondExpression;
@@ -193,11 +194,11 @@ nonterminal FormalParameters;
 
 nonterminal CondFactor;
 
-nonterminal Term;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Term;
 
-nonterminal Factor;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor;
 
-nonterminal Designator;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator;
 
 nonterminal DesignatorList;
 
@@ -227,6 +228,8 @@ nonterminal MethodStatements;
 
 nonterminal ActParsChoice;
 
+nonterminal rs.etf.pp1.symboltable.concepts.Obj MethodTypeName;
+
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Program;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName;
@@ -234,7 +237,9 @@ nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName;
 /* ===================== GRAMMAR ===================== */
 
 precedence left ELSE;
+
 start with Program;
+
 Program 	::= 
 			  (Program) 			PROG 
 			  						ProgName
@@ -331,8 +336,10 @@ ClassMethodList ::=
 				(NoMethods)
 				; 
 
-MethodDeclaration ::= (OneMethodDeclaration) ReturnType IDENT:methodIdentification PARENTHESES_BEGIN FormalParameters PARENTHESES_END MethodVariables BRACES_BEGIN MethodStatements BRACES_END
+MethodDeclaration ::= (OneMethodDeclaration) MethodTypeName:methodType PARENTHESES_BEGIN FormalParameters PARENTHESES_END MethodVariables BRACES_BEGIN MethodStatements BRACES_END
 				;
+				
+MethodTypeName ::= (MethodTypeName) ReturnType IDENT:methodIdentification  ;
 
 MethodStatements ::= (NonEmptyMethodStatements) MethodStatements Statement
 				| (EmptyMethodStatements)
@@ -349,8 +356,8 @@ FormPars ::= (FormParsDefinition) Type IDENT:formParamName FormParamsBrackets
 FormParamsBrackets ::= (HasBrackets) BRACKET_BEGIN BRACKET_END
 					| (DoesntHaveBrackets)
 					;
-ReturnType ::= (TypedReturn) Type
-			| (VoidReturn) VOID
+ReturnType ::= (TypedReturn) Type:returnType
+			| (VoidReturn) VOID:dummy
 			;
 
 MethodVariables ::= 
@@ -391,10 +398,10 @@ StatementList ::= (NonEmptyStatementList) StatementList Statement
 					| (EmptyStatement) ;
 					
 					
-DesignatorStatement ::= (AssignDesignator) Designator AssignOp Expr
-					| (MethodCallDesignator) Designator PARENTHESES_BEGIN ActPars PARENTHESES_END
-					| (IncrementDesignator) Designator INCREMENT
-					| (DecrementDesignator) Designator DECREMENT
+DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp Expr
+					| (MethodCallDesignator) Designator:designator PARENTHESES_BEGIN ActParsChoice PARENTHESES_END
+					| (IncrementDesignator) Designator:designator INCREMENT
+					| (DecrementDesignator) Designator:designator DECREMENT
 					;
 
 
@@ -462,8 +469,8 @@ Term ::= (NonMullOpTerm) Factor
 		;
 	
 Factor ::=
-		(NoParamsDesignator) Designator 
-		| (ParamsDesignator) Designator PARENTHESES_BEGIN ActParsChoice PARENTHESES_END
+		(NoParamsDesignator) Designator:designator 
+		| (ParamsDesignator) Designator:designator PARENTHESES_BEGIN ActParsChoice PARENTHESES_END
 		| (NumericConstant) NUM_CONST:numValue
 		| (CharacterConstant) CHAR_CONST:charValue
 		| (BooleanConstant) BOOL_CONST:boolValue
@@ -480,12 +487,13 @@ ActPars ::= (ActParsWithoutComma) Expr
 		| (ActParsWithComma) ActPars COMMA Expr;
 		
 		
-Designator ::= (CleanDesignator) IDENT:identification
-			| (FieldCallDesignator) DesignatorList DOT IDENT:identification
-			| (ArrayElementDesignator) DesignatorList BRACKET_BEGIN Expr BRACKET_END
+Designator ::= (CleanDesignator) IDENT:identification DesignatorList:p
 			;
 
-DesignatorList ::= (CleanDesignatorList) IDENT:identification
+/*| (FieldCallDesignator) DesignatorList DOT IDENT:identification
+			| (ArrayElementDesignator) DesignatorList BRACKET_BEGIN Expr BRACKET_END*/
+
+DesignatorList ::= (EmptyDesignator)
 				| (FieldCallDesignatorList) DesignatorList DOT IDENT:identification
 				| (ArrayElementDesignatorList) DesignatorList BRACKET_BEGIN Expr BRACKET_END
 				;

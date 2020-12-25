@@ -1,12 +1,20 @@
 program MyProgram
 	const char marko = 's';
-	int marko1;
-	int marko0;
-	int marko3;
 	char y[];
 {	
-	void main() 
+	
+	int moja_funkcija() 
+	char c;
 	{
-		y[1] = 2;		
+		c = 'p';
+		print(c);
+	}
+
+	int main()
+	int c;
+	{
+		p[1] = 2;	
+		
+		moja_funkcija();
 	}
 }

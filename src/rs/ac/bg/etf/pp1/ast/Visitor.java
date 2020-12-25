@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/11/2020 20:56:45
+// 25/11/2020 19:46:11
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -70,9 +70,7 @@ public interface Visitor {
     public void visit(Type Type);
     public void visit(ArrayElementDesignatorList ArrayElementDesignatorList);
     public void visit(FieldCallDesignatorList FieldCallDesignatorList);
-    public void visit(CleanDesignatorList CleanDesignatorList);
-    public void visit(ArrayElementDesignator ArrayElementDesignator);
-    public void visit(FieldCallDesignator FieldCallDesignator);
+    public void visit(EmptyDesignator EmptyDesignator);
     public void visit(CleanDesignator CleanDesignator);
     public void visit(ActParsWithComma ActParsWithComma);
     public void visit(ActParsWithoutComma ActParsWithoutComma);
@@ -141,6 +139,7 @@ public interface Visitor {
     public void visit(NonEmptyFormalPars NonEmptyFormalPars);
     public void visit(EmptyMethodStatements EmptyMethodStatements);
     public void visit(NonEmptyMethodStatements NonEmptyMethodStatements);
+    public void visit(MethodTypeName MethodTypeName);
     public void visit(OneMethodDeclaration OneMethodDeclaration);
     public void visit(NoMethods NoMethods);
     public void visit(HasMethods HasMethods);

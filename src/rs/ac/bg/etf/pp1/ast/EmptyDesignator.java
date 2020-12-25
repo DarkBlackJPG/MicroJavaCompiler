@@ -1,24 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 24/11/2020 20:56:45
+// 25/11/2020 19:46:11
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class CleanDesignatorList extends DesignatorList {
+public class EmptyDesignator extends DesignatorList {
 
-    private String identification;
-
-    public CleanDesignatorList (String identification) {
-        this.identification=identification;
-    }
-
-    public String getIdentification() {
-        return identification;
-    }
-
-    public void setIdentification(String identification) {
-        this.identification=identification;
+    public EmptyDesignator () {
     }
 
     public void accept(Visitor visitor) {
@@ -39,13 +28,10 @@ public class CleanDesignatorList extends DesignatorList {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("CleanDesignatorList(\n");
-
-        buffer.append(" "+tab+identification);
-        buffer.append("\n");
+        buffer.append("EmptyDesignator(\n");
 
         buffer.append(tab);
-        buffer.append(") [CleanDesignatorList]");
+        buffer.append(") [EmptyDesignator]");
         return buffer.toString();
     }
 }
