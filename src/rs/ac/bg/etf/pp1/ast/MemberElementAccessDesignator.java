@@ -5,16 +5,15 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ArrayElementDesignatorList extends DesignatorList {
+public class MemberElementAccessDesignator extends Designator {
 
     private DesignatorList DesignatorList;
-    private Expr Expr;
+    private String identification;
 
-    public ArrayElementDesignatorList (DesignatorList DesignatorList, Expr Expr) {
+    public MemberElementAccessDesignator (DesignatorList DesignatorList, String identification) {
         this.DesignatorList=DesignatorList;
         if(DesignatorList!=null) DesignatorList.setParent(this);
-        this.Expr=Expr;
-        if(Expr!=null) Expr.setParent(this);
+        this.identification=identification;
     }
 
     public DesignatorList getDesignatorList() {
@@ -25,12 +24,12 @@ public class ArrayElementDesignatorList extends DesignatorList {
         this.DesignatorList=DesignatorList;
     }
 
-    public Expr getExpr() {
-        return Expr;
+    public String getIdentification() {
+        return identification;
     }
 
-    public void setExpr(Expr Expr) {
-        this.Expr=Expr;
+    public void setIdentification(String identification) {
+        this.identification=identification;
     }
 
     public void accept(Visitor visitor) {
@@ -39,25 +38,22 @@ public class ArrayElementDesignatorList extends DesignatorList {
 
     public void childrenAccept(Visitor visitor) {
         if(DesignatorList!=null) DesignatorList.accept(visitor);
-        if(Expr!=null) Expr.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(DesignatorList!=null) DesignatorList.traverseTopDown(visitor);
-        if(Expr!=null) Expr.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(DesignatorList!=null) DesignatorList.traverseBottomUp(visitor);
-        if(Expr!=null) Expr.traverseBottomUp(visitor);
         accept(visitor);
     }
 
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ArrayElementDesignatorList(\n");
+        buffer.append("MemberElementAccessDesignator(\n");
 
         if(DesignatorList!=null)
             buffer.append(DesignatorList.toString("  "+tab));
@@ -65,14 +61,11 @@ public class ArrayElementDesignatorList extends DesignatorList {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(Expr!=null)
-            buffer.append(Expr.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
+        buffer.append(" "+tab+identification);
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [ArrayElementDesignatorList]");
+        buffer.append(") [MemberElementAccessDesignator]");
         return buffer.toString();
     }
 }

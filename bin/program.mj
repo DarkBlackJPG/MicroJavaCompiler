@@ -6,14 +6,14 @@ program MyProgram
 	int moja_funkcija() 
 	char c;
 	{
-		c = 'p';
 		print(c);
 	}
 
 	int main()
 	int c;
+	bool kk;
 	{
-	    c = 'x'';
+	    kk = y[ci];
 		moja_funkcija();
 	}
 }

@@ -142,7 +142,7 @@ nonterminal MethodDeclarations MethodDeclarations;
 
 nonterminal Decls Decls;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Type;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Type;
 
 nonterminal ConstList ConstList;
 
@@ -164,7 +164,7 @@ nonterminal FieldList FieldList;
 
 nonterminal ClassMethodList ClassMethodList;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ReturnType;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ReturnType;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj MethodDeclaration;
 
@@ -178,9 +178,9 @@ nonterminal DesignatorStatement DesignatorStatement;
 
 nonterminal Condition Condition;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ReturnStmts;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ReturnStmts;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Expr;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Expr;
 
 nonterminal StatementList StatementList;
 
@@ -194,13 +194,13 @@ nonterminal FormalParameters FormalParameters;
 
 nonterminal CondFactor CondFactor;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Term;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Term;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Factor;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct DesignatorList;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj DesignatorList;
 
 nonterminal SwichCaseDefinition SwichCaseDefinition;
 
@@ -216,13 +216,13 @@ nonterminal RelationalExpression RelationalExpression;
 
 nonterminal ErrorVariables ErrorVariables;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprTern;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ExprTern;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprNoTern;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ExprNoTern;
 
 nonterminal FormParamsBrackets FormParamsBrackets;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprNoTernAddOpList;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ExprNoTernAddOpList;
 
 nonterminal MethodStatements MethodStatements;
 
@@ -406,6 +406,7 @@ DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp:A1 Exp
 					;
 
 
+
 ReturnStmts ::= (NonEmptyReturn) Expr:expr {: RESULT=new NonEmptyReturn(expr); RESULT.setLine(exprleft); :}
 			| (EmptyReturn) {: RESULT=new EmptyReturn(); :}
 			;
@@ -469,15 +470,14 @@ ActPars ::= (ActParsWithoutComma) Expr:E1 {: RESULT=new ActParsWithoutComma(E1);
 		| (ActParsWithComma) ActPars:A1 COMMA Expr:E2 {: RESULT=new ActParsWithComma(A1, E2); RESULT.setLine(A1left); :};
 		
 		
-Designator ::= (CleanDesignator) IDENT:identification DesignatorList:p {: RESULT=new CleanDesignator(identification, p); RESULT.setLine(identificationleft); :}
+Designator ::= (CleanDesignator) IDENT:identification {: RESULT=new CleanDesignator(identification); RESULT.setLine(identificationleft); :}
+            | (ArrayElementAccessDesignator) DesignatorList:D1 BRACKET_BEGIN Expr:expression BRACKET_END {: RESULT=new ArrayElementAccessDesignator(D1, expression); RESULT.setLine(D1left); :}
+            | (MemberElementAccessDesignator) DesignatorList:D1 DOT IDENT:identification {: RESULT=new MemberElementAccessDesignator(D1, identification); RESULT.setLine(D1left); :}
 			;
 
-/*| (FieldCallDesignator) DesignatorList DOT IDENT:identification
-			| (ArrayElementDesignator) DesignatorList BRACKET_BEGIN Expr BRACKET_END*/
-
-DesignatorList ::= (EmptyDesignator) {: RESULT=new EmptyDesignator(); :}
+DesignatorList ::= (DesignatorListOneElement) IDENT:identification {: RESULT=new DesignatorListOneElement(identification); RESULT.setLine(identificationleft); :}
 				| (FieldCallDesignatorList) DesignatorList:D1 DOT IDENT:identification {: RESULT=new FieldCallDesignatorList(D1, identification); RESULT.setLine(D1left); :}
-				| (ArrayElementDesignatorList) DesignatorList:D1 BRACKET_BEGIN Expr:E2 BRACKET_END {: RESULT=new ArrayElementDesignatorList(D1, E2); RESULT.setLine(D1left); :}
+				| (ArrayElementDesignatorList) DesignatorList:D1 BRACKET_BEGIN Expr:expression BRACKET_END {: RESULT=new ArrayElementDesignatorList(D1, expression); RESULT.setLine(D1left); :}
 				;
 
 Type 			::= 

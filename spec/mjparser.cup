@@ -142,7 +142,7 @@ nonterminal MethodDeclarations;
 
 nonterminal Decls;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Type;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Type;
 
 nonterminal ConstList;
 
@@ -164,7 +164,7 @@ nonterminal FieldList;
 
 nonterminal ClassMethodList;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ReturnType;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ReturnType;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj MethodDeclaration;
 
@@ -178,9 +178,9 @@ nonterminal DesignatorStatement;
 
 nonterminal Condition;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ReturnStmts;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ReturnStmts;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Expr;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Expr;
 
 nonterminal StatementList;
 
@@ -194,13 +194,13 @@ nonterminal FormalParameters;
 
 nonterminal CondFactor;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Term;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Term;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Factor;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct DesignatorList;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj DesignatorList;
 
 nonterminal SwichCaseDefinition;
 
@@ -216,13 +216,13 @@ nonterminal RelationalExpression;
 
 nonterminal ErrorVariables;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprTern;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ExprTern;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprNoTern;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ExprNoTern;
 
 nonterminal FormParamsBrackets;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprNoTernAddOpList;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ExprNoTernAddOpList;
 
 nonterminal MethodStatements;
 
@@ -406,6 +406,7 @@ DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp Expr:t
 					;
 
 
+
 ReturnStmts ::= (NonEmptyReturn) Expr:expr
 			| (EmptyReturn)
 			;
@@ -469,15 +470,14 @@ ActPars ::= (ActParsWithoutComma) Expr
 		| (ActParsWithComma) ActPars COMMA Expr;
 		
 		
-Designator ::= (CleanDesignator) IDENT:identification DesignatorList:p
+Designator ::= (CleanDesignator) IDENT:identification
+            | (ArrayElementAccessDesignator) DesignatorList BRACKET_BEGIN Expr:expression BRACKET_END
+            | (MemberElementAccessDesignator) DesignatorList DOT IDENT:identification
 			;
 
-/*| (FieldCallDesignator) DesignatorList DOT IDENT:identification
-			| (ArrayElementDesignator) DesignatorList BRACKET_BEGIN Expr BRACKET_END*/
-
-DesignatorList ::= (EmptyDesignator)
+DesignatorList ::= (DesignatorListOneElement) IDENT:identification
 				| (FieldCallDesignatorList) DesignatorList DOT IDENT:identification
-				| (ArrayElementDesignatorList) DesignatorList BRACKET_BEGIN Expr BRACKET_END
+				| (ArrayElementDesignatorList) DesignatorList BRACKET_BEGIN Expr:expression BRACKET_END
 				;
 
 Type 			::= 

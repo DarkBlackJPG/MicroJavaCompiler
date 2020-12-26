@@ -15,39 +15,22 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     int constDeclCount = 0;
     boolean returnTokenRequired = false;
     boolean mainMethodDetected = false;
-
-    enum ReturnValue {
-        VOID,
-        INT,
-        CHAR,
-        BOOL,
-        CLASS,
-        ARRAY,
-        NONE
-    }
-
-    Struct methodReturnValue = Table.noType;
-
+    // Potreba da se detektuje ulazna tacka programa
     final String mainMethodName = "main";
 
+    // Sluzi da se uporede methodReturnValue i currentReturn Value
+    // Moze da se optimizuje tako sto se proverava u return stmt
+    Struct methodReturnValue = Table.noType;
     Struct currentReturnMethodType = null;
-
+    // Da znamo opseg
     Obj currentMethod = null;
 
+    // Sluzi da odmah ubacimo u tabelu simbola kada detektujemo naziv VariableDeclaration
     Struct currentType = Table.noType;
 
     Logger log = Logger.getLogger(getClass());
 
     final HashMap<Integer, String> nazivi_tipova = new HashMap<Integer, String>();
-
-    public static final int None = 0;
-    public static final int Int = 1;
-    public static final int Char = 2;
-    public static final int Array = 3;
-    public static final int Class = 4;
-    public static final int Bool = 5;
-    public static final int Enum = 6;
-    public static final int Interface = 7;
 
     public SemanticAnalyzer() {
         super();
@@ -166,17 +149,22 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(Type type) {
         Obj typeNode = Table.find(type.getType());
         if (typeNode == Table.noObj) {
-            report_error("Tip " + type.getType() + " ne postoji. [Line: " + type.getLine() + "]", null);
-            type.struct = Table.noType;
+            report_error(String.format("Definisan tip %s ne postoji u jeziku! [Line: %d]",
+                    type.getType(),
+                    type.getLine()),
+                    null);
+            type.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
         } else {
             if (Obj.Type == typeNode.getKind()) {
-                type.struct = typeNode.getType();
+                type.obj = new Obj(Obj.Type, "", typeNode.getType());
                 currentType = typeNode.getType();
             } else {
                 report_error(
-                        "GRESKA! Ime " + type.getType() + " nije naziv tipa u jeziku [Line " + type.getLine() + "]",
+                        String.format("Promenljiva %s nije tip! [Line: %d]"
+                                , type.getType(),
+                                type.getLine()),
                         null);
-                type.struct = Table.noType;
+                type.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
             }
         }
     }
@@ -194,10 +182,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(TypedReturn typedReturn) {
-        currentReturnMethodType = typedReturn.getType().struct;
-
+        currentReturnMethodType = typedReturn.getType().obj.getType();
         methodReturnValue = currentReturnMethodType.getElemType();
-
         returnTokenRequired = true;
     }
 
@@ -225,15 +211,71 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentReturnMethodType = null;
     }
 
+    // TODO provera za nizove
     public void visit(CleanDesignator cleanDesignator) {
         Obj temp = Table.find(cleanDesignator.getIdentification());
-        if (temp != Table.noObj) {
-            cleanDesignator.obj = temp;
+        if (temp == Table.noObj || temp.getKind() == Obj.Type || temp.getKind() == Obj.Prog) {
+            temp = new Obj(Obj.NO_VALUE, cleanDesignator.getIdentification(), Table.noType);
+            report_error(String.format("Neodgovarajuce ime promenljive ili promenljiva ne postoji! [Line %d]", cleanDesignator.getLine()), null);
+        }
+        cleanDesignator.obj = temp;
+    }
+
+    public void visit(DesignatorListOneElement designatorListOneElement) {
+        Obj temp = Table.find(designatorListOneElement.getIdentification());
+
+        if (temp == Table.noObj || temp.getKind() == Obj.Type || temp.getKind() == Obj.Prog) {
+            temp = new Obj(Obj.NO_VALUE, designatorListOneElement.getIdentification(), Table.noType);
+            report_error(String.format("Neodgovarajuce ime promenljive ili promenljiva ne postoji! [Line %d]", designatorListOneElement.getLine()), null);
+        }
+        designatorListOneElement.obj = temp;
+    }
+
+    public void visit(ArrayElementDesignatorList arrayElementDesignatorList) {
+        Obj expressionObj = arrayElementDesignatorList.getExpr().obj;
+        Obj designatorListObj = arrayElementDesignatorList.getDesignatorList().obj;
+
+        if (expressionObj.getType().getKind() != Struct.Int) {
+            report_error(String.format("Ne moze da se indeksira sa tipom (%s)! [Line: {%d}]",
+                    nazivi_tipova.get(expressionObj.getKind()),
+                    arrayElementDesignatorList.getLine()), null);
         } else {
-            report_error("Ne postoji deklarisana promenljiva sa ovim imenom: " + cleanDesignator.getIdentification(),
-                    cleanDesignator);
+            if (designatorListObj.getType().getKind() == Struct.Array) {
+                Struct elementType = designatorListObj.getType().getElemType();
+                Struct objectStruct = Table.noType;
+                if (elementType != null) {
+                    objectStruct = elementType;
+                }
+                arrayElementDesignatorList.obj = new Obj(Obj.Elem, "", objectStruct);
+            } else {
+                report_error(String.format("Nemoguce je indeksirati promenljivu koja nije tipa niza! [Line: {%d}]",
+                        arrayElementDesignatorList.getLine()), null);
+            }
         }
     }
+
+    public void visit(ArrayElementAccessDesignator arrayElementAccessDesignator) {
+        Obj expressionObj = arrayElementAccessDesignator.getExpr().obj;
+        Obj designatorListObj = arrayElementAccessDesignator.getDesignatorList().obj;
+        if (expressionObj.getType().getKind() != Struct.Int) {
+            report_error(String.format("Ne moze da se indeksira sa tipom (%s)! [Line: {%d}]",
+                    nazivi_tipova.get(expressionObj.getKind()),
+                    arrayElementAccessDesignator.getLine()), null);
+        } else {
+            if (designatorListObj.getType().getKind() == Struct.Array) {
+                Struct elementType = designatorListObj.getType().getElemType();
+                Struct objectStruct = Table.noType;
+                if (elementType != null) {
+                    objectStruct = elementType;
+                }
+                arrayElementAccessDesignator.obj = new Obj(Obj.Elem, "", objectStruct);
+            } else {
+                report_error(String.format("Nemoguce je indeksirati promenljivu koja nije tipa niza! [Line: {%d}]",
+                        arrayElementAccessDesignator.getLine()), null);
+            }
+        }
+    }
+
 
     // TODO treba provera za array tip isto
     public void visit(IncrementDesignator incrementDesignator) {
@@ -253,6 +295,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
+
     public void visit(MethodCallDesignator methodCallDesignator) {
         Obj functionObject = methodCallDesignator.getDesignator().obj;
         if (functionObject.getKind() == Obj.Meth) {
@@ -266,74 +309,94 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(OneTerm oneTerm) {
-        oneTerm.struct = oneTerm.getTerm().struct;
+        oneTerm.obj = oneTerm.getTerm().obj;
     }
 
     public void visit(AddOperationTerm addOperationTerm) {
-        addOperationTerm.struct = addOperationTerm.getExprNoTernAddOpList().struct;
+        addOperationTerm.obj = addOperationTerm.getExprNoTernAddOpList().obj;
     }
 
     public void visit(TermList termList) {
-        Struct termTree = termList.getTerm().struct;
-        Struct factorStruct = termList.getExprNoTernAddOpList().struct;
+        Obj termTree = termList.getTerm().obj;
+        Obj factor = termList.getExprNoTernAddOpList().obj;
 
-        if (factorStruct.getElemType().equals(Struct.Int) && termTree.equals(factorStruct)) {
-            termList.struct = termTree;
+        // TODO Za nizove nisam siguran jos kako kodira ovaj object
+        if (termTree.getType().equals(Table.intType) &&
+                factor.getType().equals(Table.intType)) {
+            termList.obj = new Obj(Obj.Var, "", Table.intType);
         } else {
             report_error(String.format("Nemoguce sabiranje sa tipovima (%s) i (%s)! [Line: %d]",
                     nazivi_tipova.get(termTree.getKind()),
-                    nazivi_tipova.get(factorStruct.getKind()),
+                    nazivi_tipova.get(factor.getKind()),
                     termList.getLine()), null);
+
         }
+
     }
 
     public void visit(AssignDesignator assignDesignator) {
-        Struct designator = assignDesignator.getDesignator().obj.getType();
-        Struct expression = assignDesignator.getExpr().struct;
-        if (designator.equals(expression)) {
-            // TODO kompatibilnost sa array???
-            // assigndesignator.struct?
-        } else {
-            report_error("Dodela nemoguca izmedju (" +
-                    nazivi_tipova.get(designator.getKind()) + ") i ("
-                    + nazivi_tipova.get(expression.getKind()) + ")! [Line:"
-                    + assignDesignator.getLine() + "]", null);
+        Obj designator = assignDesignator.getDesignator().obj;
+        Obj expression = assignDesignator.getExpr().obj;
+
+        if (designator.getKind() == Obj.Con) {
+            report_error(String.format("%s je KONSTANTA, ne moze da se dodeljuje nova vrednost konstanti! [Line: %d]",
+                    designator.getName(), assignDesignator.getLine()), null);
+            return;
+        }
+        if (!expression.getType().assignableTo(designator.getType())) {
+            // TODO kompatibilnost sa array??
+            report_error(String.format("Promenljiva tipa (%s) ne moze da se dodeli promenljivoj tipa (%s)! [Line: %d]",
+                    nazivi_tipova.get(expression.getType().getKind()),
+                    nazivi_tipova.get(designator.getType().getKind()),
+                    assignDesignator.getLine()
+                    ), null);
         }
     }
 
     public void visit(ExprNoTernStatement exprNoTernStatement) {
-        exprNoTernStatement.struct = exprNoTernStatement.getExprNoTern().struct;
+        exprNoTernStatement.obj = exprNoTernStatement.getExprNoTern().obj;
     }
 
     public void visit(NumericConstant numericConstant) {
-        numericConstant.struct = Table.intType;
+        // Level 1 jer je unutar nekog scope-a
+        numericConstant.obj = new Obj(Obj.Con, "", Table.intType, numericConstant.getNumValue(), 1);
     }
 
     public void visit(CharacterConstant characterConstant) {
-        characterConstant.struct = Table.charType;
+        characterConstant.obj = new Obj(Obj.Con, "", Table.charType, characterConstant.getCharValue(), 1);
     }
 
     public void visit(BooleanConstant booleanConstant) {
-        booleanConstant.struct = Table.boolType;
+        booleanConstant.obj = new Obj(Obj.Con, "", Table.boolType, booleanConstant.getBoolValue().equalsIgnoreCase("true") ? 1 : 0, 1);
     }
 
     public void visit(NoParamsDesignator NoParamsDesignator) {
-        NoParamsDesignator.struct = NoParamsDesignator.getDesignator().obj.getType();
+        Obj designatorObject = NoParamsDesignator.getDesignator().obj;
+        if (designatorObject != null) {
+            NoParamsDesignator.obj = designatorObject;
+        } else {
+            NoParamsDesignator.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
+        }
     }
 
     public void visit(NonMullOpTerm term) {
-        term.struct = term.getFactor().struct;
+        term.obj = term.getFactor().obj;
     }
 
     public void visit(MullOpTerm termOp) {
-        Struct termTree = termOp.getTerm().struct;
-        Struct factorStruct = termOp.getFactor().struct;
-        if (factorStruct.getElemType().equals(Struct.Int) && termTree.equals(factorStruct)) {
-            termOp.struct = termTree;
+        Obj termTree = termOp.getTerm().obj;
+        Obj factor = termOp.getFactor().obj;
+        if (termTree == null || factor == null) {
+            report_error(String.format("Fatalna greska se dogodila! [Line %d]", termOp.getLine()), null);
+            System.exit(344);
+        }
+
+        if (factor.getType().equals(Table.intType) && termTree.equals(factor)) {
+            termOp.obj = new Obj(Obj.Var, "", Table.intType);
         } else {
-            report_error(String.format("Nemoguce sabiranje sa tipovima (%s) i (%s)! [Line: %d]",
+            report_error(String.format("Nemoguce sabiranje tipova (%s) i (%s)! [Line: %d]",
                     nazivi_tipova.get(termTree.getKind()),
-                    nazivi_tipova.get(factorStruct.getKind()),
+                    nazivi_tipova.get(factor.getKind()),
                     termOp.getLine()), null);
         }
         // TODO equals za termove
@@ -341,23 +404,23 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(ReturnStmt returnStmt) {
-        Struct struct = returnStmt.getReturnStmts().struct;
-        if (struct.equals(currentReturnMethodType)) {
+        Obj returnStatementObject = returnStmt.getReturnStmts().obj;
+        if (returnStatementObject.getType().equals(currentReturnMethodType)) {
             // TODO Provera za nizove
         } else {
             report_error(String.format("Povratna vrednost metode [%s] je (%s)," +
                             " povratna vrednost je (%s)",
                     currentMethod.getName(),
                     nazivi_tipova.get(currentReturnMethodType.getKind()),
-                    nazivi_tipova.get(struct.getKind())), null);
+                    nazivi_tipova.get(returnStatementObject.getType().getKind())), null);
         }
     }
 
     public void visit(NonEmptyReturn nonEmptyReturn) {
-        nonEmptyReturn.struct = nonEmptyReturn.getExpr().struct;
+        nonEmptyReturn.obj = new Obj(Obj.Type, "", nonEmptyReturn.getExpr().obj.getType());
     }
 
     public void visit(EmptyReturn epsilon) {
-        epsilon.struct = Table.noType;
+        epsilon.obj = new Obj(Obj.Type, "", Table.noType);
     }
 }

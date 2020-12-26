@@ -5,9 +5,20 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class VoidReturn extends ReturnType {
+public class DesignatorListOneElement extends DesignatorList {
 
-    public VoidReturn () {
+    private String identification;
+
+    public DesignatorListOneElement (String identification) {
+        this.identification=identification;
+    }
+
+    public String getIdentification() {
+        return identification;
+    }
+
+    public void setIdentification(String identification) {
+        this.identification=identification;
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +39,13 @@ public class VoidReturn extends ReturnType {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("VoidReturn(\n");
+        buffer.append("DesignatorListOneElement(\n");
+
+        buffer.append(" "+tab+identification);
+        buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [VoidReturn]");
+        buffer.append(") [DesignatorListOneElement]");
         return buffer.toString();
     }
 }
