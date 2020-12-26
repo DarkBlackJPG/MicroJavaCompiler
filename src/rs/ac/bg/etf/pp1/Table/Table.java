@@ -9,7 +9,6 @@ import rs.etf.pp1.symboltable.visitors.SymbolTableVisitor;
 
 public class Table extends Tab {
 
-
     // standardni tipovi
     public static final Struct noType = new Struct(Struct.None);
     public static final Struct intType = new Struct(Struct.Int);

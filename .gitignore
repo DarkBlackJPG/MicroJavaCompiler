@@ -1,6 +1,6 @@
-.classpath
-.project
 *.class
 logs/*
 bin/*
-/bin/
+./bin/*
+
+

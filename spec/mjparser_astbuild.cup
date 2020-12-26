@@ -238,7 +238,7 @@ nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName;
 
 precedence left ELSE;
 
-start with Program;
+
 
 Program 	::= 
 			  (Program) 			PROG 
@@ -469,7 +469,7 @@ ActParsChoice ::= (EmptyActPars) {: RESULT=new EmptyActPars(); :}
 ActPars ::= (ActParsWithoutComma) Expr:E1 {: RESULT=new ActParsWithoutComma(E1); RESULT.setLine(E1left); :}
 		| (ActParsWithComma) ActPars:A1 COMMA Expr:E2 {: RESULT=new ActParsWithComma(A1, E2); RESULT.setLine(A1left); :};
 		
-		
+
 Designator ::= (CleanDesignator) IDENT:identification {: RESULT=new CleanDesignator(identification); RESULT.setLine(identificationleft); :}
             | (ArrayElementAccessDesignator) DesignatorList:D1 BRACKET_BEGIN Expr:expression BRACKET_END {: RESULT=new ArrayElementAccessDesignator(D1, expression); RESULT.setLine(D1left); :}
             | (MemberElementAccessDesignator) DesignatorList:D1 DOT IDENT:identification {: RESULT=new MemberElementAccessDesignator(D1, identification); RESULT.setLine(D1left); :}
