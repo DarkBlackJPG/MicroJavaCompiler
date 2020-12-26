@@ -178,7 +178,7 @@ nonterminal DesignatorStatement;
 
 nonterminal Condition;
 
-nonterminal ReturnStmts;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ReturnStmts;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Expr;
 
@@ -200,7 +200,7 @@ nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator;
 
-nonterminal DesignatorList;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct DesignatorList;
 
 nonterminal SwichCaseDefinition;
 
@@ -216,13 +216,13 @@ nonterminal RelationalExpression;
 
 nonterminal ErrorVariables;
 
-nonterminal ExprTern;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprTern;
 
-nonterminal ExprNoTern;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprNoTern;
 
 nonterminal FormParamsBrackets;
 
-nonterminal ExprNoTernAddOpList;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprNoTernAddOpList;
 
 nonterminal MethodStatements;
 
@@ -272,7 +272,8 @@ ConstList 	::=
 				
 				
 Const		::=
-				(ConstDefinition) IDENT:identification AssignOp Literals:uuuu;
+				(ConstDefinition) IDENT:identification AssignOp Literals:literals
+				;
 
 Literals	::=
 				(NumericLiteral) NUM_CONST:numValue
@@ -398,14 +399,14 @@ StatementList ::= (NonEmptyStatementList) StatementList Statement
 					| (EmptyStatement) ;
 					
 					
-DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp Expr
+DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp Expr:type
 					| (MethodCallDesignator) Designator:designator PARENTHESES_BEGIN ActParsChoice PARENTHESES_END
 					| (IncrementDesignator) Designator:designator INCREMENT
 					| (DecrementDesignator) Designator:designator DECREMENT
 					;
 
 
-ReturnStmts ::= (NonEmptyReturn) Expr 
+ReturnStmts ::= (NonEmptyReturn) Expr:expr
 			| (EmptyReturn)
 			;
 
@@ -428,27 +429,8 @@ RelationalExpression ::= (NonEmptyRelationalExpression) RelOp ExprNoTern
 					| (EmptyRelationalExpression)
 					;
 
-/*
-TernaryCondition ::= (TernaryCondition) TernaryCondExpression ;
 
-
-TernaryCondExpression ::= 
-				(TernaryConditionExpressionWithoutOr) TernaryCondTerm 
-				| (TernaryConditionExpressionWithOr) TernaryCondExpression OR TernaryCondTerm
-				;
-
-TernaryCondTerm ::= (TernaryConditionTermWithAnd) TernaryCondTerm AND TernaryCondFactor
-			| (TernaryConditionTermFactor) TernaryCondFactor
-			;
-			
-TernaryCondFactor ::= (TernaryExpressionConditionFactor) ExprNoTern
-			;
-
-TernaryRelationalExpression ::= (TernaryNonEmptyRelationalExpression) RelOp ExprNoTern
-					| (TernaryEmptyRelationalExpression)
-					;
-*/
-Expr ::=  (ExprNoTernStatement) ExprNoTern
+Expr ::=  (ExprNoTernStatement) ExprNoTern:e
 		|(ExprTernStatement) ExprTern
 	;
 	
@@ -456,16 +438,16 @@ ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList
 	| (AddOperationTerm) ExprNoTernAddOpList
 	;
 	
-ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList AddOp Term
-						| (OneTerm) Term
+ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:type_other AddOp Term:type
+						| (OneTerm) Term:type
 						;
 	
 ExprTern ::= (TernaryExpressionStmt) Condition QUESTION_MARK Expr COLON Expr
 			;
 
 
-Term ::= (NonMullOpTerm) Factor
-		| (MullOpTerm) Term MulOp Factor
+Term ::= (NonMullOpTerm) Factor:factorStruct
+		| (MullOpTerm) Term:termTree MulOp Factor:factorStruct
 		;
 	
 Factor ::=
@@ -525,3 +507,25 @@ MulOp 		::=
 			| (MulopDivide)			DIVIDE
 			| (MulopModulo)			MODULO
 			;
+
+
+/*
+TernaryCondition ::= (TernaryCondition) TernaryCondExpression ;
+
+
+TernaryCondExpression ::=
+				(TernaryConditionExpressionWithoutOr) TernaryCondTerm
+				| (TernaryConditionExpressionWithOr) TernaryCondExpression OR TernaryCondTerm
+				;
+
+TernaryCondTerm ::= (TernaryConditionTermWithAnd) TernaryCondTerm AND TernaryCondFactor
+			| (TernaryConditionTermFactor) TernaryCondFactor
+			;
+
+TernaryCondFactor ::= (TernaryExpressionConditionFactor) ExprNoTern
+			;
+
+TernaryRelationalExpression ::= (TernaryNonEmptyRelationalExpression) RelOp ExprNoTern
+					| (TernaryEmptyRelationalExpression)
+					;
+*/

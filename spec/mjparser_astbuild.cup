@@ -178,7 +178,7 @@ nonterminal DesignatorStatement DesignatorStatement;
 
 nonterminal Condition Condition;
 
-nonterminal ReturnStmts ReturnStmts;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ReturnStmts;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Expr;
 
@@ -200,7 +200,7 @@ nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator;
 
-nonterminal DesignatorList DesignatorList;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct DesignatorList;
 
 nonterminal SwichCaseDefinition SwichCaseDefinition;
 
@@ -216,13 +216,13 @@ nonterminal RelationalExpression RelationalExpression;
 
 nonterminal ErrorVariables ErrorVariables;
 
-nonterminal ExprTern ExprTern;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprTern;
 
-nonterminal ExprNoTern ExprNoTern;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprNoTern;
 
 nonterminal FormParamsBrackets FormParamsBrackets;
 
-nonterminal ExprNoTernAddOpList ExprNoTernAddOpList;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct ExprNoTernAddOpList;
 
 nonterminal MethodStatements MethodStatements;
 
@@ -272,7 +272,8 @@ ConstList 	::=
 				
 				
 Const		::=
-				(ConstDefinition) IDENT:identification AssignOp:A1 Literals:uuuu {: RESULT=new ConstDefinition(identification, A1, uuuu); RESULT.setLine(identificationleft); :};
+				(ConstDefinition) IDENT:identification AssignOp:A1 Literals:literals {: RESULT=new ConstDefinition(identification, A1, literals); RESULT.setLine(identificationleft); :}
+				;
 
 Literals	::=
 				(NumericLiteral) NUM_CONST:numValue {: RESULT=new NumericLiteral(numValue); RESULT.setLine(numValueleft); :}
@@ -398,14 +399,14 @@ StatementList ::= (NonEmptyStatementList) StatementList:S1 Statement:S2 {: RESUL
 					| (EmptyStatement) {: RESULT=new EmptyStatement(); :} ;
 					
 					
-DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp:A1 Expr:E2 {: RESULT=new AssignDesignator(designator, A1, E2); RESULT.setLine(designatorleft); :}
+DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp:A1 Expr:type {: RESULT=new AssignDesignator(designator, A1, type); RESULT.setLine(designatorleft); :}
 					| (MethodCallDesignator) Designator:designator PARENTHESES_BEGIN ActParsChoice:A1 PARENTHESES_END {: RESULT=new MethodCallDesignator(designator, A1); RESULT.setLine(designatorleft); :}
 					| (IncrementDesignator) Designator:designator INCREMENT {: RESULT=new IncrementDesignator(designator); RESULT.setLine(designatorleft); :}
 					| (DecrementDesignator) Designator:designator DECREMENT {: RESULT=new DecrementDesignator(designator); RESULT.setLine(designatorleft); :}
 					;
 
 
-ReturnStmts ::= (NonEmptyReturn) Expr:E1 {: RESULT=new NonEmptyReturn(E1); RESULT.setLine(E1left); :} 
+ReturnStmts ::= (NonEmptyReturn) Expr:expr {: RESULT=new NonEmptyReturn(expr); RESULT.setLine(exprleft); :}
 			| (EmptyReturn) {: RESULT=new EmptyReturn(); :}
 			;
 
@@ -428,27 +429,8 @@ RelationalExpression ::= (NonEmptyRelationalExpression) RelOp:R1 ExprNoTern:E2 {
 					| (EmptyRelationalExpression) {: RESULT=new EmptyRelationalExpression(); :}
 					;
 
-/*
-TernaryCondition ::= (TernaryCondition) TernaryCondExpression ;
 
-
-TernaryCondExpression ::= 
-				(TernaryConditionExpressionWithoutOr) TernaryCondTerm 
-				| (TernaryConditionExpressionWithOr) TernaryCondExpression OR TernaryCondTerm
-				;
-
-TernaryCondTerm ::= (TernaryConditionTermWithAnd) TernaryCondTerm AND TernaryCondFactor
-			| (TernaryConditionTermFactor) TernaryCondFactor
-			;
-			
-TernaryCondFactor ::= (TernaryExpressionConditionFactor) ExprNoTern
-			;
-
-TernaryRelationalExpression ::= (TernaryNonEmptyRelationalExpression) RelOp ExprNoTern
-					| (TernaryEmptyRelationalExpression)
-					;
-*/
-Expr ::=  (ExprNoTernStatement) ExprNoTern:E1 {: RESULT=new ExprNoTernStatement(E1); RESULT.setLine(E1left); :}
+Expr ::=  (ExprNoTernStatement) ExprNoTern:e {: RESULT=new ExprNoTernStatement(e); RESULT.setLine(eleft); :}
 		|(ExprTernStatement) ExprTern:E1 {: RESULT=new ExprTernStatement(E1); RESULT.setLine(E1left); :}
 	;
 	
@@ -456,16 +438,16 @@ ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList:E1 {: RESULT=new Negati
 	| (AddOperationTerm) ExprNoTernAddOpList:E1 {: RESULT=new AddOperationTerm(E1); RESULT.setLine(E1left); :}
 	;
 	
-ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:E1 AddOp:A2 Term:T3 {: RESULT=new TermList(E1, A2, T3); RESULT.setLine(E1left); :}
-						| (OneTerm) Term:T1 {: RESULT=new OneTerm(T1); RESULT.setLine(T1left); :}
+ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:type_other AddOp:A1 Term:type {: RESULT=new TermList(type_other, A1, type); RESULT.setLine(type_otherleft); :}
+						| (OneTerm) Term:type {: RESULT=new OneTerm(type); RESULT.setLine(typeleft); :}
 						;
 	
 ExprTern ::= (TernaryExpressionStmt) Condition:C1 QUESTION_MARK Expr:E2 COLON Expr:E3 {: RESULT=new TernaryExpressionStmt(C1, E2, E3); RESULT.setLine(C1left); :}
 			;
 
 
-Term ::= (NonMullOpTerm) Factor:F1 {: RESULT=new NonMullOpTerm(F1); RESULT.setLine(F1left); :}
-		| (MullOpTerm) Term:T1 MulOp:M2 Factor:F3 {: RESULT=new MullOpTerm(T1, M2, F3); RESULT.setLine(T1left); :}
+Term ::= (NonMullOpTerm) Factor:factorStruct {: RESULT=new NonMullOpTerm(factorStruct); RESULT.setLine(factorStructleft); :}
+		| (MullOpTerm) Term:termTree MulOp:M1 Factor:factorStruct {: RESULT=new MullOpTerm(termTree, M1, factorStruct); RESULT.setLine(termTreeleft); :}
 		;
 	
 Factor ::=
@@ -525,3 +507,25 @@ MulOp 		::=
 			| (MulopDivide)			DIVIDE {: RESULT=new MulopDivide(); :}
 			| (MulopModulo)			MODULO {: RESULT=new MulopModulo(); :}
 			;
+
+
+/*
+TernaryCondition ::= (TernaryCondition) TernaryCondExpression ;
+
+
+TernaryCondExpression ::=
+				(TernaryConditionExpressionWithoutOr) TernaryCondTerm
+				| (TernaryConditionExpressionWithOr) TernaryCondExpression OR TernaryCondTerm
+				;
+
+TernaryCondTerm ::= (TernaryConditionTermWithAnd) TernaryCondTerm AND TernaryCondFactor
+			| (TernaryConditionTermFactor) TernaryCondFactor
+			;
+
+TernaryCondFactor ::= (TernaryExpressionConditionFactor) ExprNoTern
+			;
+
+TernaryRelationalExpression ::= (TernaryNonEmptyRelationalExpression) RelOp ExprNoTern
+					| (TernaryEmptyRelationalExpression)
+					;
+*/
