@@ -1,6 +1,6 @@
 program MyProgram
 	const char marko = 's';
-	bool y[];
+	int y[];
 {	
 	
 	int moja_funkcija() 
@@ -13,7 +13,7 @@ program MyProgram
 	int c;
 	bool kk;
 	{
-	    kk = y[ci];
+	    y = new bool[3];
 		moja_funkcija();
 	}
 }
