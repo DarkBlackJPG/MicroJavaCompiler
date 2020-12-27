@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:SemanticAnalysis" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5ea56d25-7925-413e-af01-26aa7325ff16" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/SemanticAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/SemanticAnalyzer.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1mFnzkrxEJ5S7cnwt58wDD25SZC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\stefa\OneDrive\Desktop\ETF\PP1 projekat\MyCode\workspace\MJCompiler\test" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MJTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="rs.ac.bg.etf.pp1.MJTest" />
+      <module name="MJCompiler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="rs.ac.bg.etf.pp1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MJTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5ea56d25-7925-413e-af01-26aa7325ff16" name="Default Changelist" comment="" />
+      <created>1609098470864</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1609098470864</updated>
+      <workItem from="1609098474526" duration="193000" />
+      <workItem from="1609098677000" duration="6277000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="SemanticAnalysis" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2713" y="57" key="#Plugins" timestamp="1609098727737">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state x="2713" y="57" key="#Plugins/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609098727737" />
+    <state x="2961" y="187" key="#com.intellij.ide.util.MemberChooser" timestamp="1609100209413">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state x="2961" y="187" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609100209413" />
+    <state width="443" height="646" key="DebuggerActiveHint" timestamp="1609109989570">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="443" height="646" key="DebuggerActiveHint/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609109989570" />
+    <state width="2517" height="541" key="GridCell.Tab.0.bottom" timestamp="1609110404048">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="2517" height="541" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609110404048" />
+    <state width="2517" height="541" key="GridCell.Tab.0.center" timestamp="1609110404048">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="2517" height="541" key="GridCell.Tab.0.center/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609110404048" />
+    <state width="2517" height="541" key="GridCell.Tab.0.left" timestamp="1609110404048">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="2517" height="541" key="GridCell.Tab.0.left/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609110404048" />
+    <state width="2517" height="541" key="GridCell.Tab.0.right" timestamp="1609110404048">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="2517" height="541" key="GridCell.Tab.0.right/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609110404048" />
+    <state width="2517" height="499" key="GridCell.Tab.1.bottom" timestamp="1609110038833">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="2517" height="499" key="GridCell.Tab.1.bottom/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609110038833" />
+    <state width="2517" height="499" key="GridCell.Tab.1.center" timestamp="1609110038833">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="2517" height="499" key="GridCell.Tab.1.center/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609110038833" />
+    <state width="2517" height="499" key="GridCell.Tab.1.left" timestamp="1609110038833">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="2517" height="499" key="GridCell.Tab.1.left/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609110038833" />
+    <state width="2517" height="499" key="GridCell.Tab.1.right" timestamp="1609110038833">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state width="2517" height="499" key="GridCell.Tab.1.right/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609110038833" />
+    <state x="2930" y="201" key="extract.method.dialog" timestamp="1609108623634">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state x="2930" y="201" key="extract.method.dialog/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609108623634" />
+    <state x="2863" y="96" width="672" height="678" key="search.everywhere.popup" timestamp="1609109293390">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state x="2863" y="96" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609109293390" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/SemanticAnalyzer.java</url>
+          <line>401</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
