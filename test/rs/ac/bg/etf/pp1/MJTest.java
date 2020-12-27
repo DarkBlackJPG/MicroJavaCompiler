@@ -21,14 +21,14 @@ public class MJTest {
 		Log4JUtils.instance().prepareLogFile(Logger.getRootLogger());
 	}
 
-	private static void report_error(String message) {
+	public static void report_error(String message) {
 		log.error("\u001b[0;31m" + message + "\u001b[m");
 	}
-	private static void report_info(String message) {
-		log.error("\u001b[0;33m" + message + "\u001b[m");
+	public static void report_info(String message) {
+		log.info("\u001b[0;36m" + message + "\u001b[m");
 	}
-	private static void report_success(String message) {
-		log.error("\u001B[0;32m" + message + "\u001b[m");
+	public static void report_success(String message) {
+		log.info("\u001B[0;32m" + message + "\u001b[m");
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -48,16 +48,18 @@ public class MJTest {
 			Table.init();
 			Program prog = (Program)(s.value);
 			
-			log.info("==================== SEMANTIC ANALYSIS =============================");
+
 			log.info(prog.toString(""));
 			
 			SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
+			report_info("============================= SEMANTICKA OBRADA =============================");
 			prog.traverseBottomUp(semanticAnalyzer);
-			
-			log.info(" Print count calls = " + semanticAnalyzer.printCallCount);
-			log.info(" Deklarisanih promenljivih ima = " + semanticAnalyzer.varDeclCount);
-			log.info(" Deklarisanih nizova ima = " + semanticAnalyzer.varArrayDeclCount);
-			log.info("=================================================");
+			if (!semanticAnalyzer.mainMethodDetected) {
+				report_error("Main metoda nije definisana u programu!!!");
+				semanticAnalyzer.errorDetected = true;
+			}
+			report_info("============================= SINTAKSNA ANALIZA =============================");
+			log.info("\n" + semanticAnalyzer.syntaxAnalysisWatcher.toString());
 			Table.dump();
 
 			if(semanticAnalyzer.errorDetected) {

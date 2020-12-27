@@ -12,6 +12,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     int constDeclCount = 0;
     boolean returnTokenRequired = false;
     boolean mainMethodDetected = false;
+    SyntaxAnalysisWatcher syntaxAnalysisWatcher = new SyntaxAnalysisWatcher();
 
     // Potreba da se detektuje ulazna tacka programa
     final String mainMethodName = "main";
@@ -61,12 +62,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         int line = (info == null) ? 0 : info.getLine();
         if (line != 0)
             msg.append(" na liniji ").append(line);
-        log.info("\u001b[0;33m" + msg.toString() + "\u001b[m");
+        log.info(/*"\u001b[0;33m"*/ "" + msg.toString() + ""/*"\u001b[m"*/);
     }
 
     // VariableDeclaration is superclass
     public void visit(NonArrayVariable vardecl) {
-        varDeclCount++;
+        syntaxAnalysisWatcher.globalVariableDetected();
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj) {
             Table.insert(Obj.Var, vardecl.getVariableName(), currentType);
@@ -77,7 +78,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(ErrorNonArrayVariable vardecl) {
-        varDeclCount++;
+        syntaxAnalysisWatcher.globalVariableDetected();
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj) {
             Table.insert(Obj.Var, vardecl.getVariableName(), currentType);
@@ -89,7 +90,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(ArrayVariable vardecl) {
-        varArrayDeclCount++;
+        syntaxAnalysisWatcher.globalArrayDetected();
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj) {
             Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
@@ -100,8 +101,20 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
     }
 
+    public void visit(HasMethodVariables hasMethodVariables) {
+        if (currentMethod.getName().equalsIgnoreCase("main")) {
+            syntaxAnalysisWatcher.localVariableInMainDetected();
+        }
+    }
+
+    public void visit(NonEmptyMethodStatements nonEmptyMethodStatements) {
+        if (currentMethod.getName().equalsIgnoreCase("main")) {
+            syntaxAnalysisWatcher.mainStatementDetected();
+        }
+    }
+
     public void visit(ErrorArrayVariable vardecl) {
-        varArrayDeclCount++;
+        syntaxAnalysisWatcher.globalArrayDetected();
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj) {
             Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
@@ -126,8 +139,24 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         num.obj = new Obj(Obj.Con, "", Table.boolType, isTrue ? 1 : 0, 0);
     }
 
+//    public void visit(VarDeclarations varDeclarations) {
+//        syntaxAnalysisWatcher.globalVariableDetected();
+//    }
+
+    public void visit(ClassDeclarations classDeclarations) {
+        syntaxAnalysisWatcher.classDetected();
+    }
+
+    public void visit(SingleMethod singleMethod) {
+        syntaxAnalysisWatcher.methodDetected();
+    }
+    public void visit(MethodDeclList methodDeclList) {
+        syntaxAnalysisWatcher.methodDetected();
+    }
+
     public void visit(ConstDefinition vardecl) {
-        constDeclCount++;
+        syntaxAnalysisWatcher.globalConstantDetected();
+
         Obj variableNode = Table.find(vardecl.getIdentification());
         if (variableNode == Table.noObj) {
             variableNode = Table.insert(Obj.Con, vardecl.getIdentification(), currentType);
@@ -146,7 +175,13 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(PrintStmt print) {
-        printCallCount++;
+        if (currentMethod.getName().equalsIgnoreCase("main"))
+            syntaxAnalysisWatcher.functionCallDetected();
+    }
+
+    public void visit(ReadStmt print) {
+        if (currentMethod.getName().equalsIgnoreCase("main"))
+            syntaxAnalysisWatcher.functionCallDetected();
     }
 
     public void visit(Type type) {
@@ -203,8 +238,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         Table.openScope();
         if (mainMethodName.equalsIgnoreCase(methodTypeName.getMethodIdentification())) {
             mainMethodDetected = true;
+            MJTest.report_success(String.format("Main metoda je definisana! [Line: %d]", methodTypeName.getLine()));
         }
-        report_info("Detektovana metoda " + methodTypeName.getMethodIdentification(), methodTypeName);
+
     }
 
     public void visit(OneMethodDeclaration methodDeclaration) {
@@ -303,7 +339,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(MethodCallDesignator methodCallDesignator) {
         Obj functionObject = methodCallDesignator.getDesignator().obj;
         if (functionObject.getKind() == Obj.Meth) {
-            report_info("Pronadjen poziv funkcije [Line" + methodCallDesignator.getLine() + "]", null);
+            if (currentMethod.getName().equalsIgnoreCase("main")) {
+                syntaxAnalysisWatcher.functionCallDetected();
+            }
             //methodCallDesignator.struct = functionObject.getType();
         } else {
             report_error("Ocekuje se poziv metode, prosledjen tip:  " + nazivi_tipova.get(functionObject.getKind())

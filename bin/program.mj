@@ -10,7 +10,7 @@ program test301
 	char nizch[];
 
 {
-	void main()	
+	void main()
 int bodovi;
     bool bt;
 	{
@@ -49,7 +49,7 @@ int bodovi;
 		
 		print(bt ? bodovi : bodovi + 10);
 		print(false ? bodovi + 20 : bodovi + 30);
-		print(true <= false ? '+' : '-');
+		print(true == false ? '+' : '-');
 	}
 }
 

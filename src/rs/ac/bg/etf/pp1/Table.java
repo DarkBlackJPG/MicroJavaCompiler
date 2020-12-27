@@ -136,7 +136,7 @@ public class Table extends Tab {
     }
 
     public static void dump(SymbolTableVisitor stv) {
-        System.out.println("=====================SYMBOL TABLE DUMP=========================");
+        MJTest.report_info("============================= SADRZAJ TABELE SIMBOLA =============================");
         if (stv == null)
             stv = new TableRider();
         for (Scope s = currentScope; s != null; s = s.getOuter()) {
