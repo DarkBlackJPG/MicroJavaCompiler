@@ -49,7 +49,7 @@ int bodovi;
 		
 		print(bt ? bodovi : bodovi + 10);
 		print(false ? bodovi + 20 : bodovi + 30);
-		print(bodovi > 10 ? '+' : '-');
+		print(true <= false ? '+' : '-');
 	}
 }
 

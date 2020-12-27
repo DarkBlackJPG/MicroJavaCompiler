@@ -38,7 +38,6 @@ parser code {:
 
 :}
 
-
 scan with {:
 	Symbol s = this.getScanner().next_token();
 	if (s != null && s.value != null) 
@@ -130,7 +129,7 @@ nonterminal TernaryRelationalExpression ;
 
 nonterminal MulOp;
 
-nonterminal RelOp;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj RelOp;
 
 nonterminal AssignOp;
 
@@ -157,6 +156,7 @@ nonterminal VariableList;
 nonterminal VariableDeclaration;
 
 nonterminal ClassDeclaration;
+
 
 nonterminal ClassBody;
 
@@ -192,7 +192,7 @@ nonterminal CondTerm;
 
 nonterminal FormalParameters;
 
-nonterminal CondFactor;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj CondFactor;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Term;
 
@@ -212,7 +212,7 @@ nonterminal SwitchCaseList;
 
 nonterminal CaseStatementList;
 
-nonterminal RelationalExpression;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj RelationalExpression;
 
 nonterminal ErrorVariables;
 
@@ -337,7 +337,8 @@ ClassMethodList ::=
 				(NoMethods)
 				; 
 
-MethodDeclaration ::= (OneMethodDeclaration) MethodTypeName:methodType PARENTHESES_BEGIN FormalParameters PARENTHESES_END MethodVariables BRACES_BEGIN MethodStatements BRACES_END
+MethodDeclaration ::= (OneMethodDeclaration) MethodTypeName:methodType PARENTHESES_BEGIN FormalParameters
+                                             PARENTHESES_END MethodVariables BRACES_BEGIN MethodStatements BRACES_END
 				;
 				
 MethodTypeName ::= (MethodTypeName) ReturnType IDENT:methodIdentification  ;
@@ -430,7 +431,6 @@ RelationalExpression ::= (NonEmptyRelationalExpression) RelOp ExprNoTern
 					| (EmptyRelationalExpression)
 					;
 
-
 Expr ::=  (ExprNoTernStatement) ExprNoTern:e
 		|(ExprTernStatement) ExprTern
 	;
@@ -443,7 +443,7 @@ ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:type_other AddOp Term:typ
 						| (OneTerm) Term:type
 						;
 	
-ExprTern ::= (TernaryExpressionStmt) Condition QUESTION_MARK Expr COLON Expr
+ExprTern ::= (TernaryExpressionStmt) CondFactor QUESTION_MARK Expr:exprTrue COLON Expr:exprFalse
 			;
 
 

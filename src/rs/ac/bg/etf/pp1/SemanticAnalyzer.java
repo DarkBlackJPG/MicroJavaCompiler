@@ -1,11 +1,9 @@
 package rs.ac.bg.etf.pp1;
-
 import java.util.HashMap;
-
 import org.apache.log4j.Logger;
-
 import rs.ac.bg.etf.pp1.ast.*;
 import rs.etf.pp1.symboltable.concepts.*;
+
 
 public class SemanticAnalyzer extends VisitorAdaptor {
     int printCallCount = 0;
@@ -14,6 +12,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     int constDeclCount = 0;
     boolean returnTokenRequired = false;
     boolean mainMethodDetected = false;
+
     // Potreba da se detektuje ulazna tacka programa
     final String mainMethodName = "main";
 
@@ -31,6 +30,11 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
     final HashMap<Integer, String> nazivi_tipova = new HashMap<>();
 
+
+    // TODO Implementirati ovu detekciju i sprecavanje kompajliranja
+    boolean errorDetected = false;
+
+    // Za potrebe ispisa gresaka
     public SemanticAnalyzer() {
         super();
         nazivi_tipova.put(Struct.None, "void");
@@ -44,7 +48,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void report_error(String message, SyntaxNode info) {
-        // errorDetected = true;
+        errorDetected = true;
         StringBuilder msg = new StringBuilder(message);
         int line = (info == null) ? 0 : info.getLine();
         if (line != 0)
@@ -467,5 +471,123 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
     public void visit(EmptyReturn epsilon) {
         epsilon.obj = new Obj(Obj.Type, "", Table.noType);
+    }
+
+    public void visit(EmptyRelationalExpression emptyRelationalExpression) {
+        emptyRelationalExpression.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
+    }
+
+    public void visit(NonEmptyRelationalExpression nonEmptyRelationalExpression) {
+        Obj expression = nonEmptyRelationalExpression.getExprNoTern().obj;
+        String operation = nonEmptyRelationalExpression.getRelOp().obj.getName();
+        nonEmptyRelationalExpression.obj = new Obj(Obj.Type, operation, expression.getType());
+    }
+
+    public void visit(ExpressionConditionFactor expressionConditionFactor) {
+        Obj leftExpression = expressionConditionFactor.getExprNoTern().obj;
+        Obj rightExpression = expressionConditionFactor.getRelationalExpression().obj;
+        String operation = rightExpression.getName();
+        if (rightExpression.getType().getKind() != Table.noType.getKind()) {
+            if (rightExpression.getType().getKind() == Struct.Array
+                    && leftExpression.getType().getKind() == Struct.Array) {
+                if (leftExpression.getType().getElemType().getKind() == rightExpression.getType().getElemType().getKind()) {
+                    if (operation.equalsIgnoreCase("!=") || operation.equalsIgnoreCase("==")) {
+                        expressionConditionFactor.obj = new Obj(Obj.Type, "", Table.boolType);
+                    } else {
+                        report_error(String.format("Prilikom uporedjivanja nizova, dozvoljeni relacioni opearteri su [!=] ili [==]!" +
+                                        " Koriscena operacija je (%s)! [Line: %d]",
+                                operation,
+                                expressionConditionFactor.getLine()),
+                                null);
+                    }
+                } else {
+                    report_error(String.format("Tipovi nisu kompatibilni! Uporedjuje se Array of (%s) i Array of (%s) [Line: %d]",
+                            nazivi_tipova.get(leftExpression.getType().getElemType().getKind()),
+                            nazivi_tipova.get(rightExpression.getType().getElemType().getKind()),
+                            expressionConditionFactor.getLine()),
+                            null);
+                }
+            } else {
+                /*
+                 * TODO - Da li operator moze da uporedjuje boolean promenljive koriscenjem <, <= i slicno?
+                 *
+                 *  Tj da li neki boolean moze da bude veci ili manji od nekog drugog boolean? Tehnicki vodimo boolean kao
+                 * integer tako da mozemo da uporedjujemo, ali da li ima smisla?
+                 * */
+                if (rightExpression.getType().getKind() == leftExpression.getType().getKind()) {
+                    if (rightExpression.getType().getKind() == Struct.Bool) {
+                        if (operation.equalsIgnoreCase("==") || operation.equalsIgnoreCase("!=")) {
+                            expressionConditionFactor.obj = new Obj(Obj.Type, "", Table.boolType);
+                        } else {
+                            report_error(String.format("Dozvoljeni operatori za uporedjivanje boolean tipova su [==] i [!=]!" +
+                                            " Prilozen operator je [%s]! [Line: %d]",
+                                    operation,
+                                    expressionConditionFactor.getLine()
+                                    ),
+                                    null);
+                        }
+                    } else {
+                        expressionConditionFactor.obj = new Obj(Obj.Type, "", rightExpression.getType());
+                    }
+                } else {
+                    report_error(String.format("Tipovi nisu kompatibilni! Uporedjuje se (%s) i (%s) [Line: %d]",
+                            nazivi_tipova.get(leftExpression.getType().getKind()),
+                            nazivi_tipova.get(rightExpression.getType().getKind()),
+                            expressionConditionFactor.getLine()),
+                            null);
+                }
+            }
+        } else {
+            if (leftExpression.getType().getKind() != Struct.Bool) {
+                report_error(String.format("Uslov u ternarnom operatoru nije logickog tipa, prilozen (%s)! [Line: %d]",
+                        nazivi_tipova.get(leftExpression.getType().getKind()),
+                        expressionConditionFactor.getLine()), null);
+                expressionConditionFactor.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
+            } else {
+                expressionConditionFactor.obj = new Obj(Obj.Type, "", Table.boolType);
+            }
+        }
+    }
+
+    public void visit(TernaryExpressionStmt ternaryExpressionStmt) {
+        Obj trueExpression = ternaryExpressionStmt.getExpr().obj;
+        Obj falseExpression = ternaryExpressionStmt.getExpr1().obj;
+
+        if (trueExpression.getType().getKind() == falseExpression.getType().getKind()) {
+            ternaryExpressionStmt.obj = new Obj(Obj.Type, "", trueExpression.getType());
+        } else {
+            report_error(String.format("Izraz za true je tipa (%s), izraz za false je (%s). Tipovi treba da budu kompatibilni!" +
+                            " [Line: %d]",
+                    nazivi_tipova.get(trueExpression.getType().getKind()),
+                    nazivi_tipova.get(falseExpression.getType().getKind()),
+                    ternaryExpressionStmt.getLine()),
+                    null);
+            ternaryExpressionStmt.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
+        }
+
+    }
+
+    public void visit(RelopEquals relopEquals) {
+        relopEquals.obj = new Obj(Obj.NO_VALUE, "==", Table.noType);
+    }
+
+    public void visit(RelopNotEqual relopNotEqual) {
+        relopNotEqual.obj = new Obj(Obj.NO_VALUE, "!=", Table.noType);
+    }
+
+    public void visit(RelopLargerThan relopLargerThan) {
+        relopLargerThan.obj = new Obj(Obj.NO_VALUE, ">", Table.noType);
+    }
+
+    public void visit(RelopLargerEqual relopLargerEqual) {
+        relopLargerEqual.obj = new Obj(Obj.NO_VALUE, ">=", Table.noType);
+    }
+
+    public void visit(RelopLessThan relopLessThan) {
+        relopLessThan.obj = new Obj(Obj.NO_VALUE, "<", Table.noType);
+    }
+
+    public void visit(RelopLessEqual relopLessEqual) {
+        relopLessEqual.obj = new Obj(Obj.NO_VALUE, "<=", Table.noType);
     }
 }

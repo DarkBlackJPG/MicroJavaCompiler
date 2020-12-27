@@ -15,14 +15,24 @@ import rs.ac.bg.etf.pp1.ast.Program;
 import rs.ac.bg.etf.pp1.util.Log4JUtils;
 
 public class MJTest {
-
+	static Logger log = Logger.getLogger(MJTest.class);
 	static {
 		DOMConfigurator.configure(Log4JUtils.instance().findLoggerConfigFile());
 		Log4JUtils.instance().prepareLogFile(Logger.getRootLogger());
 	}
+
+	private static void report_error(String message) {
+		log.error("\u001b[0;31m" + message + "\u001b[m");
+	}
+	private static void report_info(String message) {
+		log.error("\u001b[0;33m" + message + "\u001b[m");
+	}
+	private static void report_success(String message) {
+		log.error("\u001B[0;32m" + message + "\u001b[m");
+	}
 	
 	public static void main(String[] args) throws Exception {
-		Logger log = Logger.getLogger(MJTest.class);
+
 		Reader br = null;
 		try {
 			
@@ -38,10 +48,8 @@ public class MJTest {
 			Table.init();
 			Program prog = (Program)(s.value);
 			
-			log.info("========================");
+			log.info("==================== SEMANTIC ANALYSIS =============================");
 			log.info(prog.toString(""));
-			log.info("========================");
-			
 			
 			SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
 			prog.traverseBottomUp(semanticAnalyzer);
@@ -49,9 +57,16 @@ public class MJTest {
 			log.info(" Print count calls = " + semanticAnalyzer.printCallCount);
 			log.info(" Deklarisanih promenljivih ima = " + semanticAnalyzer.varDeclCount);
 			log.info(" Deklarisanih nizova ima = " + semanticAnalyzer.varArrayDeclCount);
-			log.info("===================================");
+			log.info("=================================================");
 			Table.dump();
-			
+
+			if(semanticAnalyzer.errorDetected) {
+				report_error("Semanticka analiza je detektovala neku gresku. Objektni generisanje koda se nece" +
+						"izvrsiti!");
+			} else {
+				report_success("Uspesno izvrsena semanticka analiza! Nastavlja se sa generisanjem koda");
+			}
+			log.info("=================================================");
 			
 //			while ((currToken = lexer.next_token()).sym != sym.EOF) {
 //				if (currToken != null && currToken.value != null)

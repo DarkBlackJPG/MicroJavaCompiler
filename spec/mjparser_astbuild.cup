@@ -38,7 +38,6 @@ parser code {:
 
 :}
 
-
 scan with {:
 	Symbol s = this.getScanner().next_token();
 	if (s != null && s.value != null) 
@@ -130,7 +129,7 @@ nonterminal TernaryRelationalExpression ;
 
 nonterminal MulOp MulOp;
 
-nonterminal RelOp RelOp;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj RelOp;
 
 nonterminal AssignOp AssignOp;
 
@@ -157,6 +156,7 @@ nonterminal VariableList VariableList;
 nonterminal VariableDeclaration VariableDeclaration;
 
 nonterminal ClassDeclaration ClassDeclaration;
+
 
 nonterminal ClassBody ClassBody;
 
@@ -192,7 +192,7 @@ nonterminal CondTerm CondTerm;
 
 nonterminal FormalParameters FormalParameters;
 
-nonterminal CondFactor CondFactor;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj CondFactor;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Term;
 
@@ -212,7 +212,7 @@ nonterminal SwitchCaseList SwitchCaseList;
 
 nonterminal CaseStatementList CaseStatementList;
 
-nonterminal RelationalExpression RelationalExpression;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj RelationalExpression;
 
 nonterminal ErrorVariables ErrorVariables;
 
@@ -337,7 +337,8 @@ ClassMethodList ::=
 				(NoMethods) {: RESULT=new NoMethods(); :}
 				; 
 
-MethodDeclaration ::= (OneMethodDeclaration) MethodTypeName:methodType PARENTHESES_BEGIN FormalParameters:F1 PARENTHESES_END MethodVariables:M2 BRACES_BEGIN MethodStatements:M3 BRACES_END {: RESULT=new OneMethodDeclaration(methodType, F1, M2, M3); RESULT.setLine(methodTypeleft); :}
+MethodDeclaration ::= (OneMethodDeclaration) MethodTypeName:methodType PARENTHESES_BEGIN FormalParameters:F1
+                                             PARENTHESES_END MethodVariables:M2 BRACES_BEGIN MethodStatements:M3 BRACES_END {: RESULT=new OneMethodDeclaration(methodType, F1, M2, M3); RESULT.setLine(methodTypeleft); :}
 				;
 				
 MethodTypeName ::= (MethodTypeName) ReturnType:R1 IDENT:methodIdentification {: RESULT=new MethodTypeName(R1, methodIdentification); RESULT.setLine(R1left); :}  ;
@@ -430,7 +431,6 @@ RelationalExpression ::= (NonEmptyRelationalExpression) RelOp:R1 ExprNoTern:E2 {
 					| (EmptyRelationalExpression) {: RESULT=new EmptyRelationalExpression(); :}
 					;
 
-
 Expr ::=  (ExprNoTernStatement) ExprNoTern:e {: RESULT=new ExprNoTernStatement(e); RESULT.setLine(eleft); :}
 		|(ExprTernStatement) ExprTern:E1 {: RESULT=new ExprTernStatement(E1); RESULT.setLine(E1left); :}
 	;
@@ -443,7 +443,7 @@ ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:type_other AddOp:A1 Term:
 						| (OneTerm) Term:type {: RESULT=new OneTerm(type); RESULT.setLine(typeleft); :}
 						;
 	
-ExprTern ::= (TernaryExpressionStmt) Condition:C1 QUESTION_MARK Expr:E2 COLON Expr:E3 {: RESULT=new TernaryExpressionStmt(C1, E2, E3); RESULT.setLine(C1left); :}
+ExprTern ::= (TernaryExpressionStmt) CondFactor:C1 QUESTION_MARK Expr:exprTrue COLON Expr:exprFalse {: RESULT=new TernaryExpressionStmt(C1, exprTrue, exprFalse); RESULT.setLine(C1left); :}
 			;
 
 
