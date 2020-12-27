@@ -1,4 +1,4 @@
-package rs.ac.bg.etf.pp1.Table;
+package rs.ac.bg.etf.pp1;
 
 import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
