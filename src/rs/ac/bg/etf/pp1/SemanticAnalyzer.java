@@ -180,6 +180,16 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(ReadStmt print) {
         if (currentMethod.getName().equalsIgnoreCase("main"))
             syntaxAnalysisWatcher.functionCallDetected();
+        Obj readStmtDesignator = print.getDesignator().obj;
+        if (readStmtDesignator.getType().getKind() != Struct.Int ||
+                readStmtDesignator.getType().getKind() != Struct.Bool ||
+                readStmtDesignator.getType().getKind() != Struct.Char
+        )   {
+            report_error(String.format("Dozvoljeni tipovi u metodi read su: (int), (bool) ili (char). Prosledjen tip je" +
+                    " (%s)! [Line: %d]",
+                    nazivi_tipova.get(readStmtDesignator.getType().getKind()),
+                    print.getLine()), null);
+        }
     }
     // PrintStmtList ::= (NoNumConst) Expr;
     // TODO Proveri da li je ovo dovoljno
