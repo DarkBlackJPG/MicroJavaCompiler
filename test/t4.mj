@@ -1,0 +1,50 @@
+program MJProgram
+	//int x; int y;
+	int cc;
+	
+	const int a=8, b=18,c=28,d=38;
+	const char k='k';
+	const bool bt=true;
+{
+
+	int petra(){
+	print(a);
+	}
+	
+
+
+	int main()
+	int y;
+	int x;
+	 {
+		
+
+		print(bt);
+		x = 3;
+		
+		print(x);
+		print(a);
+		print(x);
+		print(a);
+		y = 4 + 9 ;
+		
+	//	c=6;
+	
+		print(k);
+		print(y);
+		
+	//	k();
+		
+		print(b);
+		print(c);
+		print(d);
+		
+		print(a);
+		print(b);
+		print(c);
+		print(d);
+		
+		read(y);
+		return 2;
+	}
+}

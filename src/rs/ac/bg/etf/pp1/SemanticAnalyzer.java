@@ -1,15 +1,13 @@
 package rs.ac.bg.etf.pp1;
+
 import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 import rs.ac.bg.etf.pp1.ast.*;
 import rs.etf.pp1.symboltable.concepts.*;
 
 
 public class SemanticAnalyzer extends VisitorAdaptor {
-    int printCallCount = 0;
-    int varDeclCount = 0;
-    int varArrayDeclCount = 0;
-    int constDeclCount = 0;
     boolean returnTokenRequired = false;
     boolean mainMethodDetected = false;
     SyntaxAnalysisWatcher syntaxAnalysisWatcher = new SyntaxAnalysisWatcher();
@@ -30,7 +28,6 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     Logger log = Logger.getLogger(getClass());
 
     final HashMap<Integer, String> nazivi_tipova = new HashMap<>();
-
 
     // TODO Implementirati ovu detekciju i sprecavanje kompajliranja
     boolean errorDetected = false;
@@ -150,6 +147,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(SingleMethod singleMethod) {
         syntaxAnalysisWatcher.methodDetected();
     }
+
     public void visit(MethodDeclList methodDeclList) {
         syntaxAnalysisWatcher.methodDetected();
     }
@@ -182,6 +180,35 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(ReadStmt print) {
         if (currentMethod.getName().equalsIgnoreCase("main"))
             syntaxAnalysisWatcher.functionCallDetected();
+    }
+    // PrintStmtList ::= (NoNumConst) Expr;
+    // TODO Proveri da li je ovo dovoljno
+
+    public void visit(NoNumConst noNumConst) {
+        Obj expr = noNumConst.getExpr().obj;
+        if (!(expr.getType().getKind() == Struct.Int
+                || expr.getType().getKind() == Struct.Bool
+                || expr.getType().getKind() == Struct.Char)) {
+            report_error(String.format("Izraz u print metodi treba da bude tipa (int), (char) ili (bool). Prilozen" +
+                            " tip je (%s)! [Line: %d]",
+                    nazivi_tipova.get(expr.getType().getKind()),
+                    noNumConst.getLine()),
+                    null);
+        }
+    }
+
+    // PrintStmtList ::= (WithNumConst) Expr COMMA NUM_CONST:intValue;
+    public void visit(WithNumConst withNumConst) {
+        Obj expr = withNumConst.getExpr().obj;
+        if (!(expr.getType().getKind() == Struct.Int
+                || expr.getType().getKind() == Struct.Bool
+                || expr.getType().getKind() == Struct.Char)) {
+            report_error(String.format("Izraz u print metodi treba da bude tipa (int), (char) ili (bool). Prilozen" +
+                            " tip je (%s)! [Line: %d]",
+                    nazivi_tipova.get(expr.getType().getKind()),
+                    withNumConst.getLine()),
+                    null);
+        }
     }
 
     public void visit(Type type) {
@@ -253,10 +280,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     // TODO provera za nizove
     public void visit(CleanDesignator cleanDesignator) {
         Obj temp = Table.find(cleanDesignator.getIdentification());
-
         if (temp == Table.noObj || temp.getKind() == Obj.Type || temp.getKind() == Obj.Prog) {
-            temp = new Obj(Obj.NO_VALUE, cleanDesignator.getIdentification(), Table.noType);
             report_error(String.format("Neodgovarajuce ime promenljive ili promenljiva ne postoji! [Line %d]", cleanDesignator.getLine()), null);
+            temp = new Obj(Obj.NO_VALUE, "", Table.noType);
         }
         cleanDesignator.obj = temp;
     }
@@ -279,6 +305,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             report_error(String.format("Ne moze da se indeksira sa tipom (%s)! [Line: {%d}]",
                     nazivi_tipova.get(expressionObj.getKind()),
                     arrayElementDesignatorList.getLine()), null);
+            arrayElementDesignatorList.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
         } else {
             if (designatorListObj.getType().getKind() == Struct.Array) {
                 Struct elementType = designatorListObj.getType().getElemType();
@@ -290,6 +317,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             } else {
                 report_error(String.format("Nemoguce je indeksirati promenljivu koja nije tipa niza! [Line: {%d}]",
                         arrayElementDesignatorList.getLine()), null);
+                arrayElementDesignatorList.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
             }
         }
     }
@@ -301,6 +329,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             report_error(String.format("Ne moze da se indeksira sa tipom (%s)! [Line: {%d}]",
                     nazivi_tipova.get(expressionObj.getKind()),
                     arrayElementAccessDesignator.getLine()), null);
+            arrayElementAccessDesignator.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
         } else {
             if (designatorListObj.getType().getKind() == Struct.Array) {
                 Struct elementType = designatorListObj.getType().getElemType();
@@ -312,6 +341,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             } else {
                 report_error(String.format("Nemoguce je indeksirati promenljivu koja nije tipa niza! [Line: {%d}]",
                         arrayElementAccessDesignator.getLine()), null);
+                arrayElementAccessDesignator.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
             }
         }
     }
@@ -361,7 +391,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(NegativeTerm negativeTerm) {
         Obj expression = negativeTerm.getExprNoTernAddOpList().obj;
         if (expression.getType().getKind() == Struct.Int) {
-            negativeTerm.obj = new Obj(Obj.Var, "", Table.noType);
+            negativeTerm.obj = expression;
         } else {
             report_error(String.format("Ocekuje se tip (int), dostavljen tip (%s)! [Line: %d]",
                     nazivi_tipova.get(expression.getType().getKind()),
@@ -384,7 +414,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                     nazivi_tipova.get(termTree.getKind()),
                     nazivi_tipova.get(factor.getKind()),
                     termList.getLine()), null);
-
+            termList.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
         }
 
     }
@@ -418,6 +448,10 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
     public void visit(ExprNoTernStatement exprNoTernStatement) {
         exprNoTernStatement.obj = exprNoTernStatement.getExprNoTern().obj;
+    }
+
+    public void visit(ExprTernStatement exprTernStatement) {
+        exprTernStatement.obj = exprTernStatement.getExprTern().obj;
     }
 
     public void visit(NumericConstant numericConstant) {

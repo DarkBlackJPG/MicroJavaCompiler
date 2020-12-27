@@ -36,19 +36,17 @@ public class MJTest {
 		Reader br = null;
 		try {
 			
-			File sourceCode = new File("test/program.mj");	
+			File sourceCode = new File("test/t2.mj");
+			report_info("============================= LEKSICKA OBRADA =============================");
 			log.info("Compiling source file: " + sourceCode.getAbsolutePath());
-			
 			br = new BufferedReader(new FileReader(sourceCode));
-			
-			
+
 			Yylex lexer = new Yylex(br);
 			MJParser parser = new MJParser(lexer);
 			Symbol s = parser.parse();
 			Table.init();
 			Program prog = (Program)(s.value);
-			
-
+			report_info("============================= ISPIS APSTRAKTNOG STABLA =============================");
 			log.info(prog.toString(""));
 			
 			SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
@@ -69,11 +67,6 @@ public class MJTest {
 				report_success("Uspesno izvrsena semanticka analiza! Nastavlja se sa generisanjem koda");
 			}
 			log.info("=================================================");
-			
-//			while ((currToken = lexer.next_token()).sym != sym.EOF) {
-//				if (currToken != null && currToken.value != null)
-//					log.info(currToken.toString() + " " + currToken.value.toString());
-//			}
 		} 
 		finally {
 			if (br != null) try { br.close(); } catch (IOException e1) { log.error(e1.getMessage(), e1); }

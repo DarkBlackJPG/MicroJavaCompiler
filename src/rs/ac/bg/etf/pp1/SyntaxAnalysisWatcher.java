@@ -63,36 +63,52 @@ public class SyntaxAnalysisWatcher {
     @Override
     public String toString() {
         StringBuilder builderDetected = new StringBuilder();
-        builderDetected.append("Broj definisanih klasa: \t\t\t......................................................");
+        builderDetected.append("Broj definisanih klasa: ..................................................................");
+        builderDetected.append("\u001B[35m");
         builderDetected.append(typesIntegerHashMap.get(Types.CLASS));
+        builderDetected.append("\033[0m");
         builderDetected.append("\n");
 
-        builderDetected.append("Broj definisanih metoda: \t\t\t......................................................");
+        builderDetected.append("Broj definisanih metoda: .................................................................");
+        builderDetected.append("\u001B[35m");
         builderDetected.append(typesIntegerHashMap.get(Types.METHODS));
+        builderDetected.append("\033[0m");
         builderDetected.append("\n");
 
-        builderDetected.append("Broj globalnih nizova: \t\t\t..........................................................");
+        builderDetected.append("Broj globalnih nizova: ...................................................................");
+        builderDetected.append("\u001B[35m");
         builderDetected.append(typesIntegerHashMap.get(Types.GLOBAL_ARRAY));
+        builderDetected.append("\033[0m");
         builderDetected.append("\n");
 
-        builderDetected.append("Broj globalnih promenljivih: \t\t\t..................................................");
+        builderDetected.append("Broj globalnih promenljivih: .............................................................");
+        builderDetected.append("\u001B[35m");
         builderDetected.append(typesIntegerHashMap.get(Types.GLOBAL_VAR));
+        builderDetected.append("\033[0m");
         builderDetected.append("\n");
 
-        builderDetected.append("Broj globalnih konstanti: \t\t\t......................................................");
+        builderDetected.append("Broj globalnih konstanti: ................................................................");
+        builderDetected.append("\u001B[35m");
         builderDetected.append(typesIntegerHashMap.get(Types.GLOBAL_CONST));
+        builderDetected.append("\033[0m");
         builderDetected.append("\n");
 
-        builderDetected.append("Broj lokalnih promenljivih u [main()]: \t\t\t..........................................");
+        builderDetected.append("Broj lokalnih promenljivih u [main()]: ...................................................");
+        builderDetected.append("\u001B[35m");
         builderDetected.append(typesIntegerHashMap.get(Types.LOCAL_IN_MAIN));
+        builderDetected.append("\033[0m");
         builderDetected.append("\n");
 
-        builderDetected.append("Broj izraza u [main()]: \t\t\t......................................................");
+        builderDetected.append("Broj izraza u [main()]: ..................................................................");
+        builderDetected.append("\u001B[35m");
         builderDetected.append(typesIntegerHashMap.get(Types.STMTS_MAIN));
+        builderDetected.append("\033[0m");
         builderDetected.append("\n");
 
-        builderDetected.append("Broj poziva metoda u [main()]: \t\t\t..................................................");
+        builderDetected.append("Broj poziva metoda u [main()]: ...........................................................");
+        builderDetected.append("\u001B[35m");
         builderDetected.append(typesIntegerHashMap.get(Types.FUNC_CALL_MAIN));
+        builderDetected.append("\033[0m");
         builderDetected.append("\n");
        return builderDetected.toString();
     }
