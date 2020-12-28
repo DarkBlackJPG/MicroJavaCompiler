@@ -10,7 +10,9 @@
 				<exclude name="RuleVisitor.java"/>
 				<exclude name="SemanticAnalyzer.java"/>
 				<exclude name="SyntaxAnalysisWatcher.java"/>
+				<exclude name="CodeGenerator.java"/>
 				<exclude name="Compiler.java"/>
+				<exclude name="CounterVisitor.java"/>
 				<exclude name="Table/*"/>
 				<exclude name="Table.java"/>
 			</fileset>
@@ -71,7 +73,16 @@
 		</java>
 	</target>
 
-	<target name="runObj" depends="disasm">
+	<target name="RunProgram" depends="disasm">
+		<java classname="rs.etf.pp1.mj.runtime.Run">
+			<arg value="test/program.obj" />
+			<classpath>
+				<pathelement location="lib/mj-runtime.jar" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="RunProgram_Debug" depends="disasm">
 		<java classname="rs.etf.pp1.mj.runtime.Run">
 			<arg value="test/program.obj" />
 			<arg value="-debug" />

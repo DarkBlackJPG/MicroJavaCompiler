@@ -36,8 +36,7 @@ public class MJTest {
 
         Reader br = null;
         try {
-
-            File sourceCode = new File("test/t2.mj");
+            File sourceCode = new File("test/program.mj");
             report_info("|-----------------------------------------------------------------|");
             report_info("|                         LEKSICKA OBRADA                         |");
             report_info("|-----------------------------------------------------------------|");
@@ -89,9 +88,11 @@ public class MJTest {
                 }
                 CodeGenerator codeGenerator = new CodeGenerator();
                 prog.traverseBottomUp(codeGenerator);
-                Code.dataSize = 9;
+                Code.dataSize = semanticAnalyzer.syntaxAnalysisWatcher.
+                        getCountForType(SyntaxAnalysisWatcher.Types.GLOBAL_VAR)
+                        + semanticAnalyzer.syntaxAnalysisWatcher.
+                        getCountForType(SyntaxAnalysisWatcher.Types.GLOBAL_VAR);
                 Code.mainPc = codeGenerator.getMainPC();
-
                 if (!Code.greska) {
                     Code.write(new FileOutputStream(file));
                     report_success("Kompajliranje uspesno izvrseno!");
