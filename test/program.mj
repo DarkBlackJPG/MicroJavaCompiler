@@ -11,8 +11,8 @@ program test301
 
 {
 	void main()
-    int bodovi;
-    bool bt;
+		int bodovi;
+		bool bt;
 	{
 		bodovi = 0;
 		bodovi++;
@@ -20,8 +20,8 @@ program test301
 		bodovi = bodovi * pet;
 		bodovi--;
 		print(bodovi);
-			
-		
+
+
 		niz = new int[3];
 		niz[nula] = jedan;
 		niz[1] = 2;
@@ -29,8 +29,8 @@ program test301
 		bodovi = niz[2]/niz[0];
 		print(bodovi);
 		print(niz[2]);
-		
-		
+
+
 		nizch = new char[3];
 		nizch[0] = 'a';
 		nizch[jedan] = 'b';
@@ -38,16 +38,16 @@ program test301
 		print(nizch[1]);
 		print(nizch[jedan * 2]);
 
-		bodovi = bodovi + (pet * jedan - 1) * bodovi - (3 % 2 + 3 * 2 - 3);
 
+		bodovi = bodovi + (pet * jedan - 1) * bodovi - (3 % 2 + 3 * 2 - 3);
 		print(bodovi);
-			
+
 		read(bodovi);
 		bt = true;
-		
+
 		print(bt ? bodovi : bodovi + 10);
 		print(false ? bodovi + 20 : bodovi + 30);
-		print(true == false ? '+' : '-');
+		print(bodovi > 10 ? '+' : '-');
 	}
 }
 

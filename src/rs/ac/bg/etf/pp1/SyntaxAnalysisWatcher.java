@@ -3,7 +3,7 @@ package rs.ac.bg.etf.pp1;
 import java.util.HashMap;
 
 public class SyntaxAnalysisWatcher {
-    public enum Types{
+    public static enum Types{
         CLASS,
         METHODS,
         GLOBAL_VAR,
@@ -15,6 +15,10 @@ public class SyntaxAnalysisWatcher {
     }
 
     private HashMap<Types, Integer> typesIntegerHashMap = new HashMap<>();
+
+    public int getCountForType(Types type) {
+        return typesIntegerHashMap.get(type);
+    }
 
     public SyntaxAnalysisWatcher() {
         typesIntegerHashMap.put(Types.CLASS, 0);

@@ -2,7 +2,7 @@ package rs.ac.bg.etf.pp1;
 
 import rs.ac.bg.etf.pp1.ast.*;
 
-public class Compiler extends VisitorAdaptor {
+public class CodeGenerator extends VisitorAdaptor {
     private int mainPC;
 
     public int getMainPC() {
