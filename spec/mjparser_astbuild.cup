@@ -435,7 +435,7 @@ RelationalExpression ::= (NonEmptyRelationalExpression) RelOp:R1 ExprNoTern:E2 {
 					;
 
 Expr ::=  (ExprNoTernStatement) ExprNoTern:e {: RESULT=new ExprNoTernStatement(e); RESULT.setLine(eleft); :}
-		|(ExprTernStatement) ExprTern:E1 {: RESULT=new ExprTernStatement(E1); RESULT.setLine(E1left); :}
+		|(ExprTernStatement) CondFactor:C1 QUESTION_MARK ExprNoTern:exprTrue COLON ExprNoTern:exprFalse {: RESULT=new ExprTernStatement(C1, exprTrue, exprFalse); RESULT.setLine(C1left); :}
 	;
 	
 ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList:E1 {: RESULT=new NegativeTerm(E1); RESULT.setLine(E1left); :}
@@ -445,10 +445,6 @@ ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList:E1 {: RESULT=new Negati
 ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:type_other AddOp:A1 Term:type {: RESULT=new TermList(type_other, A1, type); RESULT.setLine(type_otherleft); :}
 						| (OneTerm) Term:type {: RESULT=new OneTerm(type); RESULT.setLine(typeleft); :}
 						;
-	
-ExprTern ::= (TernaryExpressionStmt) CondFactor:C1 QUESTION_MARK Expr:exprTrue COLON Expr:exprFalse {: RESULT=new TernaryExpressionStmt(C1, exprTrue, exprFalse); RESULT.setLine(C1left); :}
-			;
-
 
 Term ::= (NonMullOpTerm) Factor:factorStruct {: RESULT=new NonMullOpTerm(factorStruct); RESULT.setLine(factorStructleft); :}
 		| (MullOpTerm) Term:termTree MulOp:M1 Factor:factorStruct {: RESULT=new MullOpTerm(termTree, M1, factorStruct); RESULT.setLine(termTreeleft); :}

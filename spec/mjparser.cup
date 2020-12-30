@@ -435,7 +435,7 @@ RelationalExpression ::= (NonEmptyRelationalExpression) RelOp ExprNoTern
 					;
 
 Expr ::=  (ExprNoTernStatement) ExprNoTern:e
-		|(ExprTernStatement) ExprTern
+		|(ExprTernStatement) CondFactor QUESTION_MARK ExprNoTern:exprTrue COLON ExprNoTern:exprFalse
 	;
 	
 ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList
@@ -445,10 +445,6 @@ ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList
 ExprNoTernAddOpList ::= (TermList) ExprNoTernAddOpList:type_other AddOp Term:type
 						| (OneTerm) Term:type
 						;
-	
-ExprTern ::= (TernaryExpressionStmt) CondFactor QUESTION_MARK Expr:exprTrue COLON Expr:exprFalse
-			;
-
 
 Term ::= (NonMullOpTerm) Factor:factorStruct
 		| (MullOpTerm) Term:termTree MulOp Factor:factorStruct

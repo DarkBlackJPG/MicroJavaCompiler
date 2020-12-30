@@ -181,8 +181,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         if (currentMethod.getName().equalsIgnoreCase("main"))
             syntaxAnalysisWatcher.functionCallDetected();
         Obj readStmtDesignator = print.getDesignator().obj;
-        if (readStmtDesignator.getType().getKind() != Struct.Int ||
-                readStmtDesignator.getType().getKind() != Struct.Bool ||
+        if (readStmtDesignator.getType().getKind() != Struct.Int &&
+                readStmtDesignator.getType().getKind() != Struct.Bool &&
                 readStmtDesignator.getType().getKind() != Struct.Char
         )   {
             report_error(String.format("Dozvoljeni tipovi u metodi read su: (int), (bool) ili (char). Prosledjen tip je" +
@@ -459,10 +459,10 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(ExprNoTernStatement exprNoTernStatement) {
         exprNoTernStatement.obj = exprNoTernStatement.getExprNoTern().obj;
     }
-
-    public void visit(ExprTernStatement exprTernStatement) {
-        exprTernStatement.obj = exprTernStatement.getExprTern().obj;
-    }
+//
+//    public void visit(ExprTernStatement exprTernStatement) {
+//        exprTernStatement.obj = exprTernStatement.getExprTern().obj;
+//    }
 
     public void visit(NumericConstant numericConstant) {
         // Level 1 jer je unutar nekog scope-a
@@ -631,9 +631,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
     }
 
-    public void visit(TernaryExpressionStmt ternaryExpressionStmt) {
-        Obj trueExpression = ternaryExpressionStmt.getExpr().obj;
-        Obj falseExpression = ternaryExpressionStmt.getExpr1().obj;
+    public void visit(ExprTernStatement ternaryExpressionStmt) {
+        Obj trueExpression = ternaryExpressionStmt.getExprNoTern().obj;
+        Obj falseExpression = ternaryExpressionStmt.getExprNoTern1().obj;
 
         if (trueExpression.getType().getKind() == falseExpression.getType().getKind()) {
             ternaryExpressionStmt.obj = new Obj(Obj.Type, "", trueExpression.getType());

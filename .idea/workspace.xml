@@ -26,12 +26,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ea56d25-7925-413e-af01-26aa7325ff16" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/CounterVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/program.mj" beforeDir="false" afterPath="$PROJECT_DIR$/bin/program.mj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/mjparser.cup" beforeDir="false" afterPath="$PROJECT_DIR$/spec/mjparser.cup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/mjparser_astbuild.cup" beforeDir="false" afterPath="$PROJECT_DIR$/spec/mjparser_astbuild.cup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/CodeGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/MJParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/MJParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/SemanticAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/SemanticAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/Yylex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/Yylex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/ActPars.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/ActPars.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/ActParsChoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/ActParsChoice.java" afterDir="false" />
@@ -192,7 +193,7 @@
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/SyntaxNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/SyntaxNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/Term.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/Term.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/TermList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/TermList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/TernaryExpressionStmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/TernaryExpressionStmt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/TernaryExpressionStmt.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/Type.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/TypedReturn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/TypedReturn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/VarDeclarations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/VarDeclarations.java" afterDir="false" />
@@ -206,8 +207,7 @@
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/WithNumConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/ast/WithNumConst.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/sym.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/sym.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/program.mj" beforeDir="false" afterPath="$PROJECT_DIR$/test/program.mj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/program.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/rs/ac/bg/etf/pp1/MJTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/rs/ac/bg/etf/pp1/MJTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/program.obj" beforeDir="false" afterPath="$PROJECT_DIR$/test/program.obj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,7 +287,12 @@
       <workItem from="1609098474526" duration="193000" />
       <workItem from="1609098677000" duration="6663000" />
       <workItem from="1609164971187" duration="165000" />
-      <workItem from="1609165150898" duration="12696000" />
+      <workItem from="1609165150898" duration="13382000" />
+      <workItem from="1609196207418" duration="65000" />
+      <workItem from="1609242423745" duration="7051000" />
+      <workItem from="1609336338572" duration="938000" />
+      <workItem from="1609343185048" duration="2943000" />
+      <workItem from="1609351083583" duration="3641000" />
     </task>
     <servers />
   </component>
@@ -331,10 +336,10 @@
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
     <state x="2952" y="281" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609189216268" />
-    <state x="2961" y="187" key="#com.intellij.ide.util.MemberChooser" timestamp="1609190902922">
+    <state x="2961" y="187" key="#com.intellij.ide.util.MemberChooser" timestamp="1609345696598">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state x="2961" y="187" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609190902922" />
+    <state x="2961" y="187" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609345696598" />
     <state x="2759" y="-229" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1609177357287">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
@@ -347,46 +352,50 @@
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
     <state x="2906" y="232" key="FileChooserDialogImpl/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609177118498" />
-    <state width="2517" height="456" key="GridCell.Tab.0.bottom" timestamp="1609193112773">
+    <state width="2517" height="524" key="GridCell.Tab.0.bottom" timestamp="1609367116094">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state width="2517" height="456" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609193112773" />
-    <state width="2517" height="456" key="GridCell.Tab.0.center" timestamp="1609193112773">
+    <state width="2517" height="524" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609367116094" />
+    <state width="2517" height="524" key="GridCell.Tab.0.center" timestamp="1609367116094">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state width="2517" height="456" key="GridCell.Tab.0.center/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609193112773" />
-    <state width="2517" height="456" key="GridCell.Tab.0.left" timestamp="1609193112773">
+    <state width="2517" height="524" key="GridCell.Tab.0.center/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609367116094" />
+    <state width="2517" height="524" key="GridCell.Tab.0.left" timestamp="1609367116094">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state width="2517" height="456" key="GridCell.Tab.0.left/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609193112773" />
-    <state width="2517" height="456" key="GridCell.Tab.0.right" timestamp="1609193112773">
+    <state width="2517" height="524" key="GridCell.Tab.0.left/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609367116094" />
+    <state width="2517" height="524" key="GridCell.Tab.0.right" timestamp="1609367116094">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state width="2517" height="456" key="GridCell.Tab.0.right/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609193112773" />
-    <state width="2517" height="499" key="GridCell.Tab.1.bottom" timestamp="1609111163422">
+    <state width="2517" height="524" key="GridCell.Tab.0.right/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609367116094" />
+    <state width="2517" height="489" key="GridCell.Tab.1.bottom" timestamp="1609251525930">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state width="2517" height="499" key="GridCell.Tab.1.bottom/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609111163422" />
-    <state width="2517" height="499" key="GridCell.Tab.1.center" timestamp="1609111163422">
+    <state width="2517" height="489" key="GridCell.Tab.1.bottom/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609251525930" />
+    <state width="2517" height="489" key="GridCell.Tab.1.center" timestamp="1609251525930">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state width="2517" height="499" key="GridCell.Tab.1.center/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609111163422" />
-    <state width="2517" height="499" key="GridCell.Tab.1.left" timestamp="1609111163422">
+    <state width="2517" height="489" key="GridCell.Tab.1.center/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609251525930" />
+    <state width="2517" height="489" key="GridCell.Tab.1.left" timestamp="1609251525930">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state width="2517" height="499" key="GridCell.Tab.1.left/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609111163422" />
-    <state width="2517" height="499" key="GridCell.Tab.1.right" timestamp="1609111163422">
+    <state width="2517" height="489" key="GridCell.Tab.1.left/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609251525930" />
+    <state width="2517" height="489" key="GridCell.Tab.1.right" timestamp="1609251525930">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state width="2517" height="499" key="GridCell.Tab.1.right/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609111163422" />
+    <state width="2517" height="489" key="GridCell.Tab.1.right/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609251525930" />
     <state x="2930" y="201" key="extract.method.dialog" timestamp="1609108623634">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
     <state x="2930" y="201" key="extract.method.dialog/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609108623634" />
-    <state x="2856" y="226" key="run.anything.popup" timestamp="1609188766913">
+    <state x="2908" y="208" width="583" height="566" key="find.popup" timestamp="1609336506237">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
-    <state x="2856" y="226" key="run.anything.popup/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609188766913" />
+    <state x="2908" y="208" width="583" height="566" key="find.popup/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609336506237" />
+    <state x="2856" y="226" key="run.anything.popup" timestamp="1609248469001">
+      <screen x="1920" y="-229" width="2560" height="1440" />
+    </state>
+    <state x="2856" y="226" key="run.anything.popup/0.0.1920.1080/1920.-229.2560.1440@1920.-229.2560.1440" timestamp="1609248469001" />
     <state x="2863" y="96" width="672" height="678" key="search.everywhere.popup" timestamp="1609192902809">
       <screen x="1920" y="-229" width="2560" height="1440" />
     </state>
@@ -399,6 +408,16 @@
           <url>file://$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/SemanticAnalyzer.java</url>
           <line>401</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/rs/ac/bg/etf/pp1/SemanticAnalyzer.java</url>
+          <line>183</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/lib/mj-runtime.jar!/rs/etf/pp1/mj/runtime/Run.java</url>
+          <line>498</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
