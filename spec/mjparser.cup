@@ -213,6 +213,8 @@ nonterminal PrintStmtList;
 
 nonterminal SwitchCaseList;
 
+nonterminal BeginTernary;
+
 nonterminal CaseStatementList;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj RelationalExpression;
@@ -435,9 +437,10 @@ RelationalExpression ::= (NonEmptyRelationalExpression) RelOp ExprNoTern
 					;
 
 Expr ::=  (ExprNoTernStatement) ExprNoTern:e
-		|(ExprTernStatement) CondFactor QUESTION_MARK ExprNoTern:exprTrue COLON ExprNoTern:exprFalse
+		|(ExprTernStatement) BeginTernary ExprNoTern:exprTrue COLON ExprNoTern:exprFalse
 	;
-	
+BeginTernary ::= (BeginTernary) CondFactor QUESTION_MARK
+                ;
 ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList
 	| (AddOperationTerm) ExprNoTernAddOpList
 	;

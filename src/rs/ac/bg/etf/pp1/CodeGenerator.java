@@ -1,15 +1,25 @@
 package rs.ac.bg.etf.pp1;
 
 import rs.ac.bg.etf.pp1.ast.*;
-import rs.etf.pp1.mj.runtime.Code;
+import rs.etf.pp1.mj.runtime.*;
 import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Stack;
 
 public class CodeGenerator extends VisitorAdaptor {
     private int mainPC;
+    public CodeGenerator() {
+        relOpHashMap.put("==", Code.eq);
+        relOpHashMap.put(">", Code.gt);
+        relOpHashMap.put(">=", Code.ge);
+        relOpHashMap.put("!=", Code.ne);
+        relOpHashMap.put("<=", Code.le);
+        relOpHashMap.put("<", Code.lt);
+    }
 
     public int getMainPC() {
         return mainPC;
@@ -103,7 +113,7 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.loadConst(1);
             Code.put(Code.bprint);
         } else {
-            if(noNumConst.getExpr().obj.getAdr() == 1) {
+            if (noNumConst.getExpr().obj.getAdr() == 1) {
                 printTrue();
             } else {
                 printFalse();
@@ -124,7 +134,7 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.loadConst(withNumConst.getIntValue());
             Code.put(Code.bprint);
         } else {
-            if(withNumConst.getExpr().obj.getAdr() == 1) {
+            if (withNumConst.getExpr().obj.getAdr() == 1) {
                 printTrue();
             } else {
                 printFalse();
@@ -154,15 +164,17 @@ public class CodeGenerator extends VisitorAdaptor {
 
     public void visit(CleanDesignator cleanDesignator) {
         SyntaxNode parent = cleanDesignator.getParent();
-        // Todo tu treba napisati takav if gde mi potvrdjujemo da ovaj designator se koristi samo u assignop
-        if (AssignDesignator.class != parent.getClass()) {
+        if (AssignDesignator.class != parent.getClass()
+        && ReadStmt.class != parent.getClass()) {
             Code.load(cleanDesignator.obj);
         }
     }
+
     public void visit(ArrayElementAccessDesignator arrayElementAccessDesignator) {
         // Expression postavlja broj
         SyntaxNode parent = arrayElementAccessDesignator.getParent();
-        if(parent.getClass() != AssignDesignator.class) {
+
+        if (parent.getClass() != AssignDesignator.class) {
             if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getKind() == Struct.Char) {
                 Code.put(Code.baload);
             } else {
@@ -170,23 +182,45 @@ public class CodeGenerator extends VisitorAdaptor {
             }
         }
     }
+
     public void visit(DesignatorListOneElement designatorListOneElement) {
         Code.load(designatorListOneElement.obj);
     }
+
     // TODO za matrice
     public void visit(ArrayElementDesignatorList arrayElementDesignatorList) {
 
     }
+
     // Todo
     public void visit(ExprTernStatement exprNoTernStatement) {
+        Obj falseOpt = Table.insert(Obj.Var, "a", exprNoTernStatement.obj.getType());
+        Obj trueOpt = Table.insert(Obj.Var, "b", exprNoTernStatement.obj.getType());
+        Code.store(falseOpt);
+        Code.store(trueOpt);
+        int fwdJmpIfFalse;
+        int fwdJmpEnd;
+        int relopCode = ternaryRelopStack.pop();
+        Code.putFalseJump(relopCode /*Code.inverse[Code.ne]*/, 0); // ako nisu jednaki skoci na false
+        fwdJmpIfFalse = Code.pc - 2;
+        Code.load(trueOpt);  // true
+        Code.putJump(0);
+        fwdJmpEnd = Code.pc - 2;
 
+        Code.fixup(fwdJmpIfFalse);
+        Code.load(falseOpt);  // false
+        Code.fixup(fwdJmpEnd);
     }
 
     // Todo
     public void visit(NegativeTerm negativeTerm) {
         Code.put(Code.neg);
+
     }
 
+    public void visit(AddOperationTerm addOperationTerm) {
+
+    }
 
     public void visit(TermList termList) {
         if (termList.getAddOp() instanceof AddopPlus) {
@@ -195,6 +229,7 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.put(Code.sub);
         }
     }
+
 
     // Todo
     public void visit(MullOpTerm mullOpTerm) {
@@ -207,6 +242,26 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.put(Code.rem);
         }
 
+
+    }
+
+    HashMap<String, Integer> relOpHashMap = new HashMap<>();
+    Stack<Integer> ternaryRelopStack = new Stack<>();
+
+    public void visit(BeginTernary beginTernary) {
+
+    }
+
+    public void visit(ExpressionConditionFactor expressionConditionFactor) {
+        if (expressionConditionFactor.getRelationalExpression().obj.getType().getKind() == Struct.None) {
+            Code.loadConst(1);
+            ternaryRelopStack.push(Code.eq);
+        }
+    }
+
+    public void visit(NonEmptyRelationalExpression nonEmptyRelationalExpression) {
+        Integer relop = relOpHashMap.get(nonEmptyRelationalExpression.getRelOp().obj.getName());
+        ternaryRelopStack.push(relop);
     }
 
     // Todo
@@ -214,7 +269,6 @@ public class CodeGenerator extends VisitorAdaptor {
         Obj con = Table.insert(Obj.Con, "$", numericConstant.obj.getType());
         con.setLevel(0);
         con.setAdr(numericConstant.getNumValue());
-
         Code.load(con);
     }
 
@@ -230,6 +284,7 @@ public class CodeGenerator extends VisitorAdaptor {
 
     // Todo
     public void visit(BooleanConstant booleanConstant) {
+
         if (booleanConstant.getBoolValue().equalsIgnoreCase("true")) {
             Code.load(new Obj(Obj.Con, "$bool", new Struct(Struct.Bool), 1, 1));
         } else {
@@ -294,6 +349,7 @@ public class CodeGenerator extends VisitorAdaptor {
     // Kad dodjemo do ovog delea, trebalo bi da imamo na steku vec velicinu niza
     // Ova metoda treba da postavi adresu niza
     public void visit(NewTypeArray newTypeArray) {
+
         Code.put(Code.newarray);
         if (newTypeArray.getType().obj.getType().getKind() == Struct.Int) {
             Code.put(1);

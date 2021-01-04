@@ -1,31 +1,31 @@
 // generated with ast extension for cup
 // version 0.8
-// 29/11/2020 14:25:28
+// 3/0/2021 19:14:3
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ExprTernStatement extends Expr {
 
-    private CondFactor CondFactor;
+    private BeginTernary BeginTernary;
     private ExprNoTern ExprNoTern;
     private ExprNoTern ExprNoTern1;
 
-    public ExprTernStatement (CondFactor CondFactor, ExprNoTern ExprNoTern, ExprNoTern ExprNoTern1) {
-        this.CondFactor=CondFactor;
-        if(CondFactor!=null) CondFactor.setParent(this);
+    public ExprTernStatement (BeginTernary BeginTernary, ExprNoTern ExprNoTern, ExprNoTern ExprNoTern1) {
+        this.BeginTernary=BeginTernary;
+        if(BeginTernary!=null) BeginTernary.setParent(this);
         this.ExprNoTern=ExprNoTern;
         if(ExprNoTern!=null) ExprNoTern.setParent(this);
         this.ExprNoTern1=ExprNoTern1;
         if(ExprNoTern1!=null) ExprNoTern1.setParent(this);
     }
 
-    public CondFactor getCondFactor() {
-        return CondFactor;
+    public BeginTernary getBeginTernary() {
+        return BeginTernary;
     }
 
-    public void setCondFactor(CondFactor CondFactor) {
-        this.CondFactor=CondFactor;
+    public void setBeginTernary(BeginTernary BeginTernary) {
+        this.BeginTernary=BeginTernary;
     }
 
     public ExprNoTern getExprNoTern() {
@@ -49,20 +49,20 @@ public class ExprTernStatement extends Expr {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(CondFactor!=null) CondFactor.accept(visitor);
+        if(BeginTernary!=null) BeginTernary.accept(visitor);
         if(ExprNoTern!=null) ExprNoTern.accept(visitor);
         if(ExprNoTern1!=null) ExprNoTern1.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(CondFactor!=null) CondFactor.traverseTopDown(visitor);
+        if(BeginTernary!=null) BeginTernary.traverseTopDown(visitor);
         if(ExprNoTern!=null) ExprNoTern.traverseTopDown(visitor);
         if(ExprNoTern1!=null) ExprNoTern1.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(CondFactor!=null) CondFactor.traverseBottomUp(visitor);
+        if(BeginTernary!=null) BeginTernary.traverseBottomUp(visitor);
         if(ExprNoTern!=null) ExprNoTern.traverseBottomUp(visitor);
         if(ExprNoTern1!=null) ExprNoTern1.traverseBottomUp(visitor);
         accept(visitor);
@@ -73,8 +73,8 @@ public class ExprTernStatement extends Expr {
         buffer.append(tab);
         buffer.append("ExprTernStatement(\n");
 
-        if(CondFactor!=null)
-            buffer.append(CondFactor.toString("  "+tab));
+        if(BeginTernary!=null)
+            buffer.append(BeginTernary.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

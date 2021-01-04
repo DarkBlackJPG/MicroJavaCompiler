@@ -213,6 +213,8 @@ nonterminal PrintStmtList PrintStmtList;
 
 nonterminal SwitchCaseList SwitchCaseList;
 
+nonterminal BeginTernary BeginTernary;
+
 nonterminal CaseStatementList CaseStatementList;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj RelationalExpression;
@@ -435,9 +437,10 @@ RelationalExpression ::= (NonEmptyRelationalExpression) RelOp:R1 ExprNoTern:E2 {
 					;
 
 Expr ::=  (ExprNoTernStatement) ExprNoTern:e {: RESULT=new ExprNoTernStatement(e); RESULT.setLine(eleft); :}
-		|(ExprTernStatement) CondFactor:C1 QUESTION_MARK ExprNoTern:exprTrue COLON ExprNoTern:exprFalse {: RESULT=new ExprTernStatement(C1, exprTrue, exprFalse); RESULT.setLine(C1left); :}
+		|(ExprTernStatement) BeginTernary:B1 ExprNoTern:exprTrue COLON ExprNoTern:exprFalse {: RESULT=new ExprTernStatement(B1, exprTrue, exprFalse); RESULT.setLine(B1left); :}
 	;
-	
+BeginTernary ::= (BeginTernary) CondFactor:C1 QUESTION_MARK {: RESULT=new BeginTernary(C1); RESULT.setLine(C1left); :}
+                ;
 ExprNoTern ::=  (NegativeTerm) MINUS ExprNoTernAddOpList:E1 {: RESULT=new NegativeTerm(E1); RESULT.setLine(E1left); :}
 	| (AddOperationTerm) ExprNoTernAddOpList:E1 {: RESULT=new AddOperationTerm(E1); RESULT.setLine(E1left); :}
 	;

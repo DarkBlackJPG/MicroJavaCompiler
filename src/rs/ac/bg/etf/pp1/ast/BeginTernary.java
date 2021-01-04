@@ -5,24 +5,15 @@
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ConditionTermWithAnd extends CondTerm {
+public class BeginTernary implements SyntaxNode {
 
-    private CondTerm CondTerm;
+    private SyntaxNode parent;
+    private int line;
     private CondFactor CondFactor;
 
-    public ConditionTermWithAnd (CondTerm CondTerm, CondFactor CondFactor) {
-        this.CondTerm=CondTerm;
-        if(CondTerm!=null) CondTerm.setParent(this);
+    public BeginTernary (CondFactor CondFactor) {
         this.CondFactor=CondFactor;
         if(CondFactor!=null) CondFactor.setParent(this);
-    }
-
-    public CondTerm getCondTerm() {
-        return CondTerm;
-    }
-
-    public void setCondTerm(CondTerm CondTerm) {
-        this.CondTerm=CondTerm;
     }
 
     public CondFactor getCondFactor() {
@@ -33,23 +24,36 @@ public class ConditionTermWithAnd extends CondTerm {
         this.CondFactor=CondFactor;
     }
 
+    public SyntaxNode getParent() {
+        return parent;
+    }
+
+    public void setParent(SyntaxNode parent) {
+        this.parent=parent;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line=line;
+    }
+
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(CondTerm!=null) CondTerm.accept(visitor);
         if(CondFactor!=null) CondFactor.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(CondTerm!=null) CondTerm.traverseTopDown(visitor);
         if(CondFactor!=null) CondFactor.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(CondTerm!=null) CondTerm.traverseBottomUp(visitor);
         if(CondFactor!=null) CondFactor.traverseBottomUp(visitor);
         accept(visitor);
     }
@@ -57,13 +61,7 @@ public class ConditionTermWithAnd extends CondTerm {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ConditionTermWithAnd(\n");
-
-        if(CondTerm!=null)
-            buffer.append(CondTerm.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
+        buffer.append("BeginTernary(\n");
 
         if(CondFactor!=null)
             buffer.append(CondFactor.toString("  "+tab));
@@ -72,7 +70,7 @@ public class ConditionTermWithAnd extends CondTerm {
         buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [ConditionTermWithAnd]");
+        buffer.append(") [BeginTernary]");
         return buffer.toString();
     }
 }
