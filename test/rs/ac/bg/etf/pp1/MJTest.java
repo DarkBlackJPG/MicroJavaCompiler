@@ -82,7 +82,9 @@ public class MJTest {
             }
             log.info("=================================================");
             if (continueCodeGen) {
-                File file = new File("test/program.obj");
+                String name = semanticAnalyzer.programName;
+                name = "program" ;
+                File file = new File("test/"+name+".obj");
                 if (file.exists()) {
                     file.delete();
                 }

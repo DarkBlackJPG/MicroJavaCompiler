@@ -11,7 +11,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     boolean returnTokenRequired = false;
     boolean mainMethodDetected = false;
     SyntaxAnalysisWatcher syntaxAnalysisWatcher = new SyntaxAnalysisWatcher();
-
+    private HashMap<Integer, String> objectTypeMapping = new HashMap<>();
     // Potreba da se detektuje ulazna tacka programa
     final String mainMethodName = "main";
 
@@ -31,6 +31,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
     // TODO Implementirati ovu detekciju i sprecavanje kompajliranja
     boolean errorDetected = false;
+    private int currentLevel = 0;
 
     // Za potrebe ispisa gresaka
     public SemanticAnalyzer() {
@@ -43,6 +44,14 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         nazivi_tipova.put(Struct.Bool, "bool");
         nazivi_tipova.put(Struct.Enum, "enum");
         nazivi_tipova.put(Struct.Interface, "interface");
+
+        objectTypeMapping.put(Obj.Con, "Constant");
+        objectTypeMapping.put(Obj.Type, "Type");
+        objectTypeMapping.put(Obj.Meth, "Method");
+        objectTypeMapping.put(Obj.Var, "Variable");
+        objectTypeMapping.put(Obj.Elem, "Element");
+        objectTypeMapping.put(Obj.Prog, "Program");
+        objectTypeMapping.put(Obj.Fld, "Field");
     }
 
     public void report_error(String message, SyntaxNode info) {
@@ -66,9 +75,11 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(NonArrayVariable vardecl) {
         syntaxAnalysisWatcher.globalVariableDetected();
         Obj variableNode = Table.find(vardecl.getVariableName());
-        if (variableNode == Table.noObj) {
+        if (variableNode == Table.noObj ||
+            currentLevel > variableNode.getLevel()) {
             Table.insert(Obj.Var, vardecl.getVariableName(), currentType);
         } else {
+
             report_error("Promenlijva sa imenom " + vardecl.getVariableName() + " je vec deklarisana "
                     + vardecl.getLine() + "]", vardecl);
         }
@@ -77,7 +88,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(ErrorNonArrayVariable vardecl) {
         syntaxAnalysisWatcher.globalVariableDetected();
         Obj variableNode = Table.find(vardecl.getVariableName());
-        if (variableNode == Table.noObj) {
+        if (variableNode == Table.noObj ||
+                currentLevel > variableNode.getLevel()) {
             Table.insert(Obj.Var, vardecl.getVariableName(), currentType);
         } else {
             report_error("Promenlijva sa imenom " + vardecl.getVariableName() + " je vec deklarisana "
@@ -180,6 +192,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(ReadStmt print) {
         if (currentMethod.getName().equalsIgnoreCase("main"))
             syntaxAnalysisWatcher.functionCallDetected();
+
         Obj readStmtDesignator = print.getDesignator().obj;
         if (readStmtDesignator.getType().getKind() != Struct.Int &&
                 readStmtDesignator.getType().getKind() != Struct.Bool &&
@@ -243,16 +256,19 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             }
         }
     }
-
+    public String programName;
     public void visit(ProgramName programName) {
         programName.obj = Table.insert(Obj.Prog, programName.getProgramName(), Table.noType);
+        this.programName = programName.getProgramName();
         Table.openScope();
+        currentLevel++;
 
     }
 
     public void visit(Program program) {
         Table.chainLocalSymbols(program.getProgName().obj);
         Table.closeScope();
+        currentLevel--;
 
     }
 
@@ -273,6 +289,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentMethod = Table.insert(Obj.Meth, methodTypeName.getMethodIdentification(), currentReturnMethodType);
         methodTypeName.obj = currentMethod;
         Table.openScope();
+        currentLevel++;
         if (mainMethodName.equalsIgnoreCase(methodTypeName.getMethodIdentification())) {
             mainMethodDetected = true;
             MJTest.report_success(String.format("Main metoda je definisana! [Line: %d]", methodTypeName.getLine()));
@@ -283,6 +300,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(OneMethodDeclaration methodDeclaration) {
         Table.chainLocalSymbols(currentMethod);
         Table.closeScope();
+        currentLevel--;
         currentMethod = null;
         currentReturnMethodType = null;
     }
@@ -290,6 +308,20 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     // TODO provera za nizove
     public void visit(CleanDesignator cleanDesignator) {
         Obj temp = Table.find(cleanDesignator.getIdentification());
+        StringBuilder builder = new StringBuilder();
+        builder.append(objectTypeMapping.get(temp.getType().getKind()));
+        builder.append(" ["+cleanDesignator.getIdentification()+"]: ");
+        builder.append(nazivi_tipova.get(temp.getType().getKind()));
+        if (temp.getType().getKind() == Struct.Array) {
+          builder.append(" of "+nazivi_tipova.get(temp.getType().getElemType().getKind()));
+        }
+        builder.append(", " + temp.getAdr() + ", " + temp.getLevel());
+
+        report_info(String.format("Pretraga na [Line: %d] --> detektovano %s.",
+                cleanDesignator.getLine(),
+                builder.toString()
+                ),
+                null);
         if (temp == Table.noObj || temp.getKind() == Obj.Type || temp.getKind() == Obj.Prog) {
             report_error(String.format("Neodgovarajuce ime promenljive ili promenljiva ne postoji! [Line %d]", cleanDesignator.getLine()), null);
             temp = new Obj(Obj.NO_VALUE, "", Table.noType);

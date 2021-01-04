@@ -35,43 +35,34 @@ public class CodeGenerator extends VisitorAdaptor {
     }
 
     private void printTrue() {
-        Obj t = new Obj(Obj.Con, "$", Table.charType, 't', 0);
-        Obj r = new Obj(Obj.Con, "$", Table.charType, 'r', 0);
-        Obj u = new Obj(Obj.Con, "$", Table.charType, 'u', 0);
-        Obj e = new Obj(Obj.Con, "$", Table.charType, 'e', 0);
-        Code.load(t);
+        Code.loadConst('t');
         Code.loadConst(2);
         Code.put(Code.bprint);
-        Code.load(r);
+        Code.loadConst('r');
         Code.loadConst(1);
         Code.put(Code.bprint);
-        Code.load(u);
+        Code.loadConst('u');
         Code.loadConst(1);
         Code.put(Code.bprint);
-        Code.load(e);
+        Code.loadConst('e');
         Code.loadConst(1);
         Code.put(Code.bprint);
     }
 
     private void printFalse() {
-        Obj f = new Obj(Obj.Con, "$", Table.charType, 'f', 0);
-        Obj a = new Obj(Obj.Con, "$", Table.charType, 'a', 0);
-        Obj l = new Obj(Obj.Con, "$", Table.charType, 'l', 0);
-        Obj s = new Obj(Obj.Con, "$", Table.charType, 's', 0);
-        Obj e = new Obj(Obj.Con, "$", Table.charType, 'e', 0);
-        Code.load(f);
+        Code.loadConst('f');
         Code.loadConst(2);
         Code.put(Code.bprint);
-        Code.load(a);
+        Code.loadConst('a');
         Code.loadConst(1);
         Code.put(Code.bprint);
-        Code.load(l);
+        Code.loadConst('l');
         Code.loadConst(1);
         Code.put(Code.bprint);
-        Code.load(s);
+        Code.loadConst('s');
         Code.loadConst(1);
         Code.put(Code.bprint);
-        Code.load(e);
+        Code.loadConst('e');
         Code.loadConst(1);
         Code.put(Code.bprint);
     }
@@ -113,11 +104,20 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.loadConst(1);
             Code.put(Code.bprint);
         } else {
-            if (noNumConst.getExpr().obj.getAdr() == 1) {
-                printTrue();
-            } else {
-                printFalse();
-            }
+            int jumpIfFalseLocation;
+            int jumpEndExpression;
+            Code.put(Code.dup);
+            Code.loadConst(1);
+            Code.putFalseJump(Code.eq, 0);
+            jumpIfFalseLocation = Code.pc - 2;
+            printTrue();
+            Code.putJump(0);
+            jumpEndExpression = Code.pc - 2;
+
+            Code.fixup(jumpIfFalseLocation);
+            printFalse();
+            Code.fixup(jumpEndExpression);
+            Code.put(Code.pop);
         }
 
     }
@@ -125,25 +125,38 @@ public class CodeGenerator extends VisitorAdaptor {
     // PrintStmtList ::= (WithNumConst) Expr COMMA NUM_CONST:intValue;
     public void visit(WithNumConst withNumConst) {
         Obj expression = withNumConst.getExpr().obj;
-        if (expression.getType().getKind() == Struct.Int) {
-            Code.loadConst(withNumConst.getIntValue());
-            Code.put(Code.print);
-        } else if (expression.getType().getKind() == Struct.Char) {
-            // Char and Boolean
-            // Boolean => 't' za true, 'f' false za false
-            Code.loadConst(withNumConst.getIntValue());
-            Code.put(Code.bprint);
-        } else {
-            if (withNumConst.getExpr().obj.getAdr() == 1) {
-                printTrue();
+        int x = 5;
+        for(int i = 0; i < withNumConst.getIntValue(); i++) {
+            if (expression.getType().getKind() == Struct.Int) {
+                Code.loadConst(x);
+                Code.put(Code.print);
+            } else if (expression.getType().getKind() == Struct.Char) {
+                // Char and Boolean
+                // Boolean => 't' za true, 'f' false za false
+                Code.loadConst(x);
+                Code.put(Code.bprint);
             } else {
+                int jumpIfFalseLocation;
+                int jumpEndExpression;
+                Code.put(Code.dup);
+                Code.loadConst(1);
+                Code.putFalseJump(Code.eq, 0);
+                jumpIfFalseLocation = Code.pc - 2;
+                printTrue();
+                Code.putJump(0);
+                jumpEndExpression = Code.pc - 2;
+
+                Code.fixup(jumpIfFalseLocation);
                 printFalse();
+                Code.fixup(jumpEndExpression);
             }
         }
+        Code.put(Code.pop);
     }
 
     public void visit(AssignDesignator assignDesignator) {
         boolean[] notNew = {true};
+
         assignDesignator.traverseTopDown(new VisitorAdaptor() {
             public void visit(NewTypeArray newTypeArray) {
                 notNew[0] = false;
@@ -174,7 +187,7 @@ public class CodeGenerator extends VisitorAdaptor {
         // Expression postavlja broj
         SyntaxNode parent = arrayElementAccessDesignator.getParent();
 
-        if (parent.getClass() != AssignDesignator.class) {
+        if (parent.getClass() != AssignDesignator.class && parent.getClass() != ReadStmt.class) {
             if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getKind() == Struct.Char) {
                 Code.put(Code.baload);
             } else {
@@ -194,21 +207,23 @@ public class CodeGenerator extends VisitorAdaptor {
 
     // Todo
     public void visit(ExprTernStatement exprNoTernStatement) {
+        Table.openScope();
         Obj falseOpt = Table.insert(Obj.Var, "a", exprNoTernStatement.obj.getType());
         Obj trueOpt = Table.insert(Obj.Var, "b", exprNoTernStatement.obj.getType());
         Code.store(falseOpt);
         Code.store(trueOpt);
+        Table.closeScope();
         int fwdJmpIfFalse;
         int fwdJmpEnd;
         int relopCode = ternaryRelopStack.pop();
-        Code.putFalseJump(relopCode /*Code.inverse[Code.ne]*/, 0); // ako nisu jednaki skoci na false
+        Code.putFalseJump(relopCode, 0);
         fwdJmpIfFalse = Code.pc - 2;
-        Code.load(trueOpt);  // true
+        Code.load(trueOpt);
         Code.putJump(0);
         fwdJmpEnd = Code.pc - 2;
 
         Code.fixup(fwdJmpIfFalse);
-        Code.load(falseOpt);  // false
+        Code.load(falseOpt);
         Code.fixup(fwdJmpEnd);
     }
 
@@ -286,9 +301,9 @@ public class CodeGenerator extends VisitorAdaptor {
     public void visit(BooleanConstant booleanConstant) {
 
         if (booleanConstant.getBoolValue().equalsIgnoreCase("true")) {
-            Code.load(new Obj(Obj.Con, "$bool", new Struct(Struct.Bool), 1, 1));
+            Code.load(new Obj(Obj.Con, "$bool", new Struct(Struct.Bool), 1, 0));
         } else {
-            Code.load(new Obj(Obj.Con, "$bool", new Struct(Struct.Bool), 0, 1));
+            Code.load(new Obj(Obj.Con, "$bool", new Struct(Struct.Bool), 0, 0));
         }
     }
 
@@ -342,6 +357,19 @@ public class CodeGenerator extends VisitorAdaptor {
         } else if (o.getType().getKind() == Struct.Char) {
             Code.put(Code.bread);
         } else if (o.getType().getKind() == Struct.Bool) {
+            Code.put(Code.bread);
+            Code.loadConst('t');
+            int jumpIfFalse;
+            int jumpToEnd;
+            Code.putFalseJump(Code.eq, 0);
+            jumpIfFalse = Code.pc - 2;
+            Code.loadConst(1);
+            Code.putJump(0);
+            jumpToEnd = Code.pc - 2;
+
+            Code.fixup(jumpIfFalse);
+            Code.loadConst(0);
+            Code.fixup(jumpToEnd);
         }
         Code.store(o);
     }
