@@ -30,9 +30,6 @@ public class CodeGenerator extends VisitorAdaptor {
 
     }
 
-    private void readBoolean() {
-
-    }
 
     private void printTrue() {
         Code.loadConst('t');
@@ -186,8 +183,16 @@ public class CodeGenerator extends VisitorAdaptor {
     public void visit(ArrayElementAccessDesignator arrayElementAccessDesignator) {
         // Expression postavlja broj
         SyntaxNode parent = arrayElementAccessDesignator.getParent();
-
-        if (parent.getClass() != AssignDesignator.class && parent.getClass() != ReadStmt.class) {
+        if(parent.getClass() != DecrementDesignator.class && parent.getClass() != IncrementDesignator.class) {
+            if (parent.getClass() != AssignDesignator.class && parent.getClass() != ReadStmt.class) {
+                if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getKind() == Struct.Char) {
+                    Code.put(Code.baload);
+                } else {
+                    Code.put(Code.aload);
+                }
+            }
+        } else {
+            Code.put(Code.dup2);
             if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getKind() == Struct.Char) {
                 Code.put(Code.baload);
             } else {
@@ -197,22 +202,46 @@ public class CodeGenerator extends VisitorAdaptor {
     }
 
     public void visit(DesignatorListOneElement designatorListOneElement) {
-        Code.load(designatorListOneElement.obj);
+        Obj o = designatorListOneElement.obj;
+        Code.load(o);
     }
 
     // TODO za matrice
-    public void visit(ArrayElementDesignatorList arrayElementDesignatorList) {
-
+    public void visit(ArrayElementDesignatorList arrayElementAccessDesignator) {
+        SyntaxNode parent = arrayElementAccessDesignator.getParent();
+        if(parent.getClass() != DecrementDesignator.class && parent.getClass() != IncrementDesignator.class) {
+            if (parent.getClass() != AssignDesignator.class && parent.getClass() != ReadStmt.class) {
+                if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getKind() == Struct.Char) {
+                    Code.put(Code.baload);
+                } else {
+                    Code.put(Code.aload);
+                }
+            }
+        } else {
+            Code.put(Code.dup2);
+            if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getKind() == Struct.Char) {
+                Code.put(Code.baload);
+            } else {
+                Code.put(Code.aload);
+            }
+        }
     }
 
     // Todo
     public void visit(ExprTernStatement exprNoTernStatement) {
+
+        Table.openScope();
+        Table.openScope();
         Table.openScope();
         Obj falseOpt = Table.insert(Obj.Var, "a", exprNoTernStatement.obj.getType());
         Obj trueOpt = Table.insert(Obj.Var, "b", exprNoTernStatement.obj.getType());
+        Table.closeScope();
+        Table.closeScope();
+        Table.closeScope();
         Code.store(falseOpt);
         Code.store(trueOpt);
-        Table.closeScope();
+
+
         int fwdJmpIfFalse;
         int fwdJmpEnd;
         int relopCode = ternaryRelopStack.pop();
@@ -221,7 +250,6 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.load(trueOpt);
         Code.putJump(0);
         fwdJmpEnd = Code.pc - 2;
-
         Code.fixup(fwdJmpIfFalse);
         Code.load(falseOpt);
         Code.fixup(fwdJmpEnd);
@@ -349,7 +377,6 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.store(incrementDesignator.getDesignator().obj);
     }
 
-    // TODo read samo zabada
     public void visit(ReadStmt readStmt) {
         Obj o = readStmt.getDesignator().obj;
         if (o.getType().getKind() == Struct.Int) {
