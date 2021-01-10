@@ -1,0 +1,41 @@
+// Test301
+
+program test8
+// ------| Global variables
+
+const int a = 3, b = 4;
+
+const char ach = 'a', bch = 'b';
+
+const bool abl = true, bbl = false;
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+        int a;
+        int b;
+        // ------| End local variables
+        {
+            // ------| Code begin
+             a = 1;
+             b = 2;
+
+             // Za ovo nisam 100% siguran da li treba da se override-uje?
+
+            print(a);
+            print(b);
+
+            print(ach);
+            print(bch);
+
+            print(abl);
+            print(bbl);
+
+            // Result: 1    2   a   b   true    false
+
+            // ------| Code end
+        }
+}
+
+

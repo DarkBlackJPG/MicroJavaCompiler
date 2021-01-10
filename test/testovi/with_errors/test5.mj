@@ -1,0 +1,49 @@
+// Test301
+
+program test4
+// ------| Global variables
+int a;
+int b;
+
+char ach;
+char bch;
+
+bool abl;
+bool bbl;
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+
+             a = 1 + ;
+             b = 2 + 2;
+
+             ach = 'a;
+             bch = 'b';
+
+             abl = true;
+             bbl = false;
+
+             print(a, 3);
+             print(b, 3);
+
+             print(ach, 3);
+             print(bch, 3);
+
+             print(abl, 3);
+             print(bbl, 3);
+
+            // Result: 111    222   aaa   bbb   true true true    false false false
+
+            // Ili je rezultat samo razdaljina izmedju dva elementa?
+
+            // ------| Code end
+        }
+}
+
+

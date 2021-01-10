@@ -6,6 +6,7 @@ import java_cup.runtime.Symbol;
 %%
 
 %{
+    public boolean error_exists = false;
 
 	private Symbol new_symbol(int type) {
 		return new Symbol(type, yyline+1, yycolumn);
@@ -99,7 +100,7 @@ import java_cup.runtime.Symbol;
 "'"[ -~]"'"		{ return new_symbol(sym.CHAR_CONST, new Character(yytext().charAt(1)));}
 
 
-. { System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1)); }
+. { System.err.println("Leksicka greska ("+yytext()+") u liniji "+(yyline+1)); error_exists = true; }
 
 
 

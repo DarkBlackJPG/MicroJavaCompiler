@@ -1,5 +1,6 @@
 package rs.ac.bg.etf.pp1;
 
+import org.apache.log4j.Logger;
 import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Scope;
@@ -8,7 +9,18 @@ import rs.etf.pp1.symboltable.visitors.DumpSymbolTableVisitor;
 import rs.etf.pp1.symboltable.visitors.SymbolTableVisitor;
 
 public class Table extends Tab {
+    static Logger log = Logger.getLogger(Table.class);
+    public static void report_error(String message) {
+        log.error("\u001b[0;31m" + message + "\u001b[m");
+    }
 
+    public static void report_info(String message) {
+        log.info("\u001b[0;36m" + message + "\u001b[m");
+    }
+
+    public static void report_success(String message) {
+        log.info("\u001B[0;32m" + message + "\u001b[m");
+    }
     // standardni tipovi
     public static final Struct noType = new Struct(Struct.None);
     public static final Struct intType = new Struct(Struct.Int);
@@ -136,7 +148,7 @@ public class Table extends Tab {
     }
 
     public static void dump(SymbolTableVisitor stv) {
-        MJTest.report_info("============================= SADRZAJ TABELE SIMBOLA =============================");
+        Table.report_info("============================= SADRZAJ TABELE SIMBOLA =============================");
         if (stv == null)
             stv = new TableRider();
         for (Scope s = currentScope; s != null; s = s.getOuter()) {

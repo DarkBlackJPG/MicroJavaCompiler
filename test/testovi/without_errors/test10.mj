@@ -1,0 +1,32 @@
+// Test301
+
+program test10
+// ------| Global variables
+
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+
+            print(1);
+            print(' ');
+            print('c');
+            print('h');
+            print('a');
+            print('r');
+            print(' ');
+            print(true);
+
+            // Result: 1        char        true
+
+            // ------| Code end
+        }
+}
+
+

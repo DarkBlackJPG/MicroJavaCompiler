@@ -136,6 +136,8 @@ nonterminal rs.etf.pp1.symboltable.concepts.Obj RelOp;
 
 nonterminal AssignOp AssignOp;
 
+nonterminal ErrorProneAssignment ErrorProneAssignment;
+
 nonterminal AddOp AddOp;
 
 nonterminal Declarations Declarations;
@@ -207,13 +209,15 @@ nonterminal rs.etf.pp1.symboltable.concepts.Obj DesignatorList;
 
 nonterminal SwichCaseDefinition SwichCaseDefinition;
 
-nonterminal ActPars ActPars;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ActPars;
 
 nonterminal PrintStmtList PrintStmtList;
 
 nonterminal SwitchCaseList SwitchCaseList;
 
 nonterminal BeginTernary BeginTernary;
+
+nonterminal ConstDecls ConstDecls;
 
 nonterminal CaseStatementList CaseStatementList;
 
@@ -231,7 +235,7 @@ nonterminal rs.etf.pp1.symboltable.concepts.Obj ExprNoTernAddOpList;
 
 nonterminal MethodStatements MethodStatements;
 
-nonterminal ActParsChoice ActParsChoice;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ActParsChoice;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj MethodTypeName;
 
@@ -265,14 +269,27 @@ MethodDeclarations ::= (SingleMethod) MethodDeclaration:M1 {: RESULT=new SingleM
 					| (MethodDeclList) MethodDeclarations:M1 MethodDeclaration:M2 {: RESULT=new MethodDeclList(M1, M2); RESULT.setLine(M1left); :}
 					;
 Decls		::= 
-				(ConstDeclarations) CONST Type:type ConstList:C1 SEMI {: RESULT=new ConstDeclarations(type, C1); RESULT.setLine(typeleft); :}
+				(ConstantDeclerations) CONST ConstDecls:C1 {: RESULT=new ConstantDeclerations(C1); RESULT.setLine(C1left); :}
 				| (VarDeclarations) VariableDeclarations:V1 {: RESULT=new VarDeclarations(V1); RESULT.setLine(V1left); :}
 				| (ClassDeclarations) CLASS ClassDeclaration:C1 BRACES_BEGIN ClassBody:C2 BRACES_END {: RESULT=new ClassDeclarations(C1, C2); RESULT.setLine(C1left); :}
 				;
 
+ConstDecls ::= (ConstDeclarations)  Type:type ConstList:C1 SEMI {: RESULT=new ConstDeclarations(type, C1); RESULT.setLine(typeleft); :}
+               | (ErrorConstDecls) error SEMI
+               {:
+                                    Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+                                    parser.report_error("Izvrsen oporavak, losa definicija konstante! [Line: " + symbol.left + "] .", null);
+                               :} {: RESULT=new ErrorConstDecls(); :}
+               ;
+
 ConstList 	::= 
 				(SingleConst) Const:C1 {: RESULT=new SingleConst(C1); RESULT.setLine(C1left); :}
 				| (MoreConsts) ConstList:C1 COMMA Const:C2 {: RESULT=new MoreConsts(C1, C2); RESULT.setLine(C1left); :}
+				| (ErrorConsts) error
+				{:
+                     Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+                     parser.report_error("Izvrsen oporavak, losa definicija konstante! [Line: " + symbol.left + "] .", null);
+                :} {: RESULT=new ErrorConsts(); :}
 	   			;
 				
 				
@@ -292,12 +309,9 @@ VariableDeclarations ::=
 					| (SemiErrorStmt) error SEMI
 	   				{:
 	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-	   				 parser.report_error("Izvrsen oporavak do ; u liniji " + symbol.left, null);  
+	   				 parser.report_error("Losa definicija promenljive! [Line:  " + symbol.left + "] .", null);
 	   				:} {: RESULT=new SemiErrorStmt(); :}
 					;		
-					
-ErrorVariableDeclarations ::= {: RESULT=new ErrorVariableDeclarationsDerived1(); :} 
-	   				;
 
 VariableList ::= 
 				(SingleVariable) VariableDeclaration:V1 {: RESULT=new SingleVariable(V1); RESULT.setLine(V1left); :}
@@ -306,12 +320,11 @@ VariableList ::=
 				
 ErrorVariables ::= (ErrorNonArrayVariable) IDENT:variableName COMMA {: RESULT=new ErrorNonArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
 					| (ErrorArrayVariable) IDENT:variableName BRACKET_BEGIN BRACKET_END COMMA {: RESULT=new ErrorArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
-					/*| (CommaErrorStmt) error COMMA
+					| (CommaErrorStmt) error COMMA
 	   				{:
 	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-	   				 parser.report_error("Izvrsen oporavak do , u liniji " + symbol.left, null);  
-	   				 yyerrok;
-	   				:}*/
+	   				 parser.report_error("Losa definicija promenljive![Line:  " + symbol.left + "] .", null);
+	   				:} {: RESULT=new CommaErrorStmt(); :}
 					;
 				
 VariableDeclaration ::= 
@@ -405,13 +418,20 @@ StatementList ::= (NonEmptyStatementList) StatementList:S1 Statement:S2 {: RESUL
 					| (EmptyStatement) {: RESULT=new EmptyStatement(); :} ;
 					
 					
-DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp:A1 Expr:type {: RESULT=new AssignDesignator(designator, A1, type); RESULT.setLine(designatorleft); :}
+DesignatorStatement ::= (ErrorProneAssignmentDesignator) ErrorProneAssignment:E1 {: RESULT=new ErrorProneAssignmentDesignator(E1); RESULT.setLine(E1left); :}
 					| (MethodCallDesignator) Designator:designator PARENTHESES_BEGIN ActParsChoice:A1 PARENTHESES_END {: RESULT=new MethodCallDesignator(designator, A1); RESULT.setLine(designatorleft); :}
 					| (IncrementDesignator) Designator:designator INCREMENT {: RESULT=new IncrementDesignator(designator); RESULT.setLine(designatorleft); :}
 					| (DecrementDesignator) Designator:designator DECREMENT {: RESULT=new DecrementDesignator(designator); RESULT.setLine(designatorleft); :}
 					;
 
-
+ErrorProneAssignment ::= (AssignDesignator) Designator:designator AssignOp:A1 Expr:type {: RESULT=new AssignDesignator(designator, A1, type); RESULT.setLine(designatorleft); :}
+                    |
+                    (ErrorAssignment) error
+                    {:
+                         Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+                         parser.report_error("Izvrsen oporavak do ; u liniji " + symbol.left + ". Greska prilikom dodele", null);
+                    :} {: RESULT=new ErrorAssignment(); :}
+                    ;
 
 ReturnStmts ::= (NonEmptyReturn) Expr:expr {: RESULT=new NonEmptyReturn(expr); RESULT.setLine(exprleft); :}
 			| (EmptyReturn) {: RESULT=new EmptyReturn(); :}

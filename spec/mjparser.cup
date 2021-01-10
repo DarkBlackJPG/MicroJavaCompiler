@@ -136,6 +136,8 @@ nonterminal rs.etf.pp1.symboltable.concepts.Obj RelOp;
 
 nonterminal AssignOp;
 
+nonterminal ErrorProneAssignment;
+
 nonterminal AddOp;
 
 nonterminal Declarations;
@@ -207,13 +209,15 @@ nonterminal rs.etf.pp1.symboltable.concepts.Obj DesignatorList;
 
 nonterminal SwichCaseDefinition;
 
-nonterminal ActPars;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ActPars;
 
 nonterminal PrintStmtList;
 
 nonterminal SwitchCaseList;
 
 nonterminal BeginTernary;
+
+nonterminal ConstDecls;
 
 nonterminal CaseStatementList;
 
@@ -231,7 +235,7 @@ nonterminal rs.etf.pp1.symboltable.concepts.Obj ExprNoTernAddOpList;
 
 nonterminal MethodStatements;
 
-nonterminal ActParsChoice;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ActParsChoice;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj MethodTypeName;
 
@@ -265,14 +269,27 @@ MethodDeclarations ::= (SingleMethod) MethodDeclaration
 					| (MethodDeclList) MethodDeclarations MethodDeclaration
 					;
 Decls		::= 
-				(ConstDeclarations) CONST Type:type ConstList SEMI
+				(ConstantDeclerations) CONST ConstDecls
 				| (VarDeclarations) VariableDeclarations
 				| (ClassDeclarations) CLASS ClassDeclaration BRACES_BEGIN ClassBody BRACES_END
 				;
 
+ConstDecls ::= (ConstDeclarations)  Type:type ConstList SEMI
+               | (ErrorConstDecls) error SEMI
+               {:
+                                    Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+                                    parser.report_error("Izvrsen oporavak, losa definicija konstante! [Line: " + symbol.left + "] .", null);
+                               :}
+               ;
+
 ConstList 	::= 
 				(SingleConst) Const
 				| (MoreConsts) ConstList COMMA Const
+				| (ErrorConsts) error
+				{:
+                     Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+                     parser.report_error("Izvrsen oporavak, losa definicija konstante! [Line: " + symbol.left + "] .", null);
+                :}
 	   			;
 				
 				
@@ -292,12 +309,9 @@ VariableDeclarations ::=
 					| (SemiErrorStmt) error SEMI
 	   				{:
 	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-	   				 parser.report_error("Izvrsen oporavak do ; u liniji " + symbol.left, null);  
+	   				 parser.report_error("Losa definicija promenljive! [Line:  " + symbol.left + "] .", null);
 	   				:}
 					;		
-					
-ErrorVariableDeclarations ::= 
-	   				;
 
 VariableList ::= 
 				(SingleVariable) VariableDeclaration
@@ -306,12 +320,11 @@ VariableList ::=
 				
 ErrorVariables ::= (ErrorNonArrayVariable) IDENT:variableName COMMA
 					| (ErrorArrayVariable) IDENT:variableName BRACKET_BEGIN BRACKET_END COMMA
-					/*| (CommaErrorStmt) error COMMA
+					| (CommaErrorStmt) error COMMA
 	   				{:
 	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
-	   				 parser.report_error("Izvrsen oporavak do , u liniji " + symbol.left, null);  
-	   				 yyerrok;
-	   				:}*/
+	   				 parser.report_error("Losa definicija promenljive![Line:  " + symbol.left + "] .", null);
+	   				:}
 					;
 				
 VariableDeclaration ::= 
@@ -405,13 +418,20 @@ StatementList ::= (NonEmptyStatementList) StatementList Statement
 					| (EmptyStatement) ;
 					
 					
-DesignatorStatement ::= (AssignDesignator) Designator:designator AssignOp Expr:type
+DesignatorStatement ::= (ErrorProneAssignmentDesignator) ErrorProneAssignment
 					| (MethodCallDesignator) Designator:designator PARENTHESES_BEGIN ActParsChoice PARENTHESES_END
 					| (IncrementDesignator) Designator:designator INCREMENT
 					| (DecrementDesignator) Designator:designator DECREMENT
 					;
 
-
+ErrorProneAssignment ::= (AssignDesignator) Designator:designator AssignOp Expr:type
+                    |
+                    (ErrorAssignment) error
+                    {:
+                         Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
+                         parser.report_error("Izvrsen oporavak do ; u liniji " + symbol.left + ". Greska prilikom dodele", null);
+                    :}
+                    ;
 
 ReturnStmts ::= (NonEmptyReturn) Expr:expr
 			| (EmptyReturn)

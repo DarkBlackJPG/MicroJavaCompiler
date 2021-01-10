@@ -33,10 +33,12 @@ public class MJTest {
     }
 
     public static void main(String[] args) throws Exception {
-
         Reader br = null;
+
         try {
-            File sourceCode = new File("test/program.mj");
+            String program = args[0];
+            File sourceCode = new File(program);
+            //File sourceCode = new File("test/program.mj");
             report_info("|-----------------------------------------------------------------|");
             report_info("|                         LEKSICKA OBRADA                         |");
             report_info("|-----------------------------------------------------------------|");
@@ -46,6 +48,10 @@ public class MJTest {
             Yylex lexer = new Yylex(br);
             MJParser parser = new MJParser(lexer);
             Symbol s = parser.parse();
+            if (parser.errorDetected || lexer.error_exists) {
+                report_error("Detektovana leksicka greska, obustavlja se proces kompajliranja.");
+                System.exit(0);
+            }
             Table.init();
             Program prog = (Program) (s.value);
             report_info("|-------------------------------------------------------------------|");
@@ -62,9 +68,6 @@ public class MJTest {
                 report_error("Main metoda nije definisana u programu!!!");
                 semanticAnalyzer.errorDetected = true;
             }
-            report_info("|-------------------------------------------------------------------|");
-            report_info("|                         SINTAKSNA ANALIZA                         |");
-            report_info("|-------------------------------------------------------------------|");
             log.info("\n" + semanticAnalyzer.syntaxAnalysisWatcher.toString());
             Table.dump();
 
@@ -80,8 +83,11 @@ public class MJTest {
                             "izvrsiti!");
                 }
             }
-            log.info("=================================================");
+
             if (continueCodeGen) {
+                report_info("|-------------------------------------------------------------------|");
+                report_info("|                          GENERISANJE KODA                         |");
+                report_info("|-------------------------------------------------------------------|");
                 String name = semanticAnalyzer.programName;
                 name = "program" ;
                 File file = new File("test/"+name+".obj");
@@ -100,6 +106,7 @@ public class MJTest {
                     report_success("Kompajliranje uspesno izvrseno!");
                 } else {
                     report_error("Doslo je do greske! Objektni fajl nije izgenerisan!");
+                    Code.write(new FileOutputStream(file));
                 }
             }
         } finally {
@@ -109,9 +116,9 @@ public class MJTest {
                 log.error(e1.getMessage(), e1);
             }
 
-            report_info("|-----------------------------------------------------------|");
-            report_info("|                         KRAJ RADA                         |");
-            report_info("|-----------------------------------------------------------|");
+            report_info("|-------------------------------------------------------------------|");
+            report_info("|                              KRAJ RADA                            |");
+            report_info("|-------------------------------------------------------------------|");
         }
     }
 

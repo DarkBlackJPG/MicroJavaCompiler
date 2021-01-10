@@ -4,12 +4,25 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 import rs.ac.bg.etf.pp1.ast.*;
+import rs.etf.pp1.symboltable.Tab;
 import rs.etf.pp1.symboltable.concepts.*;
 
 
 public class SemanticAnalyzer extends VisitorAdaptor {
     boolean returnTokenRequired = false;
     boolean mainMethodDetected = false;
+    static Logger log = Logger.getLogger(SemanticAnalyzer.class);
+    public static void report_error(String message) {
+        log.error("\u001b[0;31m" + message + "\u001b[m");
+    }
+
+    public static void report_info(String message) {
+        log.info("\u001b[0;36m" + message + "\u001b[m");
+    }
+
+    public static void report_success(String message) {
+        log.info("\u001B[0;32m" + message + "\u001b[m");
+    }
     SyntaxAnalysisWatcher syntaxAnalysisWatcher = new SyntaxAnalysisWatcher();
     private HashMap<Integer, String> objectTypeMapping = new HashMap<>();
     // Potreba da se detektuje ulazna tacka programa
@@ -25,7 +38,6 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     // Sluzi da odmah ubacimo u tabelu simbola kada detektujemo naziv VariableDeclaration
     Struct currentType = Table.noType;
 
-    Logger log = Logger.getLogger(getClass());
 
     final HashMap<Integer, String> nazivi_tipova = new HashMap<>();
 
@@ -44,6 +56,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         nazivi_tipova.put(Struct.Bool, "bool");
         nazivi_tipova.put(Struct.Enum, "enum");
         nazivi_tipova.put(Struct.Interface, "interface");
+        nazivi_tipova.put(Struct.None, "null");
 
         objectTypeMapping.put(Obj.Con, "Constant");
         objectTypeMapping.put(Obj.Type, "Type");
@@ -73,10 +86,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
     // VariableDeclaration is superclass
     public void visit(NonArrayVariable vardecl) {
-        syntaxAnalysisWatcher.globalVariableDetected();
+        if (currentLevel == 1) {
+            syntaxAnalysisWatcher.globalVariableDetected();
+        }
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj ||
-            currentLevel > variableNode.getLevel()) {
+                currentLevel > variableNode.getLevel() && variableNode.getKind() != Obj.Con) {
             Table.insert(Obj.Var, vardecl.getVariableName(), currentType);
         } else {
 
@@ -86,7 +101,10 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(ErrorNonArrayVariable vardecl) {
-        syntaxAnalysisWatcher.globalVariableDetected();
+        if (currentLevel == 1) {
+            syntaxAnalysisWatcher.globalVariableDetected();
+        }
+
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj ||
                 currentLevel > variableNode.getLevel()) {
@@ -99,7 +117,10 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(ArrayVariable vardecl) {
-        syntaxAnalysisWatcher.globalArrayDetected();
+        if (currentLevel == 1) {
+            syntaxAnalysisWatcher.globalArrayDetected();
+        }
+
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj) {
             Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
@@ -123,7 +144,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(ErrorArrayVariable vardecl) {
-        syntaxAnalysisWatcher.globalArrayDetected();
+        if (currentLevel == 1) {
+            syntaxAnalysisWatcher.globalArrayDetected();
+        }
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj) {
             Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
@@ -148,10 +171,6 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         num.obj = new Obj(Obj.Con, "", Table.boolType, isTrue ? 1 : 0, 0);
     }
 
-//    public void visit(VarDeclarations varDeclarations) {
-//        syntaxAnalysisWatcher.globalVariableDetected();
-//    }
-
     public void visit(ClassDeclarations classDeclarations) {
         syntaxAnalysisWatcher.classDetected();
     }
@@ -165,7 +184,10 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     }
 
     public void visit(ConstDefinition vardecl) {
-        syntaxAnalysisWatcher.globalConstantDetected();
+        if (currentLevel == 1) {
+            syntaxAnalysisWatcher.globalConstantDetected();
+        }
+
 
         Obj variableNode = Table.find(vardecl.getIdentification());
         if (variableNode == Table.noObj) {
@@ -197,16 +219,66 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         if (readStmtDesignator.getType().getKind() != Struct.Int &&
                 readStmtDesignator.getType().getKind() != Struct.Bool &&
                 readStmtDesignator.getType().getKind() != Struct.Char
-        )   {
+        ) {
             report_error(String.format("Dozvoljeni tipovi u metodi read su: (int), (bool) ili (char). Prosledjen tip je" +
-                    " (%s)! [Line: %d]",
+                            " (%s)! [Line: %d]",
                     nazivi_tipova.get(readStmtDesignator.getType().getKind()),
                     print.getLine()), null);
         }
     }
+
+    public void visit(EmptyActPars emptyActPars) {
+        emptyActPars.obj = new Obj(Obj.Con, "", Table.noType);
+    }
+
+    public void visit(NonEmptyActPars nonEmptyActPars) {
+        nonEmptyActPars.obj = nonEmptyActPars.getActPars().obj;
+    }
+
+    public void visit(ActParsWithoutComma actParsWithoutComma) {
+        actParsWithoutComma.obj = actParsWithoutComma.getExpr().obj;
+    }
+
+    public void visit(ParamsDesignator paramsDesignator) {
+        String o = paramsDesignator.getDesignator().obj.getName();
+        if (o.equals("ord")) {
+            Obj param = paramsDesignator.getActParsChoice().obj;
+            if (param.getType().getKind() == Struct.Char) {
+                paramsDesignator.obj = new Obj(Obj.Con, "", Table.intType);
+            } else {
+                report_error(String.format("Ocekuje se (char), dobijen (%s). [Line: %d]",
+                        nazivi_tipova.get(param.getType().getKind()),
+                        paramsDesignator.getLine()),
+                        null);
+                paramsDesignator.obj = new Obj(Obj.Con, "", Table.noType);
+            }
+        } else if (o.equals("len")) {
+            Obj param = paramsDesignator.getActParsChoice().obj;
+            if (param.getType().getKind() == Struct.Array) {
+                paramsDesignator.obj = new Obj(Obj.Con, "", Table.intType);
+            } else {
+                report_error(String.format("Ocekuje se (array), dobijen (%s). [Line: %d]",
+                        nazivi_tipova.get(param.getType().getKind()),
+                        paramsDesignator.getLine()),
+                        null);
+                paramsDesignator.obj = new Obj(Obj.Con, "", Table.noType);
+            }
+        } else if (o.equals("chr")) {
+            Obj param = paramsDesignator.getActParsChoice().obj;
+            if (param.getType().getKind() == Struct.Int) {
+                paramsDesignator.obj = new Obj(Obj.Con, "", Table.charType);
+            } else {
+                report_error(String.format("Ocekuje se (int), dobijen (%s). [Line: %d]",
+                        nazivi_tipova.get(param.getType().getKind()),
+                        paramsDesignator.getLine()),
+                        null);
+                paramsDesignator.obj = new Obj(Obj.Con, "", Table.noType);
+            }
+        }
+    }
+
     // PrintStmtList ::= (NoNumConst) Expr;
     // TODO Proveri da li je ovo dovoljno
-
     public void visit(NoNumConst noNumConst) {
         Obj expr = noNumConst.getExpr().obj;
         if (!(expr.getType().getKind() == Struct.Int
@@ -256,7 +328,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             }
         }
     }
+
     public String programName;
+
     public void visit(ProgramName programName) {
         programName.obj = Table.insert(Obj.Prog, programName.getProgramName(), Table.noType);
         this.programName = programName.getProgramName();
@@ -292,7 +366,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         currentLevel++;
         if (mainMethodName.equalsIgnoreCase(methodTypeName.getMethodIdentification())) {
             mainMethodDetected = true;
-            MJTest.report_success(String.format("Main metoda je definisana! [Line: %d]", methodTypeName.getLine()));
+            SemanticAnalyzer.report_success(String.format("Main metoda je definisana! [Line: %d]", methodTypeName.getLine()));
         }
 
     }
@@ -308,18 +382,11 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     // TODO provera za nizove
     public void visit(CleanDesignator cleanDesignator) {
         Obj temp = Table.find(cleanDesignator.getIdentification());
-        StringBuilder builder = new StringBuilder();
-        builder.append(objectTypeMapping.get(temp.getType().getKind()));
-        builder.append(" ["+cleanDesignator.getIdentification()+"]: ");
-        builder.append(nazivi_tipova.get(temp.getType().getKind()));
-        if (temp.getType().getKind() == Struct.Array) {
-          builder.append(" of "+nazivi_tipova.get(temp.getType().getElemType().getKind()));
-        }
-        builder.append(", " + temp.getAdr() + ", " + temp.getLevel());
-
+        TableRider rider = new TableRider();
+        rider.visitObjNode(temp);
         report_info(String.format("Pretraga na [Line: %d] --> detektovano %s.",
                 cleanDesignator.getLine(),
-                builder.toString()
+                rider.getOutput()
                 ),
                 null);
         if (temp == Table.noObj || temp.getKind() == Obj.Type || temp.getKind() == Obj.Prog) {
@@ -461,6 +528,10 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
     }
 
+    private boolean assignableTo(Struct assignee, Struct dest) {
+        return assignee.equals(dest) || assignee == Table.nullType && dest.isRefType() || assignee.getKind() == 3 && dest.getKind() == 3 && dest.getElemType() == Table.noType;
+    }
+
     public void visit(AssignDesignator assignDesignator) {
         Obj designator = assignDesignator.getDesignator().obj;
         Obj expression = assignDesignator.getExpr().obj;
@@ -470,7 +541,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                     designator.getName(), assignDesignator.getLine()), null);
             return;
         }
-        if (!expression.getType().assignableTo(designator.getType())) {
+        if (!assignableTo(expression.getType(), designator.getType())) {
             // TODO kompatibilnost sa array??
             if (expression.getType().getKind() == 3 && designator.getType().getKind() == 3) {
                 report_error(String.format("Promenljiva tipa Array of (%s) ne moze da se dodeli promenljivoj tipa Array of (%s)! [Line: %d]",
@@ -597,29 +668,55 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         nonEmptyRelationalExpression.obj = new Obj(Obj.Type, operation, expression.getType());
     }
 
+    private boolean isCompatableWith(Struct leftOp, Struct rightOp) {
+        return leftOp.equals(rightOp) || leftOp == Table.nullType && rightOp.isRefType() || rightOp == Table.nullType && leftOp.isRefType();
+    }
+
     public void visit(ExpressionConditionFactor expressionConditionFactor) {
         Obj leftExpression = expressionConditionFactor.getExprNoTern().obj;
         Obj rightExpression = expressionConditionFactor.getRelationalExpression().obj;
         String operation = rightExpression.getName();
         if (rightExpression.getType().getKind() != Table.noType.getKind()) {
             if (rightExpression.getType().getKind() == Struct.Array
-                    && leftExpression.getType().getKind() == Struct.Array) {
-                if (leftExpression.getType().getElemType().getKind() == rightExpression.getType().getElemType().getKind()) {
+                    || leftExpression.getType().getKind() == Struct.Array) {
+                if (isCompatableWith(leftExpression.getType(), rightExpression.getType())) {
                     if (operation.equalsIgnoreCase("!=") || operation.equalsIgnoreCase("==")) {
-                        expressionConditionFactor.obj = new Obj(Obj.Type, "", Table.boolType);
+                        if (leftExpression.getType().getElemType() == null || rightExpression.getType().getElemType() == null) {
+                            if (isCompatableWith(leftExpression.getType(), rightExpression.getType())) {
+                                expressionConditionFactor.obj = new Obj(Obj.Type, "", Table.boolType);
+                            } else {
+                                report_error(String.format("Nizovi nemaju iste tipove elemenata, niz na levoj strani je (%s), a na desnoj strani (%s)! [Line: %d]",
+                                        nazivi_tipova.get(leftExpression.getType().getElemType().getKind()),
+                                        nazivi_tipova.get(rightExpression.getType().getElemType().getKind()),
+                                        expressionConditionFactor.getLine()),
+                                        null);
+                                expressionConditionFactor.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
+                            }
+                        } else {
+                            expressionConditionFactor.obj = new Obj(Obj.Type, "", Table.boolType);
+                        }
+
                     } else {
                         report_error(String.format("Prilikom uporedjivanja nizova, dozvoljeni relacioni opearteri su [!=] ili [==]!" +
                                         " Koriscena operacija je (%s)! [Line: %d]",
                                 operation,
                                 expressionConditionFactor.getLine()),
                                 null);
+                        expressionConditionFactor.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
                     }
                 } else {
-                    report_error(String.format("Tipovi nisu kompatibilni! Uporedjuje se Array of (%s) i Array of (%s) [Line: %d]",
-                            nazivi_tipova.get(leftExpression.getType().getElemType().getKind()),
-                            nazivi_tipova.get(rightExpression.getType().getElemType().getKind()),
-                            expressionConditionFactor.getLine()),
-                            null);
+                    if (leftExpression.getType().getElemType() == null || rightExpression.getType().getElemType() == null) {
+                        report_error(String.format("Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: %d]",
+                                expressionConditionFactor.getLine()),
+                                null);
+                    } else {
+                        report_error(String.format("Ne moze da se izvrsi operacija! Uporedjuje se Array of (%s) i Array of (%s) [Line: %d]",
+                                nazivi_tipova.get(leftExpression.getType().getElemType().getKind()),
+                                nazivi_tipova.get(rightExpression.getType().getElemType().getKind()),
+                                expressionConditionFactor.getLine()),
+                                null);
+                    }
+                    expressionConditionFactor.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
                 }
             } else {
                 /*
@@ -628,7 +725,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                  *  Tj da li neki boolean moze da bude veci ili manji od nekog drugog boolean? Tehnicki vodimo boolean kao
                  * integer tako da mozemo da uporedjujemo, ali da li ima smisla?
                  * */
-                if (rightExpression.getType().getKind() == leftExpression.getType().getKind()) {
+                if (isCompatableWith(rightExpression.getType(), leftExpression.getType())) {
                     if (rightExpression.getType().getKind() == Struct.Bool) {
                         if (operation.equalsIgnoreCase("==") || operation.equalsIgnoreCase("!=")) {
                             expressionConditionFactor.obj = new Obj(Obj.Type, "", Table.boolType);
@@ -639,6 +736,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                                     expressionConditionFactor.getLine()
                                     ),
                                     null);
+                            expressionConditionFactor.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
                         }
                     } else {
                         expressionConditionFactor.obj = new Obj(Obj.Type, "", rightExpression.getType());
@@ -649,6 +747,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                             nazivi_tipova.get(rightExpression.getType().getKind()),
                             expressionConditionFactor.getLine()),
                             null);
+                    expressionConditionFactor.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
                 }
             }
         } else {
@@ -667,14 +766,48 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         Obj trueExpression = ternaryExpressionStmt.getExprNoTern().obj;
         Obj falseExpression = ternaryExpressionStmt.getExprNoTern1().obj;
 
-        if (trueExpression.getType().getKind() == falseExpression.getType().getKind()) {
-            ternaryExpressionStmt.obj = new Obj(Obj.Type, "", trueExpression.getType());
+        if (isCompatableWith(trueExpression.getType(), falseExpression.getType())) {
+            if (trueExpression.getType().isRefType() || falseExpression.getType().isRefType()) {
+                if (trueExpression.getType() == Table.nullType){
+                    ternaryExpressionStmt.obj = new Obj(Obj.Type, "", falseExpression.getType());
+                } else if(falseExpression.getType() == Table.nullType) {
+                    ternaryExpressionStmt.obj = new Obj(Obj.Type, "", trueExpression.getType());
+                } else {
+                    if(isCompatableWith(trueExpression.getType().getElemType(), falseExpression.getType().getElemType())){
+                        ternaryExpressionStmt.obj = new Obj(Obj.Type, "", trueExpression.getType());
+                    } else {
+                        report_error(String.format("Izraz za true je tipa Array of (%s), izraz za false je Array of (%s). Tipovi treba da budu kompatibilni!" +
+                                        " [Line: %d]",
+                                nazivi_tipova.get(trueExpression.getType().getElemType().getKind()),
+                                nazivi_tipova.get(falseExpression.getType().getElemType().getKind()),
+                                ternaryExpressionStmt.getLine()),
+                                null);
+                        ternaryExpressionStmt.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
+                    }
+                }
+            }
+
         } else {
-            report_error(String.format("Izraz za true je tipa (%s), izraz za false je (%s). Tipovi treba da budu kompatibilni!" +
-                            " [Line: %d]",
-                    nazivi_tipova.get(trueExpression.getType().getKind()),
-                    nazivi_tipova.get(falseExpression.getType().getKind()),
-                    ternaryExpressionStmt.getLine()),
+            StringBuilder builder = new StringBuilder("Izraz za true je tipa");
+            if (trueExpression.getType().isRefType()) {
+                builder.append(String.format(" Array of (%s) ", nazivi_tipova.get(trueExpression.getType().getElemType().getKind())));
+            } else if(trueExpression.getType() == Table.nullType) {
+                builder.append(" (null) ");
+            } else {
+                builder.append(String.format(" (%s) ", nazivi_tipova.get(trueExpression.getType().getKind())));
+            }
+            builder.append(", a izraz za false je tipa ");
+            if (falseExpression.getType().isRefType()) {
+                builder.append(String.format(" Array of (%s) ", nazivi_tipova.get(falseExpression.getType().getElemType().getKind())));
+            } else if(falseExpression.getType() == Table.nullType) {
+                builder.append(" (null) ");
+            } else {
+                builder.append(String.format(" (%s) ", nazivi_tipova.get(falseExpression.getType().getKind())));
+            }
+            builder.append(". Tipovi treb da budu kompatibilni!!! [Line: ");
+            builder.append(ternaryExpressionStmt.getLine());
+            builder.append("]");
+            report_error(builder.toString(),
                     null);
             ternaryExpressionStmt.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
         }

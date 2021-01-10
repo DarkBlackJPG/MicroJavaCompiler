@@ -1,0 +1,47 @@
+// Test301
+
+program test1
+// ------| Global variables
+        ints a;
+        int b;
+
+        charz ach;
+        char bch;
+
+        bool abl;
+        boolz bbl;
+// ------| End gloabal variables
+{
+
+        void main()
+        // ------| Local variables
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+
+             a = 1;
+             b = 2;
+
+             ach = 'a';
+             bch = 'b';
+
+             abl = true;
+             bbl = false;
+
+             print(a);
+             print(b);
+
+             print(ach);
+             print(bch);
+
+             print(abl);
+             print(bbl);
+
+            // Result: 1    2   a   b   true    false
+
+            // ------| Code end
+        }
+}
+
+

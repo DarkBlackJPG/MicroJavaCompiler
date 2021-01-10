@@ -1,13 +1,13 @@
 // generated with ast extension for cup
 // version 0.8
-// 4/0/2021 14:13:13
+// 10/0/2021 23:47:14
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class ErrorVariableDeclarationsDerived1 extends ErrorVariableDeclarations {
+public class ErrorConsts extends ConstList {
 
-    public ErrorVariableDeclarationsDerived1 () {
+    public ErrorConsts () {
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +28,10 @@ public class ErrorVariableDeclarationsDerived1 extends ErrorVariableDeclarations
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("ErrorVariableDeclarationsDerived1(\n");
+        buffer.append("ErrorConsts(\n");
 
         buffer.append(tab);
-        buffer.append(") [ErrorVariableDeclarationsDerived1]");
+        buffer.append(") [ErrorConsts]");
         return buffer.toString();
     }
 }

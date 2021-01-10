@@ -8,14 +8,12 @@ program MJProgram
 {
 
 	int petra(){
-	print(a);
+	    print(a);
 	}
-	
-
 
 	int main()
-	int y;
-	int x;
+	    int y;
+	    int x;
 	 {
 		
 

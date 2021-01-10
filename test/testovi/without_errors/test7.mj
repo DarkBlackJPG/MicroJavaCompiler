@@ -1,0 +1,36 @@
+// Test301
+
+program test7
+// ------| Global variables
+
+const int a = 1, b = 2;
+
+const char ach = 'a', bch = 'b';
+
+const bool abl = true, bbl = false;
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+
+            print(a);
+            print(b);
+
+            print(ach);
+            print(bch);
+
+            print(abl);
+            print(bbl);
+
+            // Result: 1    2   a   b   true    false
+
+            // ------| Code end
+        }
+}
+
+

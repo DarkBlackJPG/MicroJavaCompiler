@@ -1,0 +1,84 @@
+// Test301
+
+program test9
+// ------| Global variables
+
+int a_array[];
+int b_array[];
+
+char a_array_ch[];
+char b_array_ch[];
+
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+
+        bool a_array_bool[];
+        bool b_array_bool[];
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+            a_array = new int[3];
+            b_array = new int[3];
+
+            a_array_ch = new char[3];
+            b_array_ch = new char[3];
+
+            a_array_bool = new bool[3];
+            b_array_bool = new bool[3];
+
+            a_array[1] = 1;
+            a_array[2] = '1';
+            a_array[3] = true;
+
+            a_array_ch[1] = 1;
+            a_array_ch[2] = '1';
+            a_array_ch[3] = true;
+
+            a_array_bool[1] = 1;
+            a_array_bool[2] = '1';
+            a_array_bool[3] = true;
+
+            a_array[0] = 3;
+            b_array[0] = 4;
+            a_array_ch[0] = 'c';
+            b_array_ch[0] = 'd';
+            a_array_bool[0] = false;
+            b_array_bool[0] = true;
+
+             // Za ovo nisam 100% siguran da li treba da se override-uje?
+
+            print(a_array[1]);
+            print(b_array[1]);
+
+            print(a_array_ch[1]);
+            print(b_array_ch[1]);
+
+            print(a_array_bool[1]);
+            print(b_array_bool[1]);
+
+            print('|');
+            print('-');
+            print('-');
+            print('-');
+            print('|');
+
+            print(a_array[0]);
+            print(b_array[0]);
+
+            print(a_array_ch[0]);
+            print(b_array_ch[0]);
+
+            print(a_array_bool[0]);
+            print(b_array_bool[0]);
+
+            // Result: 1    2   a   b   true    false |---| 3   4   c   d   false   true
+
+            // ------| Code end
+        }
+}
+
+

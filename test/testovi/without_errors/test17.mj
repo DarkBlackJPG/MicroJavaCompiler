@@ -1,0 +1,32 @@
+// Test301
+
+program test301
+
+{
+	void main()
+	    int a;
+	    int aa[];
+	    int aaa[];
+	    int temp[];
+
+	{
+	    aa = new int[3];
+	    aa[0] = 1;
+	    aa[1] = 2;
+	    aa[2] = 3;
+        aaa = null;
+        aaa = aa;
+        aa = null;
+        print(aa == null ? 't' : 'f');
+        print(aaa[2]);
+        temp = aaa;
+        aa = temp;
+        aaa = null;
+        print(aaa != null ? 't' : 'f');
+        print(aa[2]);
+
+        // Result: t   3f   3
+	}
+}
+
+

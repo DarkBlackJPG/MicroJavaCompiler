@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 4/0/2021 14:13:13
+// 10/0/2021 23:47:14
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -9,6 +9,7 @@ public interface Visitor {
 
     public void visit(ReturnType ReturnType);
     public void visit(MethodVariables MethodVariables);
+    public void visit(ErrorProneAssignment ErrorProneAssignment);
     public void visit(MethodDeclarations MethodDeclarations);
     public void visit(MethodDeclaration MethodDeclaration);
     public void visit(PrintStmtList PrintStmtList);
@@ -49,6 +50,7 @@ public interface Visitor {
     public void visit(ExprNoTern ExprNoTern);
     public void visit(Statement Statement);
     public void visit(ActParsChoice ActParsChoice);
+    public void visit(ConstDecls ConstDecls);
     public void visit(Decls Decls);
     public void visit(RelationalExpression RelationalExpression);
     public void visit(FieldList FieldList);
@@ -105,10 +107,12 @@ public interface Visitor {
     public void visit(Condition Condition);
     public void visit(EmptyReturn EmptyReturn);
     public void visit(NonEmptyReturn NonEmptyReturn);
+    public void visit(ErrorAssignment ErrorAssignment);
+    public void visit(AssignDesignator AssignDesignator);
     public void visit(DecrementDesignator DecrementDesignator);
     public void visit(IncrementDesignator IncrementDesignator);
     public void visit(MethodCallDesignator MethodCallDesignator);
-    public void visit(AssignDesignator AssignDesignator);
+    public void visit(ErrorProneAssignmentDesignator ErrorProneAssignmentDesignator);
     public void visit(EmptyStatement EmptyStatement);
     public void visit(NonEmptyStatementList NonEmptyStatementList);
     public void visit(WithNumConst WithNumConst);
@@ -153,22 +157,25 @@ public interface Visitor {
     public void visit(RootClass RootClass);
     public void visit(ArrayVariable ArrayVariable);
     public void visit(NonArrayVariable NonArrayVariable);
+    public void visit(CommaErrorStmt CommaErrorStmt);
     public void visit(ErrorArrayVariable ErrorArrayVariable);
     public void visit(ErrorNonArrayVariable ErrorNonArrayVariable);
     public void visit(MoreVariables MoreVariables);
     public void visit(SingleVariable SingleVariable);
-    public void visit(ErrorVariableDeclarationsDerived1 ErrorVariableDeclarationsDerived1);
     public void visit(SemiErrorStmt SemiErrorStmt);
     public void visit(VariableDecls VariableDecls);
     public void visit(BooleanLiteral BooleanLiteral);
     public void visit(CharLiteral CharLiteral);
     public void visit(NumericLiteral NumericLiteral);
     public void visit(ConstDefinition ConstDefinition);
+    public void visit(ErrorConsts ErrorConsts);
     public void visit(MoreConsts MoreConsts);
     public void visit(SingleConst SingleConst);
+    public void visit(ErrorConstDecls ErrorConstDecls);
+    public void visit(ConstDeclarations ConstDeclarations);
     public void visit(ClassDeclarations ClassDeclarations);
     public void visit(VarDeclarations VarDeclarations);
-    public void visit(ConstDeclarations ConstDeclarations);
+    public void visit(ConstantDeclerations ConstantDeclerations);
     public void visit(MethodDeclList MethodDeclList);
     public void visit(SingleMethod SingleMethod);
     public void visit(NoDecls NoDecls);

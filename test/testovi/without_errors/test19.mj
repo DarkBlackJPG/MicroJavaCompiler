@@ -1,0 +1,16 @@
+// Test301
+
+program test301
+
+{
+	void main()
+	    int int;
+	    char c;
+	{
+        int = 2;
+        c = 'c';
+        print(ord(c) + int);
+	}
+}
+
+
