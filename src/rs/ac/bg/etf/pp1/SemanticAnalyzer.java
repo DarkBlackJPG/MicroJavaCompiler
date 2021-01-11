@@ -519,9 +519,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                 factor.getType().equals(Table.intType)) {
             termList.obj = new Obj(Obj.Var, "", Table.intType);
         } else {
-            report_error(String.format("Nemoguce sabiranje sa tipovima (%s) i (%s)! [Line: %d]",
-                    nazivi_tipova.get(termTree.getKind()),
-                    nazivi_tipova.get(factor.getKind()),
+            report_error(String.format("Nemoguce sabiranje tipova (%s) i (%s)! [Line: %d]",
+                    nazivi_tipova.get(factor.getType().getKind()),
+                    nazivi_tipova.get(termTree.getType().getKind()),
                     termList.getLine()), null);
             termList.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
         }
@@ -562,14 +562,13 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(ExprNoTernStatement exprNoTernStatement) {
         exprNoTernStatement.obj = exprNoTernStatement.getExprNoTern().obj;
     }
-//
-//    public void visit(ExprTernStatement exprTernStatement) {
-//        exprTernStatement.obj = exprTernStatement.getExprTern().obj;
-//    }
 
     public void visit(NumericConstant numericConstant) {
         // Level 1 jer je unutar nekog scope-a
         numericConstant.obj = new Obj(Obj.Con, "", Table.intType, numericConstant.getNumValue(), 1);
+        if (numericConstant.obj.getAdr() == 4){
+            System.out.println();
+        }
     }
 
     public void visit(CharacterConstant characterConstant) {
@@ -706,7 +705,9 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                     }
                 } else {
                     if (leftExpression.getType().getElemType() == null || rightExpression.getType().getElemType() == null) {
-                        report_error(String.format("Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: %d]",
+                        report_error(String.format("Nemoguce izvrsiti poredjenje sa tipovima (%s) i (%s)! [Line: %d]",
+                                nazivi_tipova.get(leftExpression.getType().getKind()),
+                                nazivi_tipova.get(rightExpression.getType().getKind()),
                                 expressionConditionFactor.getLine()),
                                 null);
                     } else {
@@ -785,8 +786,19 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                         ternaryExpressionStmt.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
                     }
                 }
+            } else {
+                if (isCompatableWith(trueExpression.getType(), falseExpression.getType())) {
+                    ternaryExpressionStmt.obj = new Obj(Obj.Type, "", trueExpression.getType());
+                } else {
+                    report_error(String.format("Izraz za true je tipa (%s), izraz za false je (%s). Tipovi treba da budu kompatibilni!" +
+                                    " [Line: %d]",
+                            nazivi_tipova.get(trueExpression.getType().getKind()),
+                            nazivi_tipova.get(falseExpression.getType().getKind()),
+                            ternaryExpressionStmt.getLine()),
+                            null);
+                    ternaryExpressionStmt.obj = new Obj(Obj.NO_VALUE, "", Table.noType);
+                }
             }
-
         } else {
             StringBuilder builder = new StringBuilder("Izraz za true je tipa");
             if (trueExpression.getType().isRefType()) {

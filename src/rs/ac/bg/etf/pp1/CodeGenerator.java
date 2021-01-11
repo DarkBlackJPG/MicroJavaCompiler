@@ -26,7 +26,6 @@ public class CodeGenerator extends VisitorAdaptor {
 
     public void setMainPC(int mainPC) {
         this.mainPC = mainPC;
-
     }
 
 
@@ -259,7 +258,6 @@ public class CodeGenerator extends VisitorAdaptor {
 
     // Todo
     public void visit(ExprTernStatement exprNoTernStatement) {
-
         Code.put(Code.enter);
         Code.put(0);
         Code.put(4);
@@ -267,39 +265,32 @@ public class CodeGenerator extends VisitorAdaptor {
         Obj trueOpt = Table.insert(Obj.Var, "$$_123432213ba$$", exprNoTernStatement.obj.getType());
         Code.store(falseOpt);
         Code.store(trueOpt);
-
-        int fwdJmpIfFalse;
-        int fwdJmpEnd;
+        int falseJumpAddress;
+        int jumpToEndAdress;
         int relopCode = ternaryRelopStack.pop();
         Code.putFalseJump(relopCode, 0);
-        fwdJmpIfFalse = Code.pc - 2;
+        falseJumpAddress = Code.pc - 2;
         Code.load(trueOpt);
         Code.putJump(0);
-        fwdJmpEnd = Code.pc - 2;
-        Code.fixup(fwdJmpIfFalse);
+        jumpToEndAdress = Code.pc - 2;
+        Code.fixup(falseJumpAddress);
         Code.load(falseOpt);
-        Code.fixup(fwdJmpEnd);
+        Code.fixup(jumpToEndAdress);
         Code.put(Code.exit);
     }
 
-    // Todo
     public void visit(NegativeTerm negativeTerm) {
         Code.put(Code.neg);
-
-    }
-
-    public void visit(AddOperationTerm addOperationTerm) {
-
     }
 
     public void visit(ParamsDesignator paramsDesignator) {
         String o = paramsDesignator.getDesignator().obj.getName();
         if (o.equals("ord")) {
-            //
+            // empty
         } else if (o.equals("len")) {
             Code.put(Code.arraylength);
         } else if (o.equals("chr")) {
-            //
+            // empty
         }
     }
 
@@ -311,8 +302,6 @@ public class CodeGenerator extends VisitorAdaptor {
         }
     }
 
-
-    // Todo
     public void visit(MullOpTerm mullOpTerm) {
         MulOp mullOp = mullOpTerm.getMulOp();
         if (mullOp instanceof MulopTimes) {
@@ -329,9 +318,9 @@ public class CodeGenerator extends VisitorAdaptor {
     HashMap<String, Integer> relOpHashMap = new HashMap<>();
     Stack<Integer> ternaryRelopStack = new Stack<>();
 
-    public void visit(BeginTernary beginTernary) {
-
-    }
+//    public void visit(BeginTernary beginTernary) {
+//
+//    }
 
     public void visit(ExpressionConditionFactor expressionConditionFactor) {
         if (expressionConditionFactor.getRelationalExpression().obj.getType().getKind() == Struct.None) {
@@ -345,7 +334,6 @@ public class CodeGenerator extends VisitorAdaptor {
         ternaryRelopStack.push(relop);
     }
 
-    // Todo
     public void visit(NumericConstant numericConstant) {
         Obj con = Table.insert(Obj.Con, "$", numericConstant.obj.getType());
         con.setLevel(0);
@@ -353,7 +341,6 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.load(con);
     }
 
-    // Todo
     public void visit(CharacterConstant characterConstant) {
 
         Obj con = Table.insert(Obj.Con, "$", characterConstant.obj.getType());
@@ -363,7 +350,6 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.load(con);
     }
 
-    // Todo
     public void visit(BooleanConstant booleanConstant) {
 
         if (booleanConstant.getBoolValue().equalsIgnoreCase("true")) {
@@ -373,7 +359,6 @@ public class CodeGenerator extends VisitorAdaptor {
         }
     }
 
-    // Todo
     public void visit(NumericLiteral numericLiteral) {
         Obj con = Table.insert(Obj.Con, "$", numericLiteral.obj.getType());
         con.setLevel(0);
@@ -381,7 +366,6 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.load(con);
     }
 
-    // Todo
     public void visit(BooleanLiteral booleanLiteral) {
 
         if (booleanLiteral.getBooleanValue().equalsIgnoreCase("true")) {
@@ -392,7 +376,6 @@ public class CodeGenerator extends VisitorAdaptor {
         }
     }
 
-    // Todo
     public void visit(CharLiteral charLiteral) {
         Obj con = Table.insert(Obj.Con, "$", charLiteral.obj.getType());
         con.setLevel(0);
@@ -400,14 +383,12 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.load(con);
     }
 
-    // TODO resiti inkrementiranje za nizovne tipove
     public void visit(IncrementDesignator incrementDesignator) {
         Code.loadConst(1);
         Code.put(Code.add);
         Code.store(incrementDesignator.getDesignator().obj);
     }
 
-    // TODO resiti dekrementiranje za nizovne tipove
     public void visit(DecrementDesignator incrementDesignator) {
         Code.loadConst(1);
         Code.put(Code.neg);
@@ -437,6 +418,28 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.fixup(jumpToEnd);
         }
         Code.store(o);
+
+
+//      TODO jebeni read wtf jebote
+
+//        Code.put(Code.bread); // Read IN
+//        Code.loadConst(10); // Put eol value
+//        int jumpIfFalse; /// check if eol
+//        int jumpIfFalse2; // Check if carrige return
+//
+//        Code.putFalseJump(Code.eq, 0); // put relop
+//        jumpIfFalse = Code.pc - 2; // Remember fixup address
+//        Code.put(Code.pop); // What to do if true
+//        Code.fixup(jumpIfFalse); // Fixup jumpIfFalse address
+//
+//
+//        Code.loadConst(13); // Put carrige return ASCII value
+//        Code.putFalseJump(Code.eq, 0); // Relop
+//        jumpIfFalse2 = Code.pc - 2; // Remember address
+//        Code.put(Code.pop); // What to do if true
+//        Code.fixup(jumpIfFalse2);
+
+
     }
 
     // Kad dodjemo do ovog delea, trebalo bi da imamo na steku vec velicinu niza

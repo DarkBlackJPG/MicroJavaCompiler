@@ -97,5 +97,273 @@ char b_array_ch[];
             // ------| Code end
         }
 }
-
+//
+//INFO  00:55:27,666 - |-------------------------------------------------------------------|
+//INFO  00:55:27,666 - |                         SEMANTICKA OBRADA                         |
+//INFO  00:55:27,666 - |-------------------------------------------------------------------|
+//INFO  00:55:27,668 - Main metoda je definisana! [Line: 15]
+//INFO  00:55:27,668 - Pretraga na [Line: 24] --> detektovano Variable a_array: Array of int, 0, 0 .
+//INFO  00:55:27,668 - Pretraga na [Line: 28] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,669 - Pretraga na [Line: 28] --> detektovano Variable a_array: Array of int, 0, 0 .
+//INFO  00:55:27,669 - Pretraga na [Line: 28] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,669 - Izraz za true je tipa Array of (int) , a izraz za false je tipa  Array of (bool) . Tipovi treb da budu kompatibilni!!! [Line: 28]
+//ERROR 00:55:27,669 - Promenljiva tipa (null) ne moze da se dodeli promenljivoj tipa (array)! [Line: 28]
+//INFO  00:55:27,669 - Pretraga na [Line: 30] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,669 - Pretraga na [Line: 30] --> detektovano Constant null: Class [], 0, 0 .
+//INFO  00:55:27,669 - Pretraga na [Line: 30] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,670 - Promenljiva tipa Array of (bool) ne moze da se dodeli promenljivoj tipa Array of (int)! [Line: 30]
+//INFO  00:55:27,670 - Pretraga na [Line: 32] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,670 - Pretraga na [Line: 32] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//INFO  00:55:27,670 - Pretraga na [Line: 32] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,670 - Promenljiva tipa Array of (bool) ne moze da se dodeli promenljivoj tipa Array of (int)! [Line: 32]
+//INFO  00:55:27,670 - Pretraga na [Line: 34] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,670 - Uslov u ternarnom operatoru nije logickog tipa, prilozen (int)! [Line: 34]
+//INFO  00:55:27,670 - Pretraga na [Line: 34] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,670 - Pretraga na [Line: 34] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,670 - Pretraga na [Line: 35] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,670 - Uslov u ternarnom operatoru nije logickog tipa, prilozen (char)! [Line: 35]
+//INFO  00:55:27,670 - Pretraga na [Line: 35] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,670 - Pretraga na [Line: 35] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,670 - Pretraga na [Line: 36] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 36] --> detektovano Variable a_array: Array of int, 0, 0 .
+//ERROR 00:55:27,671 - Uslov u ternarnom operatoru nije logickog tipa, prilozen (array)! [Line: 36]
+//INFO  00:55:27,671 - Pretraga na [Line: 36] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 36] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 37] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 37] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,671 - Uslov u ternarnom operatoru nije logickog tipa, prilozen (array)! [Line: 37]
+//INFO  00:55:27,671 - Pretraga na [Line: 37] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 37] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 38] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 38] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//ERROR 00:55:27,671 - Uslov u ternarnom operatoru nije logickog tipa, prilozen (array)! [Line: 38]
+//INFO  00:55:27,671 - Pretraga na [Line: 38] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 38] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 42] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,671 - Pretraga na [Line: 42] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 42] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 43] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,672 - Tipovi nisu kompatibilni! Uporedjuje se (int) i (char) [Line: 43]
+//INFO  00:55:27,672 - Pretraga na [Line: 43] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 43] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 44] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,672 - Tipovi nisu kompatibilni! Uporedjuje se (int) i (bool) [Line: 44]
+//INFO  00:55:27,672 - Pretraga na [Line: 44] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 44] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 45] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 45] --> detektovano Variable b_array_bool: Array of bool, 1, 1 .
+//ERROR 00:55:27,672 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 45]
+//INFO  00:55:27,672 - Pretraga na [Line: 45] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 45] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,672 - Pretraga na [Line: 46] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 46] --> detektovano Variable b_array_ch: Array of char, 3, 0 .
+//ERROR 00:55:27,673 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 46]
+//INFO  00:55:27,673 - Pretraga na [Line: 46] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 46] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 47] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,673 - Tipovi nisu kompatibilni! Uporedjuje se (int) i (bool) [Line: 47]
+//INFO  00:55:27,673 - Pretraga na [Line: 47] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 47] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 48] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,673 - Tipovi nisu kompatibilni! Uporedjuje se (int) i (char) [Line: 48]
+//INFO  00:55:27,673 - Pretraga na [Line: 48] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 48] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 49] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 49] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 49] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 50] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,673 - Pretraga na [Line: 50] --> detektovano Constant null: Class [], 0, 0 .
+//ERROR 00:55:27,673 - Tipovi nisu kompatibilni! Uporedjuje se (int) i (class) [Line: 50]
+//INFO  00:55:27,674 - Pretraga na [Line: 50] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 50] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 52] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,674 - Tipovi nisu kompatibilni! Uporedjuje se (char) i (int) [Line: 52]
+//INFO  00:55:27,674 - Pretraga na [Line: 52] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 52] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 53] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 53] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 53] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 54] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,674 - Tipovi nisu kompatibilni! Uporedjuje se (char) i (bool) [Line: 54]
+//INFO  00:55:27,674 - Pretraga na [Line: 54] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 54] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 55] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 55] --> detektovano Variable b_array_bool: Array of bool, 1, 1 .
+//ERROR 00:55:27,674 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 55]
+//INFO  00:55:27,674 - Pretraga na [Line: 55] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 55] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,674 - Pretraga na [Line: 56] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 56] --> detektovano Variable b_array_ch: Array of char, 3, 0 .
+//ERROR 00:55:27,675 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 56]
+//INFO  00:55:27,675 - Pretraga na [Line: 56] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 56] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 57] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,675 - Tipovi nisu kompatibilni! Uporedjuje se (char) i (bool) [Line: 57]
+//INFO  00:55:27,675 - Pretraga na [Line: 57] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 57] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 58] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 58] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 58] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 59] --> detektovano Variable b_array: Array of int, 1, 0 .
+//ERROR 00:55:27,675 - Tipovi nisu kompatibilni! Uporedjuje se (char) i (int) [Line: 59]
+//INFO  00:55:27,675 - Pretraga na [Line: 59] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 59] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 60] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 60] --> detektovano Constant null: Class [], 0, 0 .
+//ERROR 00:55:27,675 - Tipovi nisu kompatibilni! Uporedjuje se (char) i (class) [Line: 60]
+//INFO  00:55:27,675 - Pretraga na [Line: 60] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 60] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,675 - Pretraga na [Line: 62] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 62] --> detektovano Variable a_array: Array of int, 0, 0 .
+//ERROR 00:55:27,676 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 62]
+//INFO  00:55:27,676 - Pretraga na [Line: 62] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 62] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 63] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 63] --> detektovano Variable a_array: Array of int, 0, 0 .
+//ERROR 00:55:27,676 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 63]
+//INFO  00:55:27,676 - Pretraga na [Line: 63] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 63] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 64] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 64] --> detektovano Variable a_array: Array of int, 0, 0 .
+//ERROR 00:55:27,676 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 64]
+//INFO  00:55:27,676 - Pretraga na [Line: 64] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 64] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 65] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 65] --> detektovano Variable a_array: Array of int, 0, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 65] --> detektovano Variable b_array_bool: Array of bool, 1, 1 .
+//ERROR 00:55:27,676 - Ne moze da se izvrsi operacija! Uporedjuje se Array of (int) i Array of (bool) [Line: 65]
+//INFO  00:55:27,676 - Pretraga na [Line: 65] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 65] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 66] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 66] --> detektovano Variable a_array: Array of int, 0, 0 .
+//INFO  00:55:27,676 - Pretraga na [Line: 66] --> detektovano Variable b_array_ch: Array of char, 3, 0 .
+//ERROR 00:55:27,676 - Ne moze da se izvrsi operacija! Uporedjuje se Array of (int) i Array of (char) [Line: 66]
+//INFO  00:55:27,677 - Pretraga na [Line: 66] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 66] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 67] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 67] --> detektovano Variable a_array: Array of int, 0, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 67] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 67] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 67] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 68] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 68] --> detektovano Variable a_array: Array of int, 0, 0 .
+//ERROR 00:55:27,677 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 68]
+//INFO  00:55:27,677 - Pretraga na [Line: 68] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 68] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,677 - Pretraga na [Line: 69] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 69] --> detektovano Variable a_array: Array of int, 0, 0 .
+//ERROR 00:55:27,678 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 69]
+//INFO  00:55:27,678 - Pretraga na [Line: 69] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 69] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 70] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 70] --> detektovano Variable a_array: Array of int, 0, 0 .
+//ERROR 00:55:27,678 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 70]
+//INFO  00:55:27,678 - Pretraga na [Line: 70] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 70] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 71] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 71] --> detektovano Variable a_array: Array of int, 0, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 71] --> detektovano Constant null: Class [], 0, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 71] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 71] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 73] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 73] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,678 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 73]
+//INFO  00:55:27,678 - Pretraga na [Line: 73] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 73] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 74] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,678 - Pretraga na [Line: 74] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,678 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 74]
+//INFO  00:55:27,678 - Pretraga na [Line: 74] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 74] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 75] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 75] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,679 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 75]
+//INFO  00:55:27,679 - Pretraga na [Line: 75] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 75] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 76] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 76] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//INFO  00:55:27,679 - Pretraga na [Line: 76] --> detektovano Variable b_array_bool: Array of bool, 1, 1 .
+//INFO  00:55:27,679 - Pretraga na [Line: 76] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 76] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 77] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 77] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//INFO  00:55:27,679 - Pretraga na [Line: 77] --> detektovano Variable b_array_ch: Array of char, 3, 0 .
+//ERROR 00:55:27,679 - Ne moze da se izvrsi operacija! Uporedjuje se Array of (bool) i Array of (char) [Line: 77]
+//INFO  00:55:27,679 - Pretraga na [Line: 77] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 77] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 78] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 78] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,679 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 78]
+//INFO  00:55:27,679 - Pretraga na [Line: 78] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,679 - Pretraga na [Line: 78] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 79] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 79] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,680 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 79]
+//INFO  00:55:27,680 - Pretraga na [Line: 79] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 79] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 80] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 80] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//ERROR 00:55:27,680 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 80]
+//INFO  00:55:27,680 - Pretraga na [Line: 80] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 80] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 81] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 81] --> detektovano Variable a_array_bool: Array of bool, 0, 1 .
+//INFO  00:55:27,680 - Pretraga na [Line: 81] --> detektovano Constant null: Class [], 0, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 81] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 81] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 83] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,680 - Pretraga na [Line: 83] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//ERROR 00:55:27,680 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 83]
+//INFO  00:55:27,681 - Pretraga na [Line: 83] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 83] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 84] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 84] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//ERROR 00:55:27,681 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 84]
+//INFO  00:55:27,681 - Pretraga na [Line: 84] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 84] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 85] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 85] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//ERROR 00:55:27,681 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 85]
+//INFO  00:55:27,681 - Pretraga na [Line: 85] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 85] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 86] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 86] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 86] --> detektovano Variable b_array_bool: Array of bool, 1, 1 .
+//ERROR 00:55:27,681 - Ne moze da se izvrsi operacija! Uporedjuje se Array of (char) i Array of (bool) [Line: 86]
+//INFO  00:55:27,681 - Pretraga na [Line: 86] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 86] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 87] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 87] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 87] --> detektovano Variable b_array_ch: Array of char, 3, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 87] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 87] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 88] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 88] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//ERROR 00:55:27,681 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 88]
+//INFO  00:55:27,681 - Pretraga na [Line: 88] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 88] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 89] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,681 - Pretraga na [Line: 89] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//ERROR 00:55:27,682 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 89]
+//INFO  00:55:27,682 - Pretraga na [Line: 89] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 89] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 90] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 90] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//ERROR 00:55:27,682 - Ne moze da se izraz relacionog uporedjivanja sa prilozenim promenljivama/vrednostima! [Line: 90]
+//INFO  00:55:27,682 - Pretraga na [Line: 90] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 90] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 91] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 91] --> detektovano Variable a_array_ch: Array of char, 2, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 91] --> detektovano Constant null: Class [], 0, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 91] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,682 - Pretraga na [Line: 91] --> detektovano Variable b_array: Array of int, 1, 0 .
+//INFO  00:55:27,682 -
+//Broj definisanih klasa: ..................................................................0
+//Broj definisanih metoda: .................................................................1
+//Broj globalnih nizova: ...................................................................4
+//Broj globalnih promenljivih: .............................................................0
+//Broj globalnih konstanti: ................................................................0
+//Broj lokalnih promenljivih u [main()]: ...................................................2
+//Broj izraza u [main()]: ..................................................................57
+//Broj poziva metoda u [main()]: ...........................................................0
 

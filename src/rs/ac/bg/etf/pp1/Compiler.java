@@ -1,18 +1,17 @@
 package rs.ac.bg.etf.pp1;
 
-import java.io.*;
-
 import java_cup.runtime.Symbol;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-
 import rs.ac.bg.etf.pp1.ast.Program;
 import rs.ac.bg.etf.pp1.util.Log4JUtils;
 import rs.etf.pp1.mj.runtime.Code;
+import rs.etf.pp1.symboltable.concepts.Scope;
 
-public class MJTest {
-    static Logger log = Logger.getLogger(MJTest.class);
+import java.io.*;
+
+public class Compiler {
+    static Logger log = Logger.getLogger(Compiler.class);
     private static boolean continueCodeGen = false;
 
     static {
@@ -32,10 +31,23 @@ public class MJTest {
         log.info("\u001B[0;32m" + message + "\u001b[m");
     }
 
+    public static void tsdump() {
+        report_info("============================= SADRZAJ TABELE SIMBOLA =============================");
+        TableRider stv = new TableRider();
+        for (Scope s = Table.currentScope(); s != null; s = s.getOuter()) {
+            s.accept(stv);
+        }
+        System.out.println(stv.getOutput());
+    }
+
     public static void main(String[] args) throws Exception {
         Reader br = null;
 
         try {
+            if (args.length < 2){
+                report_error("Mora da se definise putanja do programa za kompajliranje i putanja do izlaznog fajla!");
+                System.exit(-99);
+            }
             String program = args[0];
             File sourceCode = new File(program);
             //File sourceCode = new File("test/program.mj");
@@ -57,19 +69,20 @@ public class MJTest {
             report_info("|-------------------------------------------------------------------|");
             report_info("|                         APSTRAKTNO STABLO                         |");
             report_info("|-------------------------------------------------------------------|");
-             log.info(prog.toString(""));
+            log.info(prog.toString(""));
 
             SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
             report_info("|-------------------------------------------------------------------|");
             report_info("|                         SEMANTICKA OBRADA                         |");
             report_info("|-------------------------------------------------------------------|");
-             prog.traverseBottomUp(semanticAnalyzer);
+            prog.traverseBottomUp(semanticAnalyzer);
             if (!semanticAnalyzer.mainMethodDetected) {
                 report_error("Main metoda nije definisana u programu!!!");
                 semanticAnalyzer.errorDetected = true;
             }
             log.info("\n" + semanticAnalyzer.syntaxAnalysisWatcher.toString());
-            Table.dump();
+
+            tsdump();
 
             if (semanticAnalyzer.errorDetected) {
                 report_error("Semanticka analiza je detektovala neku gresku. Objektni generisanje koda se nece" +
@@ -88,9 +101,9 @@ public class MJTest {
                 report_info("|-------------------------------------------------------------------|");
                 report_info("|                          GENERISANJE KODA                         |");
                 report_info("|-------------------------------------------------------------------|");
-                String name = semanticAnalyzer.programName;
-                name = "program" ;
-                File file = new File("test/"+name+".obj");
+                String name = args[1];
+                name = "program.obj" ;
+                File file = new File("test/"+name);
                 if (file.exists()) {
                     file.delete();
                 }
@@ -121,5 +134,4 @@ public class MJTest {
             report_info("|-------------------------------------------------------------------|");
         }
     }
-
 }

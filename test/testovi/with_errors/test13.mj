@@ -1,0 +1,63 @@
+// Test301
+
+program test9
+// ------| Global variables
+
+int a;
+int b;
+
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+
+       int c;
+       int d;
+       int d_arr[];
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+            a = 2;
+            int b = 3;
+            b = 3;
+
+            c = a + b;
+
+            c = c + 'c';
+
+            c++;
+
+            print(c);
+
+            d = (b < c ?
+                        (a == 'c' ?
+                                  (b == true ?
+                                             (a == d_arr ?
+                                                         ('c')
+                                                         : (2)
+                                             )
+                                             : ('g' == true ?
+                                                            (true == false ? ()
+                                                                            : ()
+                                                            )
+                                                            : ( () == () ?
+                                                                        ()
+                                                                        : ()
+                                                            )
+                                               )
+                                  )
+                                  : (9)
+                        )
+                        : ()
+                );
+
+            // Result: 1    2   a   b   true    false |---| 3   4   c   d   false   true
+
+
+            // ------| Code end
+        }
+}
+
+

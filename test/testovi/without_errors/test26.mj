@@ -1,0 +1,34 @@
+// Test301
+
+program test11
+// ------| Global variables
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+        int a_array[];
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+           a_array = new int[3];
+           a_array[0] = 1;
+           a_array[1] = 1;
+           a_array[2] = 1;
+           a_array[1]++;
+           a_array[1]++;
+
+           print(a_array[1]); // 3
+
+           a_array[1]--;
+           a_array[1]--;
+
+           print(a_array[1]); // 1
+
+
+            // Result: Zavisi od unosa. Ali poslednja tri print bi trebalo da budu 0 [default za char] false
+
+            // ------| Code end
+        }
+}

@@ -1,0 +1,46 @@
+// Test301
+
+program test11
+// ------| Global variables
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+        int a_array[];
+        int a;
+        int b;
+        int c;
+        int d;
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+        a_array = new int[3];
+        a_array[0] = 1;
+        a_array[1] = 1;
+        a_array[2] = 1;
+        a = 1;
+        b = 1;
+        c = 1;
+        d = 1;
+        a_array[2] = a > 3 ?
+                           ( b == -'c' ?
+                                     ( -(c + 3 - d) < true ?
+                                                           (-(6 + c + d) > -('c' + c) ?
+                                                                                    (5)
+                                                                                    : (5)
+                                                           )
+                                                           : (5)
+                                     )
+                                     : (5)
+                           )
+                           : (5)
+                           ;
+
+
+            // Result: Zavisi od unosa. Ali poslednja tri print bi trebalo da budu 0 [default za char] false
+
+            // ------| Code end
+        }
+}

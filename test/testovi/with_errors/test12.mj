@@ -1,0 +1,62 @@
+// Test301
+
+program test9
+// ------| Global variables
+
+int a;
+int b;
+
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+
+       int c;
+       int d;
+       int d_arr[];
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+            a = 2;
+
+            // int b = 3; // OTKOMENTARISATI - Daje leksicku gresku. Kod mene ne moze da nastavi kompajliranje sve dok ima greske iz prethodne faze
+
+            b = 3;
+
+
+            c = a + b;
+
+            c = c + 'c';
+
+            c++;
+
+            print(c);
+
+            d = (b < c ?
+                        (a == 'c' ?
+                                  (b == true ?
+                                             (a == d_arr ?
+                                                         ('c')
+                                                         : (2)
+                                             )
+                                             : ('g' == true ?
+                                                            3
+                                                            : 4
+                                               )
+                                  )
+                                  : (9)
+                        )
+                        // : () // Treba da javi gresku ovde
+                        : (55)
+                );
+
+            // Result: 1    2   a   b   true    false |---| 3   4   c   d   false   true
+
+
+            // ------| Code end
+        }
+}
+
+
