@@ -44,7 +44,7 @@ public class Compiler {
         Reader br = null;
 
         try {
-            if (args.length < 2){
+            if (args.length < 2) {
                 report_error("Mora da se definise putanja do programa za kompajliranje i putanja do izlaznog fajla!");
                 System.exit(-99);
             }
@@ -60,10 +60,7 @@ public class Compiler {
             Yylex lexer = new Yylex(br);
             MJParser parser = new MJParser(lexer);
             Symbol s = parser.parse();
-            if (parser.errorDetected || lexer.error_exists) {
-                report_error("Detektovana leksicka greska, obustavlja se proces kompajliranja.");
-                System.exit(0);
-            }
+
             Table.init();
             Program prog = (Program) (s.value);
             report_info("|-------------------------------------------------------------------|");
@@ -80,10 +77,16 @@ public class Compiler {
                 report_error("Main metoda nije definisana u programu!!!");
                 semanticAnalyzer.errorDetected = true;
             }
+            report_info("|-------------------------------------------------------------------|");
+            report_info("|                STATISTIKA KORISCENJA PROMENLJIVIH                 |");
+            report_info("|-------------------------------------------------------------------|");
             log.info("\n" + semanticAnalyzer.syntaxAnalysisWatcher.toString());
 
             tsdump();
-
+            if (parser.errorDetected || lexer.error_exists) {
+                report_error("Detektovana leksicka greska, obustavlja se proces kompajliranja.");
+                //System.exit(0);
+            }
             if (semanticAnalyzer.errorDetected) {
                 report_error("Semanticka analiza je detektovala neku gresku. Objektni generisanje koda se nece" +
                         "izvrsiti!");
@@ -102,8 +105,8 @@ public class Compiler {
                 report_info("|                          GENERISANJE KODA                         |");
                 report_info("|-------------------------------------------------------------------|");
                 String name = args[1];
-                name = "program.obj" ;
-                File file = new File("test/"+name);
+                name = "program.obj";
+                File file = new File("test/" + name);
                 if (file.exists()) {
                     file.delete();
                 }
@@ -112,7 +115,9 @@ public class Compiler {
                 Code.dataSize = semanticAnalyzer.syntaxAnalysisWatcher.
                         getCountForType(SyntaxAnalysisWatcher.Types.GLOBAL_VAR)
                         + semanticAnalyzer.syntaxAnalysisWatcher.
-                        getCountForType(SyntaxAnalysisWatcher.Types.GLOBAL_VAR);
+                        getCountForType(SyntaxAnalysisWatcher.Types.GLOBAL_ARRAY)
+                        + semanticAnalyzer.syntaxAnalysisWatcher.
+                        getCountForType(SyntaxAnalysisWatcher.Types.GLOBAL_CONST);
                 Code.mainPc = codeGenerator.getMainPC();
                 if (!Code.greska) {
                     Code.write(new FileOutputStream(file));

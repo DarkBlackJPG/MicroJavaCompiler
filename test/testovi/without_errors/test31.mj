@@ -1,0 +1,67 @@
+// Test301
+
+program test4
+
+const int pet = 5;
+const int deset = 10,petnaest=15;
+const char div = '|';
+
+int niz[];
+
+{
+        void main()
+
+        int a;
+        int b;
+        int c;
+        int d;
+        int e;
+        int f;
+
+        {
+
+
+
+//rezultati u komentarima su sa ulazom 1 2 3
+
+            read(a);
+            read(b);
+            read(c);
+
+            d = pet * a;
+            e = deset * b;
+            f=	petnaest *c;
+
+
+            print(a);		//1
+            print(b);		//2
+            print(c);		//3
+            print(d);		//5
+            print(e);		//20
+            print(f);		//45
+            print(div);
+
+            e = a + b * petnaest +(petnaest+10==15+deset?100:1000)*2;
+            print(e);
+            print(div);
+
+			niz=new int[d];
+			print(len(niz));
+			print(div);
+
+			niz[0]=1;
+			niz[1]=2;
+			niz[2]=3;
+			niz[3]=4;
+
+			niz[4]=5;
+
+			niz[niz[niz[0]]] = niz[niz[niz[2]]]*2;
+
+			print(niz[2]);
+
+       //ispis => 1 2 3 5 20 45 | 231 | 5 | 10
+
+
+        }
+}

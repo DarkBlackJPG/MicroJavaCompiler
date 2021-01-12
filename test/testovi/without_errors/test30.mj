@@ -1,0 +1,72 @@
+// Test301
+
+program test1
+
+int nula;
+int jedan,dva,tri;
+
+
+
+{
+        void main()
+
+		int brojevi[];
+		int x;
+		bool boola,boolb;
+
+		{
+
+
+		nula=0;
+		jedan=nula;
+		jedan++;
+		dva=jedan;
+		dva++;
+		tri=dva*dva;
+		tri--;
+
+		boola=nula==0?true:false;
+		boolb=nula!=0?true:false;
+
+		print(boola);	//true
+		print('|');		//false
+		print(boolb);
+		print('|');
+		print(nula);	//0
+		print(jedan);	//1
+		print(dva);		//2
+		print(tri);		//3
+		print('|');
+
+		brojevi=new int[4];
+
+		brojevi[nula]=nula;
+		brojevi[jedan]=jedan;
+		brojevi[dva]=dva;
+		brojevi[tri]=tri;
+
+
+		print(brojevi[0]);	//0
+		print(brojevi[1]);	//1
+		print(brojevi[2]);	//2
+		print(brojevi[3]);	//3
+
+		print('|');
+
+		brojevi[1]++;
+		brojevi[0]=brojevi[1];
+		print(brojevi[0]);	//2
+		print('|');
+		brojevi[0]=brojevi[0]+brojevi[1]-brojevi[3];	//1
+		print(brojevi[0]);
+		print('|');
+
+		x=brojevi[0]+brojevi[1]>=2?(boola?1:2):(boolb?3:4);	//1
+		print(x);
+
+	//izlaz => true|false|0 1 2 3| 0 1 2 3| 2 | 1|1
+
+        }
+}
+
+

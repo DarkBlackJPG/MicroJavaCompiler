@@ -96,7 +96,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         } else {
 
             report_error("Promenlijva sa imenom " + vardecl.getVariableName() + " je vec deklarisana "
-                    + vardecl.getLine() + "]", vardecl);
+                    + vardecl.getLine() + "]", null);
         }
     }
 
@@ -111,7 +111,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             Table.insert(Obj.Var, vardecl.getVariableName(), currentType);
         } else {
             report_error("Promenlijva sa imenom " + vardecl.getVariableName() + " je vec deklarisana "
-                    + vardecl.getLine() + "!", vardecl);
+                    + vardecl.getLine() + "!", null);
         }
 
     }
@@ -122,7 +122,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
 
         Obj variableNode = Table.find(vardecl.getVariableName());
-        if (variableNode == Table.noObj) {
+        if (variableNode == Table.noObj ||
+                currentLevel > variableNode.getLevel()) {
             Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
         } else {
             report_error("Promenlijva sa imenom " + vardecl.getVariableName() + " je vec deklarisana"
@@ -148,7 +149,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             syntaxAnalysisWatcher.globalArrayDetected();
         }
         Obj variableNode = Table.find(vardecl.getVariableName());
-        if (variableNode == Table.noObj) {
+        if (variableNode == Table.noObj ||
+                currentLevel > variableNode.getLevel()) {
             Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
         } else {
             report_error("Promenlijva sa imenom " + vardecl.getVariableName() + " je vec deklarisana "

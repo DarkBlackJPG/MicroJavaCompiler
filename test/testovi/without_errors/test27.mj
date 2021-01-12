@@ -20,15 +20,15 @@ program test11
         a_array[0] = 1;
         a_array[1] = 1;
         a_array[2] = 1;
-        a = 1;
-        b = 1;
-        c = 1;
+        a = 5;
+        b = -8;
+        c = 8;
         d = 1;
         a_array[2] = a > 3 ?
                            ( b == -8 ?
                                      ( -(c + 3 - d) < 10 ?
                                                            (-(6 + c + d) > -(c + c) ?
-                                                                                    (5)
+                                                                                    (9999)
                                                                                     : (5)
                                                            )
                                                            : (5)
@@ -37,6 +37,7 @@ program test11
                            )
                            : (5)
                            ;
+       	print(a_array[2]);
 
 
             // Result: Zavisi od unosa. Ali poslednja tri print bi trebalo da budu 0 [default za char] false

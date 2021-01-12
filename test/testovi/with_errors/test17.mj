@@ -1,0 +1,59 @@
+// Test301
+
+program test1
+
+const char a='a',b='b',c='c';
+
+const bool boolT=true;
+const bool boolF=false;
+
+int d,e, f;
+
+{
+        void main()
+
+        int d[],e;
+        char rez;
+
+        {
+
+		d=new int[22];
+
+		d[21]=55;
+		d[1]=21;
+		d[12]=true;
+
+		print(d[int[1]]);
+		print('|');
+
+		e=(d[21]+d[1]+d[12])*(22%10);
+
+		print(e);
+		print('|');
+
+		f=(ord('a')+2<ord(b)?(boolT?123:125):(d[21]-51>d[12]?124:126));
+
+		a=null;
+
+		d=null;
+		b=new char[12];
+
+		print(f);
+		print(len(f));
+
+		read(d[11]);
+		print(d[11],4);
+		print('|');
+
+		rez=len(d)<f?(boolF?a:b):u;
+		print(rez);
+		print('|');
+
+		rez=d<d?(boolF?a:b):'u';
+
+	//izlaz => 55 | 154 | 124 | [d[11] 4 puta] | b |
+
+        }
+}
+
+

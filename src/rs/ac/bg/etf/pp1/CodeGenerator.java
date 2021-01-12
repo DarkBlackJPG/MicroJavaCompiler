@@ -214,7 +214,7 @@ public class CodeGenerator extends VisitorAdaptor {
         SyntaxNode parent = arrayElementAccessDesignator.getParent();
         if (parent.getClass() != DecrementDesignator.class && parent.getClass() != IncrementDesignator.class) {
             if (parent.getClass() != AssignDesignator.class && parent.getClass() != ReadStmt.class) {
-                if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getKind() == Struct.Char) {
+                if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getElemType().getKind() == Struct.Char) {
                     Code.put(Code.baload);
                 } else {
                     Code.put(Code.aload);
@@ -222,7 +222,7 @@ public class CodeGenerator extends VisitorAdaptor {
             }
         } else {
             Code.put(Code.dup2);
-            if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getKind() == Struct.Char) {
+            if (arrayElementAccessDesignator.getDesignatorList().obj.getType().getElemType().getKind() == Struct.Char) {
                 Code.put(Code.baload);
             } else {
                 Code.put(Code.aload);
