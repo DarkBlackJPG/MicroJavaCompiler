@@ -1,0 +1,31 @@
+// Test301
+
+program test301
+
+{
+	void main()
+	    int a;
+	    int aa[];
+	    int b;
+	    int c;
+	    int d;
+
+	{
+	    aa = new int[100];
+        a = 50;
+        b = 100;
+        c = 10;
+        d = 60;
+	    print(ord(a > 50 ? 'e' : (b < (a + 51) ? (d > (30 / 2 + c*5) ? 'a' : 'b') : 'u')));
+	    print(len(a > 50 ? aa : (b < (a + 51) ? (d > (30 / 2 + c*5) ? aa : aa) : aa)));
+	    print(chr(a > 50 ? ord('e') : (b < (a + 51) ? (d > (30 / 2 + c*5) ? ord('a') : b) : ord('u'))));
+        print(ord('c'));
+	    print(len(aa));
+	    print(chr(99));
+
+
+        // Result: t   3f   3
+	}
+}
+
+

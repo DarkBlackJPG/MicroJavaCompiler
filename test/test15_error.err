@@ -1,0 +1,858 @@
+INFO  18:13:17,147 - [0;36m|-----------------------------------------------------------------|[m
+INFO  18:13:17,148 - [0;36m|                         LEKSICKA OBRADA                         |[m
+INFO  18:13:17,148 - [0;36m|-----------------------------------------------------------------|[m
+INFO  18:13:17,148 - Compiling source file: C:\Users\stefa\OneDrive\Desktop\ETF\PP1 projekat\MyCode\workspace\MJCompiler\test\testovi\test15_error.mj
+INFO  18:13:17,202 - #7 program	3
+INFO  18:13:17,202 - #2 test11	3
+INFO  18:13:17,203 - #20 {	7
+INFO  18:13:17,203 - #30 void	8
+INFO  18:13:17,203 - #2 main	8
+INFO  18:13:17,204 - #24 (	8
+INFO  18:13:17,204 - #25 )	8
+INFO  18:13:17,205 - #2 int	10
+INFO  18:13:17,205 - #2 a_array	10
+INFO  18:13:17,206 - #22 [	10
+INFO  18:13:17,206 - #23 ]	10
+INFO  18:13:17,207 - #27 ;	10
+INFO  18:13:17,207 - #2 int	11
+INFO  18:13:17,207 - #2 a	11
+INFO  18:13:17,207 - #27 ;	11
+INFO  18:13:17,207 - #2 int	12
+INFO  18:13:17,207 - #2 b	12
+INFO  18:13:17,207 - #27 ;	12
+INFO  18:13:17,207 - #2 int	13
+INFO  18:13:17,208 - #2 c	13
+INFO  18:13:17,208 - #27 ;	13
+INFO  18:13:17,208 - #2 int	14
+INFO  18:13:17,208 - #2 d	14
+INFO  18:13:17,208 - #27 ;	14
+INFO  18:13:17,208 - #20 {	17
+INFO  18:13:17,208 - #2 a_array	19
+INFO  18:13:17,209 - #19 =	19
+INFO  18:13:17,209 - #37 new	19
+INFO  18:13:17,210 - #2 int	19
+INFO  18:13:17,210 - #22 [	19
+INFO  18:13:17,210 - #3 3	19
+INFO  18:13:17,210 - #23 ]	19
+INFO  18:13:17,210 - #27 ;	19
+INFO  18:13:17,211 - #2 a_array	20
+INFO  18:13:17,211 - #22 [	20
+INFO  18:13:17,211 - #3 0	20
+INFO  18:13:17,211 - #23 ]	20
+INFO  18:13:17,211 - #19 =	20
+INFO  18:13:17,211 - #3 1	20
+INFO  18:13:17,211 - #27 ;	20
+INFO  18:13:17,211 - #2 a_array	21
+INFO  18:13:17,212 - #22 [	21
+INFO  18:13:17,212 - #3 1	21
+INFO  18:13:17,212 - #23 ]	21
+INFO  18:13:17,212 - #19 =	21
+INFO  18:13:17,212 - #3 1	21
+INFO  18:13:17,212 - #27 ;	21
+INFO  18:13:17,212 - #2 a_array	22
+INFO  18:13:17,212 - #22 [	22
+INFO  18:13:17,212 - #3 2	22
+INFO  18:13:17,215 - #23 ]	22
+INFO  18:13:17,215 - #19 =	22
+INFO  18:13:17,215 - #3 1	22
+INFO  18:13:17,215 - #27 ;	22
+INFO  18:13:17,215 - #2 a	23
+INFO  18:13:17,215 - #19 =	23
+INFO  18:13:17,215 - #3 1	23
+INFO  18:13:17,215 - #27 ;	23
+INFO  18:13:17,216 - #2 b	24
+INFO  18:13:17,216 - #19 =	24
+INFO  18:13:17,216 - #3 1	24
+INFO  18:13:17,216 - #27 ;	24
+INFO  18:13:17,216 - #2 c	25
+INFO  18:13:17,216 - #19 =	25
+INFO  18:13:17,216 - #3 1	25
+INFO  18:13:17,216 - #27 ;	25
+INFO  18:13:17,216 - #2 d	26
+INFO  18:13:17,217 - #19 =	26
+INFO  18:13:17,217 - #3 1	26
+INFO  18:13:17,217 - #27 ;	26
+INFO  18:13:17,217 - #2 a_array	27
+INFO  18:13:17,217 - #22 [	27
+INFO  18:13:17,217 - #3 2	27
+INFO  18:13:17,217 - #23 ]	27
+INFO  18:13:17,217 - #19 =	27
+INFO  18:13:17,217 - #2 a	27
+INFO  18:13:17,217 - #15 >	27
+INFO  18:13:17,218 - #3 3	27
+INFO  18:13:17,219 - #49 ?	27
+INFO  18:13:17,219 - #24 (	28
+INFO  18:13:17,220 - #2 b	28
+INFO  18:13:17,220 - #13 ==	28
+INFO  18:13:17,220 - #12 -	28
+INFO  18:13:17,220 - #4 c	28
+INFO  18:13:17,221 - #49 ?	28
+INFO  18:13:17,221 - #24 (	29
+INFO  18:13:17,221 - #12 -	29
+INFO  18:13:17,221 - #24 (	29
+INFO  18:13:17,221 - #2 c	29
+INFO  18:13:17,221 - #11 +	29
+INFO  18:13:17,221 - #3 3	29
+INFO  18:13:17,222 - #12 -	29
+INFO  18:13:17,222 - #2 d	29
+INFO  18:13:17,223 - #25 )	29
+INFO  18:13:17,223 - #17 <	29
+INFO  18:13:17,223 - #5 true	29
+INFO  18:13:17,223 - #49 ?	29
+INFO  18:13:17,225 - #24 (	30
+INFO  18:13:17,225 - #12 -	30
+INFO  18:13:17,225 - #24 (	30
+INFO  18:13:17,225 - #3 6	30
+INFO  18:13:17,225 - #11 +	30
+INFO  18:13:17,225 - #2 c	30
+INFO  18:13:17,225 - #11 +	30
+INFO  18:13:17,225 - #2 d	30
+INFO  18:13:17,225 - #25 )	30
+INFO  18:13:17,225 - #15 >	30
+INFO  18:13:17,225 - #12 -	30
+INFO  18:13:17,226 - #24 (	30
+INFO  18:13:17,226 - #4 c	30
+INFO  18:13:17,226 - #11 +	30
+INFO  18:13:17,226 - #2 c	30
+INFO  18:13:17,226 - #25 )	30
+INFO  18:13:17,226 - #49 ?	30
+INFO  18:13:17,226 - #24 (	31
+INFO  18:13:17,226 - #3 5	31
+INFO  18:13:17,226 - #25 )	31
+INFO  18:13:17,226 - #47 :	32
+INFO  18:13:17,227 - #24 (	32
+INFO  18:13:17,227 - #3 5	32
+INFO  18:13:17,227 - #25 )	32
+INFO  18:13:17,227 - #25 )	33
+INFO  18:13:17,227 - #47 :	34
+INFO  18:13:17,227 - #24 (	34
+INFO  18:13:17,227 - #3 5	34
+INFO  18:13:17,227 - #25 )	34
+INFO  18:13:17,227 - #25 )	35
+INFO  18:13:17,227 - #47 :	36
+INFO  18:13:17,230 - #24 (	36
+INFO  18:13:17,230 - #3 5	36
+INFO  18:13:17,230 - #25 )	36
+INFO  18:13:17,230 - #25 )	37
+INFO  18:13:17,230 - #47 :	38
+INFO  18:13:17,230 - #24 (	38
+INFO  18:13:17,231 - #3 5	38
+INFO  18:13:17,231 - #25 )	38
+INFO  18:13:17,231 - #27 ;	39
+INFO  18:13:17,231 - #21 }	45
+INFO  18:13:17,231 - #21 }	46
+INFO  18:13:17,235 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:17,235 - [0;36m|                         APSTRAKTNO STABLO                         |[m
+INFO  18:13:17,235 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:17,237 - Program(
+  ProgramName(
+   test11
+  ) [ProgramName]
+  NoDecls(
+  ) [NoDecls]
+  SingleMethod(
+    OneMethodDeclaration(
+      MethodTypeName(
+        VoidReturn(
+        ) [VoidReturn]
+       main
+      ) [MethodTypeName]
+      EmptyFormPars(
+      ) [EmptyFormPars]
+      HasMethodVariables(
+        HasMethodVariables(
+          HasMethodVariables(
+            HasMethodVariables(
+              HasMethodVariables(
+                NoVariables(
+                ) [NoVariables]
+                VariableDecls(
+                  Type(
+                   int
+                  ) [Type]
+                  SingleVariable(
+                    ArrayVariable(
+                     a_array
+                    ) [ArrayVariable]
+                  ) [SingleVariable]
+                ) [VariableDecls]
+              ) [HasMethodVariables]
+              VariableDecls(
+                Type(
+                 int
+                ) [Type]
+                SingleVariable(
+                  NonArrayVariable(
+                   a
+                  ) [NonArrayVariable]
+                ) [SingleVariable]
+              ) [VariableDecls]
+            ) [HasMethodVariables]
+            VariableDecls(
+              Type(
+               int
+              ) [Type]
+              SingleVariable(
+                NonArrayVariable(
+                 b
+                ) [NonArrayVariable]
+              ) [SingleVariable]
+            ) [VariableDecls]
+          ) [HasMethodVariables]
+          VariableDecls(
+            Type(
+             int
+            ) [Type]
+            SingleVariable(
+              NonArrayVariable(
+               c
+              ) [NonArrayVariable]
+            ) [SingleVariable]
+          ) [VariableDecls]
+        ) [HasMethodVariables]
+        VariableDecls(
+          Type(
+           int
+          ) [Type]
+          SingleVariable(
+            NonArrayVariable(
+             d
+            ) [NonArrayVariable]
+          ) [SingleVariable]
+        ) [VariableDecls]
+      ) [HasMethodVariables]
+      NonEmptyMethodStatements(
+        NonEmptyMethodStatements(
+          NonEmptyMethodStatements(
+            NonEmptyMethodStatements(
+              NonEmptyMethodStatements(
+                NonEmptyMethodStatements(
+                  NonEmptyMethodStatements(
+                    NonEmptyMethodStatements(
+                      NonEmptyMethodStatements(
+                        EmptyMethodStatements(
+                        ) [EmptyMethodStatements]
+                        StatementDesignatorStatement(
+                          ErrorProneAssignmentDesignator(
+                            AssignDesignator(
+                              CleanDesignator(
+                               a_array
+                              ) [CleanDesignator]
+                              AssignOp(
+                              ) [AssignOp]
+                              ExprNoTernStatement(
+                                AddOperationTerm(
+                                  OneTerm(
+                                    NonMullOpTerm(
+                                      NewTypeArray(
+                                        Type(
+                                         int
+                                        ) [Type]
+                                        ExprNoTernStatement(
+                                          AddOperationTerm(
+                                            OneTerm(
+                                              NonMullOpTerm(
+                                                NumericConstant(
+                                                 3
+                                                ) [NumericConstant]
+                                              ) [NonMullOpTerm]
+                                            ) [OneTerm]
+                                          ) [AddOperationTerm]
+                                        ) [ExprNoTernStatement]
+                                      ) [NewTypeArray]
+                                    ) [NonMullOpTerm]
+                                  ) [OneTerm]
+                                ) [AddOperationTerm]
+                              ) [ExprNoTernStatement]
+                            ) [AssignDesignator]
+                          ) [ErrorProneAssignmentDesignator]
+                        ) [StatementDesignatorStatement]
+                      ) [NonEmptyMethodStatements]
+                      StatementDesignatorStatement(
+                        ErrorProneAssignmentDesignator(
+                          AssignDesignator(
+                            ArrayElementAccessDesignator(
+                              DesignatorListOneElement(
+                               a_array
+                              ) [DesignatorListOneElement]
+                              ExprNoTernStatement(
+                                AddOperationTerm(
+                                  OneTerm(
+                                    NonMullOpTerm(
+                                      NumericConstant(
+                                       0
+                                      ) [NumericConstant]
+                                    ) [NonMullOpTerm]
+                                  ) [OneTerm]
+                                ) [AddOperationTerm]
+                              ) [ExprNoTernStatement]
+                            ) [ArrayElementAccessDesignator]
+                            AssignOp(
+                            ) [AssignOp]
+                            ExprNoTernStatement(
+                              AddOperationTerm(
+                                OneTerm(
+                                  NonMullOpTerm(
+                                    NumericConstant(
+                                     1
+                                    ) [NumericConstant]
+                                  ) [NonMullOpTerm]
+                                ) [OneTerm]
+                              ) [AddOperationTerm]
+                            ) [ExprNoTernStatement]
+                          ) [AssignDesignator]
+                        ) [ErrorProneAssignmentDesignator]
+                      ) [StatementDesignatorStatement]
+                    ) [NonEmptyMethodStatements]
+                    StatementDesignatorStatement(
+                      ErrorProneAssignmentDesignator(
+                        AssignDesignator(
+                          ArrayElementAccessDesignator(
+                            DesignatorListOneElement(
+                             a_array
+                            ) [DesignatorListOneElement]
+                            ExprNoTernStatement(
+                              AddOperationTerm(
+                                OneTerm(
+                                  NonMullOpTerm(
+                                    NumericConstant(
+                                     1
+                                    ) [NumericConstant]
+                                  ) [NonMullOpTerm]
+                                ) [OneTerm]
+                              ) [AddOperationTerm]
+                            ) [ExprNoTernStatement]
+                          ) [ArrayElementAccessDesignator]
+                          AssignOp(
+                          ) [AssignOp]
+                          ExprNoTernStatement(
+                            AddOperationTerm(
+                              OneTerm(
+                                NonMullOpTerm(
+                                  NumericConstant(
+                                   1
+                                  ) [NumericConstant]
+                                ) [NonMullOpTerm]
+                              ) [OneTerm]
+                            ) [AddOperationTerm]
+                          ) [ExprNoTernStatement]
+                        ) [AssignDesignator]
+                      ) [ErrorProneAssignmentDesignator]
+                    ) [StatementDesignatorStatement]
+                  ) [NonEmptyMethodStatements]
+                  StatementDesignatorStatement(
+                    ErrorProneAssignmentDesignator(
+                      AssignDesignator(
+                        ArrayElementAccessDesignator(
+                          DesignatorListOneElement(
+                           a_array
+                          ) [DesignatorListOneElement]
+                          ExprNoTernStatement(
+                            AddOperationTerm(
+                              OneTerm(
+                                NonMullOpTerm(
+                                  NumericConstant(
+                                   2
+                                  ) [NumericConstant]
+                                ) [NonMullOpTerm]
+                              ) [OneTerm]
+                            ) [AddOperationTerm]
+                          ) [ExprNoTernStatement]
+                        ) [ArrayElementAccessDesignator]
+                        AssignOp(
+                        ) [AssignOp]
+                        ExprNoTernStatement(
+                          AddOperationTerm(
+                            OneTerm(
+                              NonMullOpTerm(
+                                NumericConstant(
+                                 1
+                                ) [NumericConstant]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                          ) [AddOperationTerm]
+                        ) [ExprNoTernStatement]
+                      ) [AssignDesignator]
+                    ) [ErrorProneAssignmentDesignator]
+                  ) [StatementDesignatorStatement]
+                ) [NonEmptyMethodStatements]
+                StatementDesignatorStatement(
+                  ErrorProneAssignmentDesignator(
+                    AssignDesignator(
+                      CleanDesignator(
+                       a
+                      ) [CleanDesignator]
+                      AssignOp(
+                      ) [AssignOp]
+                      ExprNoTernStatement(
+                        AddOperationTerm(
+                          OneTerm(
+                            NonMullOpTerm(
+                              NumericConstant(
+                               1
+                              ) [NumericConstant]
+                            ) [NonMullOpTerm]
+                          ) [OneTerm]
+                        ) [AddOperationTerm]
+                      ) [ExprNoTernStatement]
+                    ) [AssignDesignator]
+                  ) [ErrorProneAssignmentDesignator]
+                ) [StatementDesignatorStatement]
+              ) [NonEmptyMethodStatements]
+              StatementDesignatorStatement(
+                ErrorProneAssignmentDesignator(
+                  AssignDesignator(
+                    CleanDesignator(
+                     b
+                    ) [CleanDesignator]
+                    AssignOp(
+                    ) [AssignOp]
+                    ExprNoTernStatement(
+                      AddOperationTerm(
+                        OneTerm(
+                          NonMullOpTerm(
+                            NumericConstant(
+                             1
+                            ) [NumericConstant]
+                          ) [NonMullOpTerm]
+                        ) [OneTerm]
+                      ) [AddOperationTerm]
+                    ) [ExprNoTernStatement]
+                  ) [AssignDesignator]
+                ) [ErrorProneAssignmentDesignator]
+              ) [StatementDesignatorStatement]
+            ) [NonEmptyMethodStatements]
+            StatementDesignatorStatement(
+              ErrorProneAssignmentDesignator(
+                AssignDesignator(
+                  CleanDesignator(
+                   c
+                  ) [CleanDesignator]
+                  AssignOp(
+                  ) [AssignOp]
+                  ExprNoTernStatement(
+                    AddOperationTerm(
+                      OneTerm(
+                        NonMullOpTerm(
+                          NumericConstant(
+                           1
+                          ) [NumericConstant]
+                        ) [NonMullOpTerm]
+                      ) [OneTerm]
+                    ) [AddOperationTerm]
+                  ) [ExprNoTernStatement]
+                ) [AssignDesignator]
+              ) [ErrorProneAssignmentDesignator]
+            ) [StatementDesignatorStatement]
+          ) [NonEmptyMethodStatements]
+          StatementDesignatorStatement(
+            ErrorProneAssignmentDesignator(
+              AssignDesignator(
+                CleanDesignator(
+                 d
+                ) [CleanDesignator]
+                AssignOp(
+                ) [AssignOp]
+                ExprNoTernStatement(
+                  AddOperationTerm(
+                    OneTerm(
+                      NonMullOpTerm(
+                        NumericConstant(
+                         1
+                        ) [NumericConstant]
+                      ) [NonMullOpTerm]
+                    ) [OneTerm]
+                  ) [AddOperationTerm]
+                ) [ExprNoTernStatement]
+              ) [AssignDesignator]
+            ) [ErrorProneAssignmentDesignator]
+          ) [StatementDesignatorStatement]
+        ) [NonEmptyMethodStatements]
+        StatementDesignatorStatement(
+          ErrorProneAssignmentDesignator(
+            AssignDesignator(
+              ArrayElementAccessDesignator(
+                DesignatorListOneElement(
+                 a_array
+                ) [DesignatorListOneElement]
+                ExprNoTernStatement(
+                  AddOperationTerm(
+                    OneTerm(
+                      NonMullOpTerm(
+                        NumericConstant(
+                         2
+                        ) [NumericConstant]
+                      ) [NonMullOpTerm]
+                    ) [OneTerm]
+                  ) [AddOperationTerm]
+                ) [ExprNoTernStatement]
+              ) [ArrayElementAccessDesignator]
+              AssignOp(
+              ) [AssignOp]
+              ExprTernStatement(
+                BeginTernary(
+                  ExpressionConditionFactor(
+                    AddOperationTerm(
+                      OneTerm(
+                        NonMullOpTerm(
+                          NoParamsDesignator(
+                            CleanDesignator(
+                             a
+                            ) [CleanDesignator]
+                          ) [NoParamsDesignator]
+                        ) [NonMullOpTerm]
+                      ) [OneTerm]
+                    ) [AddOperationTerm]
+                    NonEmptyRelationalExpression(
+                      RelopLargerThan(
+                      ) [RelopLargerThan]
+                      AddOperationTerm(
+                        OneTerm(
+                          NonMullOpTerm(
+                            NumericConstant(
+                             3
+                            ) [NumericConstant]
+                          ) [NonMullOpTerm]
+                        ) [OneTerm]
+                      ) [AddOperationTerm]
+                    ) [NonEmptyRelationalExpression]
+                  ) [ExpressionConditionFactor]
+                ) [BeginTernary]
+                AddOperationTerm(
+                  OneTerm(
+                    NonMullOpTerm(
+                      ParenthesesExpression(
+                        ExprTernStatement(
+                          BeginTernary(
+                            ExpressionConditionFactor(
+                              AddOperationTerm(
+                                OneTerm(
+                                  NonMullOpTerm(
+                                    NoParamsDesignator(
+                                      CleanDesignator(
+                                       b
+                                      ) [CleanDesignator]
+                                    ) [NoParamsDesignator]
+                                  ) [NonMullOpTerm]
+                                ) [OneTerm]
+                              ) [AddOperationTerm]
+                              NonEmptyRelationalExpression(
+                                RelopEquals(
+                                ) [RelopEquals]
+                                NegativeTerm(
+                                  OneTerm(
+                                    NonMullOpTerm(
+                                      CharacterConstant(
+                                       c
+                                      ) [CharacterConstant]
+                                    ) [NonMullOpTerm]
+                                  ) [OneTerm]
+                                ) [NegativeTerm]
+                              ) [NonEmptyRelationalExpression]
+                            ) [ExpressionConditionFactor]
+                          ) [BeginTernary]
+                          AddOperationTerm(
+                            OneTerm(
+                              NonMullOpTerm(
+                                ParenthesesExpression(
+                                  ExprTernStatement(
+                                    BeginTernary(
+                                      ExpressionConditionFactor(
+                                        NegativeTerm(
+                                          OneTerm(
+                                            NonMullOpTerm(
+                                              ParenthesesExpression(
+                                                ExprNoTernStatement(
+                                                  AddOperationTerm(
+                                                    TermList(
+                                                      TermList(
+                                                        OneTerm(
+                                                          NonMullOpTerm(
+                                                            NoParamsDesignator(
+                                                              CleanDesignator(
+                                                               c
+                                                              ) [CleanDesignator]
+                                                            ) [NoParamsDesignator]
+                                                          ) [NonMullOpTerm]
+                                                        ) [OneTerm]
+                                                        AddopPlus(
+                                                        ) [AddopPlus]
+                                                        NonMullOpTerm(
+                                                          NumericConstant(
+                                                           3
+                                                          ) [NumericConstant]
+                                                        ) [NonMullOpTerm]
+                                                      ) [TermList]
+                                                      AddopMinus(
+                                                      ) [AddopMinus]
+                                                      NonMullOpTerm(
+                                                        NoParamsDesignator(
+                                                          CleanDesignator(
+                                                           d
+                                                          ) [CleanDesignator]
+                                                        ) [NoParamsDesignator]
+                                                      ) [NonMullOpTerm]
+                                                    ) [TermList]
+                                                  ) [AddOperationTerm]
+                                                ) [ExprNoTernStatement]
+                                              ) [ParenthesesExpression]
+                                            ) [NonMullOpTerm]
+                                          ) [OneTerm]
+                                        ) [NegativeTerm]
+                                        NonEmptyRelationalExpression(
+                                          RelopLessThan(
+                                          ) [RelopLessThan]
+                                          AddOperationTerm(
+                                            OneTerm(
+                                              NonMullOpTerm(
+                                                BooleanConstant(
+                                                 true
+                                                ) [BooleanConstant]
+                                              ) [NonMullOpTerm]
+                                            ) [OneTerm]
+                                          ) [AddOperationTerm]
+                                        ) [NonEmptyRelationalExpression]
+                                      ) [ExpressionConditionFactor]
+                                    ) [BeginTernary]
+                                    AddOperationTerm(
+                                      OneTerm(
+                                        NonMullOpTerm(
+                                          ParenthesesExpression(
+                                            ExprTernStatement(
+                                              BeginTernary(
+                                                ExpressionConditionFactor(
+                                                  NegativeTerm(
+                                                    OneTerm(
+                                                      NonMullOpTerm(
+                                                        ParenthesesExpression(
+                                                          ExprNoTernStatement(
+                                                            AddOperationTerm(
+                                                              TermList(
+                                                                TermList(
+                                                                  OneTerm(
+                                                                    NonMullOpTerm(
+                                                                      NumericConstant(
+                                                                       6
+                                                                      ) [NumericConstant]
+                                                                    ) [NonMullOpTerm]
+                                                                  ) [OneTerm]
+                                                                  AddopPlus(
+                                                                  ) [AddopPlus]
+                                                                  NonMullOpTerm(
+                                                                    NoParamsDesignator(
+                                                                      CleanDesignator(
+                                                                       c
+                                                                      ) [CleanDesignator]
+                                                                    ) [NoParamsDesignator]
+                                                                  ) [NonMullOpTerm]
+                                                                ) [TermList]
+                                                                AddopPlus(
+                                                                ) [AddopPlus]
+                                                                NonMullOpTerm(
+                                                                  NoParamsDesignator(
+                                                                    CleanDesignator(
+                                                                     d
+                                                                    ) [CleanDesignator]
+                                                                  ) [NoParamsDesignator]
+                                                                ) [NonMullOpTerm]
+                                                              ) [TermList]
+                                                            ) [AddOperationTerm]
+                                                          ) [ExprNoTernStatement]
+                                                        ) [ParenthesesExpression]
+                                                      ) [NonMullOpTerm]
+                                                    ) [OneTerm]
+                                                  ) [NegativeTerm]
+                                                  NonEmptyRelationalExpression(
+                                                    RelopLargerThan(
+                                                    ) [RelopLargerThan]
+                                                    NegativeTerm(
+                                                      OneTerm(
+                                                        NonMullOpTerm(
+                                                          ParenthesesExpression(
+                                                            ExprNoTernStatement(
+                                                              AddOperationTerm(
+                                                                TermList(
+                                                                  OneTerm(
+                                                                    NonMullOpTerm(
+                                                                      CharacterConstant(
+                                                                       c
+                                                                      ) [CharacterConstant]
+                                                                    ) [NonMullOpTerm]
+                                                                  ) [OneTerm]
+                                                                  AddopPlus(
+                                                                  ) [AddopPlus]
+                                                                  NonMullOpTerm(
+                                                                    NoParamsDesignator(
+                                                                      CleanDesignator(
+                                                                       c
+                                                                      ) [CleanDesignator]
+                                                                    ) [NoParamsDesignator]
+                                                                  ) [NonMullOpTerm]
+                                                                ) [TermList]
+                                                              ) [AddOperationTerm]
+                                                            ) [ExprNoTernStatement]
+                                                          ) [ParenthesesExpression]
+                                                        ) [NonMullOpTerm]
+                                                      ) [OneTerm]
+                                                    ) [NegativeTerm]
+                                                  ) [NonEmptyRelationalExpression]
+                                                ) [ExpressionConditionFactor]
+                                              ) [BeginTernary]
+                                              AddOperationTerm(
+                                                OneTerm(
+                                                  NonMullOpTerm(
+                                                    ParenthesesExpression(
+                                                      ExprNoTernStatement(
+                                                        AddOperationTerm(
+                                                          OneTerm(
+                                                            NonMullOpTerm(
+                                                              NumericConstant(
+                                                               5
+                                                              ) [NumericConstant]
+                                                            ) [NonMullOpTerm]
+                                                          ) [OneTerm]
+                                                        ) [AddOperationTerm]
+                                                      ) [ExprNoTernStatement]
+                                                    ) [ParenthesesExpression]
+                                                  ) [NonMullOpTerm]
+                                                ) [OneTerm]
+                                              ) [AddOperationTerm]
+                                              AddOperationTerm(
+                                                OneTerm(
+                                                  NonMullOpTerm(
+                                                    ParenthesesExpression(
+                                                      ExprNoTernStatement(
+                                                        AddOperationTerm(
+                                                          OneTerm(
+                                                            NonMullOpTerm(
+                                                              NumericConstant(
+                                                               5
+                                                              ) [NumericConstant]
+                                                            ) [NonMullOpTerm]
+                                                          ) [OneTerm]
+                                                        ) [AddOperationTerm]
+                                                      ) [ExprNoTernStatement]
+                                                    ) [ParenthesesExpression]
+                                                  ) [NonMullOpTerm]
+                                                ) [OneTerm]
+                                              ) [AddOperationTerm]
+                                            ) [ExprTernStatement]
+                                          ) [ParenthesesExpression]
+                                        ) [NonMullOpTerm]
+                                      ) [OneTerm]
+                                    ) [AddOperationTerm]
+                                    AddOperationTerm(
+                                      OneTerm(
+                                        NonMullOpTerm(
+                                          ParenthesesExpression(
+                                            ExprNoTernStatement(
+                                              AddOperationTerm(
+                                                OneTerm(
+                                                  NonMullOpTerm(
+                                                    NumericConstant(
+                                                     5
+                                                    ) [NumericConstant]
+                                                  ) [NonMullOpTerm]
+                                                ) [OneTerm]
+                                              ) [AddOperationTerm]
+                                            ) [ExprNoTernStatement]
+                                          ) [ParenthesesExpression]
+                                        ) [NonMullOpTerm]
+                                      ) [OneTerm]
+                                    ) [AddOperationTerm]
+                                  ) [ExprTernStatement]
+                                ) [ParenthesesExpression]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                          ) [AddOperationTerm]
+                          AddOperationTerm(
+                            OneTerm(
+                              NonMullOpTerm(
+                                ParenthesesExpression(
+                                  ExprNoTernStatement(
+                                    AddOperationTerm(
+                                      OneTerm(
+                                        NonMullOpTerm(
+                                          NumericConstant(
+                                           5
+                                          ) [NumericConstant]
+                                        ) [NonMullOpTerm]
+                                      ) [OneTerm]
+                                    ) [AddOperationTerm]
+                                  ) [ExprNoTernStatement]
+                                ) [ParenthesesExpression]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                          ) [AddOperationTerm]
+                        ) [ExprTernStatement]
+                      ) [ParenthesesExpression]
+                    ) [NonMullOpTerm]
+                  ) [OneTerm]
+                ) [AddOperationTerm]
+                AddOperationTerm(
+                  OneTerm(
+                    NonMullOpTerm(
+                      ParenthesesExpression(
+                        ExprNoTernStatement(
+                          AddOperationTerm(
+                            OneTerm(
+                              NonMullOpTerm(
+                                NumericConstant(
+                                 5
+                                ) [NumericConstant]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                          ) [AddOperationTerm]
+                        ) [ExprNoTernStatement]
+                      ) [ParenthesesExpression]
+                    ) [NonMullOpTerm]
+                  ) [OneTerm]
+                ) [AddOperationTerm]
+              ) [ExprTernStatement]
+            ) [AssignDesignator]
+          ) [ErrorProneAssignmentDesignator]
+        ) [StatementDesignatorStatement]
+      ) [NonEmptyMethodStatements]
+    ) [OneMethodDeclaration]
+  ) [SingleMethod]
+) [Program]
+INFO  18:13:17,250 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:17,250 - [0;36m|                         SEMANTICKA OBRADA                         |[m
+INFO  18:13:17,250 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:17,252 - [0;32mMain metoda je definisana! [Line: 8][m
+INFO  18:13:17,252 - Pretraga na [Line: 19] --> detektovano Variable a_array: Array of int, 0, 1 .
+INFO  18:13:17,253 - Pretraga na [Line: 23] --> detektovano Variable a: int, 1, 1 .
+INFO  18:13:17,253 - Pretraga na [Line: 24] --> detektovano Variable b: int, 2, 1 .
+INFO  18:13:17,253 - Pretraga na [Line: 25] --> detektovano Variable c: int, 3, 1 .
+INFO  18:13:17,253 - Pretraga na [Line: 26] --> detektovano Variable d: int, 4, 1 .
+INFO  18:13:17,253 - Pretraga na [Line: 27] --> detektovano Variable a: int, 1, 1 .
+INFO  18:13:17,253 - Pretraga na [Line: 28] --> detektovano Variable b: int, 2, 1 .
+ERROR 18:13:17,254 - [0;31mOcekuje se tip (int), dostavljen tip (char)! [Line: 28][m
+ERROR 18:13:17,254 - [0;31mUslov u ternarnom operatoru nije logickog tipa, prilozen (int)! [Line: 28][m
+INFO  18:13:17,254 - Pretraga na [Line: 29] --> detektovano Variable c: int, 3, 1 .
+INFO  18:13:17,254 - Pretraga na [Line: 29] --> detektovano Variable d: int, 4, 1 .
+ERROR 18:13:17,254 - [0;31mTipovi nisu kompatibilni! Uporedjuje se (int) i (bool) [Line: 29][m
+INFO  18:13:17,254 - Pretraga na [Line: 30] --> detektovano Variable c: int, 3, 1 .
+INFO  18:13:17,254 - Pretraga na [Line: 30] --> detektovano Variable d: int, 4, 1 .
+INFO  18:13:17,255 - Pretraga na [Line: 30] --> detektovano Variable c: int, 3, 1 .
+ERROR 18:13:17,255 - [0;31mNemoguce sabiranje tipova (char) i (int)! [Line: 30][m
+ERROR 18:13:17,255 - [0;31mOcekuje se tip (int), dostavljen tip (null)! [Line: 30][m
+ERROR 18:13:17,255 - [0;31mUslov u ternarnom operatoru nije logickog tipa, prilozen (int)! [Line: 30][m
+INFO  18:13:17,255 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:17,255 - [0;36m|                STATISTIKA KORISCENJA PROMENLJIVIH                 |[m
+INFO  18:13:17,255 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:17,256 - 
+Broj definisanih klasa: ..................................................................[35m0[0m
+Broj definisanih metoda: .................................................................[35m1[0m
+Broj globalnih nizova: ...................................................................[35m0[0m
+Broj globalnih promenljivih: .............................................................[35m0[0m
+Broj globalnih konstanti: ................................................................[35m0[0m
+Broj lokalnih promenljivih u [main()]: ...................................................[35m5[0m
+Broj izraza u [main()]: ..................................................................[35m9[0m
+Broj poziva metoda u [main()]: ...........................................................[35m0[0m
+
+INFO  18:13:17,256 - [0;36m============================= SADRZAJ TABELE SIMBOLA =============================[m
+ERROR 18:13:17,256 - [0;31mSemanticka analiza je detektovala neku gresku. Objektni generisanje koda se neceizvrsiti![m
+INFO  18:13:17,256 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:17,256 - [0;36m|                              KRAJ RADA                            |[m
+INFO  18:13:17,256 - [0;36m|-------------------------------------------------------------------|[m

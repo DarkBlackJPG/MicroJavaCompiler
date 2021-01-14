@@ -1,0 +1,430 @@
+INFO  18:13:16,300 - [0;36m|-----------------------------------------------------------------|[m
+INFO  18:13:16,301 - [0;36m|                         LEKSICKA OBRADA                         |[m
+INFO  18:13:16,301 - [0;36m|-----------------------------------------------------------------|[m
+INFO  18:13:16,301 - Compiling source file: C:\Users\stefa\OneDrive\Desktop\ETF\PP1 projekat\MyCode\workspace\MJCompiler\test\testovi\test13_error.mj
+INFO  18:13:16,359 - #7 program	3
+INFO  18:13:16,359 - #2 test9	3
+INFO  18:13:16,360 - #2 int	6
+INFO  18:13:16,361 - #2 a	6
+INFO  18:13:16,361 - #27 ;	6
+INFO  18:13:16,362 - #2 int	7
+INFO  18:13:16,362 - #2 b	7
+INFO  18:13:16,362 - #27 ;	7
+INFO  18:13:16,362 - #20 {	11
+INFO  18:13:16,363 - #30 void	12
+INFO  18:13:16,363 - #2 main	12
+INFO  18:13:16,363 - #24 (	12
+INFO  18:13:16,364 - #25 )	12
+INFO  18:13:16,365 - #2 int	15
+INFO  18:13:16,365 - #2 c	15
+INFO  18:13:16,365 - #27 ;	15
+INFO  18:13:16,365 - #2 int	16
+INFO  18:13:16,366 - #2 d	16
+INFO  18:13:16,366 - #27 ;	16
+INFO  18:13:16,366 - #2 int	17
+INFO  18:13:16,366 - #2 d_arr	17
+INFO  18:13:16,366 - #22 [	17
+INFO  18:13:16,366 - #23 ]	17
+INFO  18:13:16,366 - #27 ;	17
+INFO  18:13:16,366 - #20 {	20
+INFO  18:13:16,367 - #2 a	22
+INFO  18:13:16,367 - #19 =	22
+INFO  18:13:16,367 - #3 2	22
+INFO  18:13:16,368 - #27 ;	22
+INFO  18:13:16,368 - #2 int	23
+INFO  18:13:16,369 - #2 b	23
+ERROR 18:13:16,369 - 
+Sintaksna greska na liniji 23
+INFO  18:13:16,369 - #19 =	23
+INFO  18:13:16,369 - #3 3	23
+INFO  18:13:16,369 - #27 ;	23
+INFO  18:13:16,370 - #2 b	24
+INFO  18:13:16,370 - #19 =	24
+INFO  18:13:16,370 - #3 3	24
+ERROR 18:13:16,370 - Izvrsen oporavak do ; u liniji 23. Greska prilikom dodele
+INFO  18:13:16,371 - #27 ;	24
+INFO  18:13:16,371 - #2 c	26
+INFO  18:13:16,371 - #19 =	26
+INFO  18:13:16,371 - #2 a	26
+INFO  18:13:16,372 - #11 +	26
+INFO  18:13:16,372 - #2 b	26
+INFO  18:13:16,373 - #27 ;	26
+INFO  18:13:16,373 - #2 c	28
+INFO  18:13:16,373 - #19 =	28
+INFO  18:13:16,373 - #2 c	28
+INFO  18:13:16,373 - #11 +	28
+INFO  18:13:16,374 - #4 c	28
+INFO  18:13:16,374 - #27 ;	28
+INFO  18:13:16,374 - #2 c	30
+INFO  18:13:16,374 - #40 ++	30
+INFO  18:13:16,374 - #27 ;	30
+INFO  18:13:16,374 - #42 print	32
+INFO  18:13:16,374 - #24 (	32
+INFO  18:13:16,374 - #2 c	32
+INFO  18:13:16,375 - #25 )	32
+INFO  18:13:16,378 - #27 ;	32
+INFO  18:13:16,378 - #2 d	34
+INFO  18:13:16,378 - #19 =	34
+INFO  18:13:16,378 - #24 (	34
+INFO  18:13:16,378 - #2 b	34
+INFO  18:13:16,378 - #17 <	34
+INFO  18:13:16,379 - #2 c	34
+INFO  18:13:16,379 - #49 ?	34
+INFO  18:13:16,380 - #24 (	35
+INFO  18:13:16,380 - #2 a	35
+INFO  18:13:16,380 - #13 ==	35
+INFO  18:13:16,380 - #4 c	35
+INFO  18:13:16,381 - #49 ?	35
+INFO  18:13:16,381 - #24 (	36
+INFO  18:13:16,381 - #2 b	36
+INFO  18:13:16,381 - #13 ==	36
+INFO  18:13:16,381 - #5 true	36
+INFO  18:13:16,381 - #49 ?	36
+INFO  18:13:16,381 - #24 (	37
+INFO  18:13:16,382 - #2 a	37
+INFO  18:13:16,382 - #13 ==	37
+INFO  18:13:16,382 - #2 d_arr	37
+INFO  18:13:16,382 - #49 ?	37
+INFO  18:13:16,382 - #24 (	38
+INFO  18:13:16,382 - #4 c	38
+INFO  18:13:16,382 - #25 )	38
+INFO  18:13:16,382 - #47 :	39
+INFO  18:13:16,382 - #24 (	39
+INFO  18:13:16,383 - #3 2	39
+INFO  18:13:16,383 - #25 )	39
+INFO  18:13:16,383 - #25 )	40
+INFO  18:13:16,383 - #47 :	41
+INFO  18:13:16,383 - #24 (	41
+INFO  18:13:16,383 - #4 g	41
+INFO  18:13:16,383 - #13 ==	41
+INFO  18:13:16,383 - #5 true	41
+INFO  18:13:16,383 - #49 ?	41
+INFO  18:13:16,384 - #24 (	42
+INFO  18:13:16,385 - #5 true	42
+INFO  18:13:16,385 - #13 ==	42
+INFO  18:13:16,385 - #5 false	42
+INFO  18:13:16,385 - #49 ?	42
+INFO  18:13:16,385 - #24 (	42
+INFO  18:13:16,385 - #25 )	42
+ERROR 18:13:16,385 - 
+Sintaksna greska na liniji 42
+INFO  18:13:16,386 - #47 :	43
+INFO  18:13:16,386 - #24 (	43
+INFO  18:13:16,386 - #25 )	43
+INFO  18:13:16,386 - #25 )	44
+INFO  18:13:16,386 - #47 :	45
+INFO  18:13:16,386 - #24 (	45
+INFO  18:13:16,386 - #24 (	45
+INFO  18:13:16,386 - #25 )	45
+INFO  18:13:16,386 - #13 ==	45
+INFO  18:13:16,386 - #24 (	45
+INFO  18:13:16,386 - #25 )	45
+INFO  18:13:16,387 - #49 ?	45
+INFO  18:13:16,387 - #24 (	46
+INFO  18:13:16,387 - #25 )	46
+INFO  18:13:16,387 - #47 :	47
+INFO  18:13:16,387 - #24 (	47
+INFO  18:13:16,387 - #25 )	47
+INFO  18:13:16,387 - #25 )	48
+INFO  18:13:16,387 - #25 )	49
+INFO  18:13:16,387 - #25 )	50
+INFO  18:13:16,387 - #47 :	51
+INFO  18:13:16,388 - #24 (	51
+INFO  18:13:16,388 - #3 9	51
+INFO  18:13:16,388 - #25 )	51
+INFO  18:13:16,388 - #25 )	52
+INFO  18:13:16,388 - #47 :	53
+INFO  18:13:16,388 - #24 (	53
+INFO  18:13:16,388 - #25 )	53
+INFO  18:13:16,388 - #25 )	54
+INFO  18:13:16,388 - #27 ;	54
+INFO  18:13:16,388 - #21 }	60
+INFO  18:13:16,388 - #21 }	61
+ERROR 18:13:16,389 - Izvrsen oporavak do ; u liniji 34. Greska prilikom dodele
+INFO  18:13:16,393 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:16,393 - [0;36m|                         APSTRAKTNO STABLO                         |[m
+INFO  18:13:16,393 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:16,394 - Program(
+  ProgramName(
+   test9
+  ) [ProgramName]
+  DeclarationList(
+    DeclarationList(
+      NoDecls(
+      ) [NoDecls]
+      VarDeclarations(
+        VariableDecls(
+          Type(
+           int
+          ) [Type]
+          SingleVariable(
+            NonArrayVariable(
+             a
+            ) [NonArrayVariable]
+          ) [SingleVariable]
+        ) [VariableDecls]
+      ) [VarDeclarations]
+    ) [DeclarationList]
+    VarDeclarations(
+      VariableDecls(
+        Type(
+         int
+        ) [Type]
+        SingleVariable(
+          NonArrayVariable(
+           b
+          ) [NonArrayVariable]
+        ) [SingleVariable]
+      ) [VariableDecls]
+    ) [VarDeclarations]
+  ) [DeclarationList]
+  SingleMethod(
+    OneMethodDeclaration(
+      MethodTypeName(
+        VoidReturn(
+        ) [VoidReturn]
+       main
+      ) [MethodTypeName]
+      EmptyFormPars(
+      ) [EmptyFormPars]
+      HasMethodVariables(
+        HasMethodVariables(
+          HasMethodVariables(
+            NoVariables(
+            ) [NoVariables]
+            VariableDecls(
+              Type(
+               int
+              ) [Type]
+              SingleVariable(
+                NonArrayVariable(
+                 c
+                ) [NonArrayVariable]
+              ) [SingleVariable]
+            ) [VariableDecls]
+          ) [HasMethodVariables]
+          VariableDecls(
+            Type(
+             int
+            ) [Type]
+            SingleVariable(
+              NonArrayVariable(
+               d
+              ) [NonArrayVariable]
+            ) [SingleVariable]
+          ) [VariableDecls]
+        ) [HasMethodVariables]
+        VariableDecls(
+          Type(
+           int
+          ) [Type]
+          SingleVariable(
+            ArrayVariable(
+             d_arr
+            ) [ArrayVariable]
+          ) [SingleVariable]
+        ) [VariableDecls]
+      ) [HasMethodVariables]
+      NonEmptyMethodStatements(
+        NonEmptyMethodStatements(
+          NonEmptyMethodStatements(
+            NonEmptyMethodStatements(
+              NonEmptyMethodStatements(
+                NonEmptyMethodStatements(
+                  NonEmptyMethodStatements(
+                    NonEmptyMethodStatements(
+                      EmptyMethodStatements(
+                      ) [EmptyMethodStatements]
+                      StatementDesignatorStatement(
+                        ErrorProneAssignmentDesignator(
+                          AssignDesignator(
+                            CleanDesignator(
+                             a
+                            ) [CleanDesignator]
+                            AssignOp(
+                            ) [AssignOp]
+                            ExprNoTernStatement(
+                              AddOperationTerm(
+                                OneTerm(
+                                  NonMullOpTerm(
+                                    NumericConstant(
+                                     2
+                                    ) [NumericConstant]
+                                  ) [NonMullOpTerm]
+                                ) [OneTerm]
+                              ) [AddOperationTerm]
+                            ) [ExprNoTernStatement]
+                          ) [AssignDesignator]
+                        ) [ErrorProneAssignmentDesignator]
+                      ) [StatementDesignatorStatement]
+                    ) [NonEmptyMethodStatements]
+                    StatementDesignatorStatement(
+                      ErrorProneAssignmentDesignator(
+                        ErrorAssignment(
+                        ) [ErrorAssignment]
+                      ) [ErrorProneAssignmentDesignator]
+                    ) [StatementDesignatorStatement]
+                  ) [NonEmptyMethodStatements]
+                  StatementDesignatorStatement(
+                    ErrorProneAssignmentDesignator(
+                      AssignDesignator(
+                        CleanDesignator(
+                         b
+                        ) [CleanDesignator]
+                        AssignOp(
+                        ) [AssignOp]
+                        ExprNoTernStatement(
+                          AddOperationTerm(
+                            OneTerm(
+                              NonMullOpTerm(
+                                NumericConstant(
+                                 3
+                                ) [NumericConstant]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                          ) [AddOperationTerm]
+                        ) [ExprNoTernStatement]
+                      ) [AssignDesignator]
+                    ) [ErrorProneAssignmentDesignator]
+                  ) [StatementDesignatorStatement]
+                ) [NonEmptyMethodStatements]
+                StatementDesignatorStatement(
+                  ErrorProneAssignmentDesignator(
+                    AssignDesignator(
+                      CleanDesignator(
+                       c
+                      ) [CleanDesignator]
+                      AssignOp(
+                      ) [AssignOp]
+                      ExprNoTernStatement(
+                        AddOperationTerm(
+                          TermList(
+                            OneTerm(
+                              NonMullOpTerm(
+                                NoParamsDesignator(
+                                  CleanDesignator(
+                                   a
+                                  ) [CleanDesignator]
+                                ) [NoParamsDesignator]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                            AddopPlus(
+                            ) [AddopPlus]
+                            NonMullOpTerm(
+                              NoParamsDesignator(
+                                CleanDesignator(
+                                 b
+                                ) [CleanDesignator]
+                              ) [NoParamsDesignator]
+                            ) [NonMullOpTerm]
+                          ) [TermList]
+                        ) [AddOperationTerm]
+                      ) [ExprNoTernStatement]
+                    ) [AssignDesignator]
+                  ) [ErrorProneAssignmentDesignator]
+                ) [StatementDesignatorStatement]
+              ) [NonEmptyMethodStatements]
+              StatementDesignatorStatement(
+                ErrorProneAssignmentDesignator(
+                  AssignDesignator(
+                    CleanDesignator(
+                     c
+                    ) [CleanDesignator]
+                    AssignOp(
+                    ) [AssignOp]
+                    ExprNoTernStatement(
+                      AddOperationTerm(
+                        TermList(
+                          OneTerm(
+                            NonMullOpTerm(
+                              NoParamsDesignator(
+                                CleanDesignator(
+                                 c
+                                ) [CleanDesignator]
+                              ) [NoParamsDesignator]
+                            ) [NonMullOpTerm]
+                          ) [OneTerm]
+                          AddopPlus(
+                          ) [AddopPlus]
+                          NonMullOpTerm(
+                            CharacterConstant(
+                             c
+                            ) [CharacterConstant]
+                          ) [NonMullOpTerm]
+                        ) [TermList]
+                      ) [AddOperationTerm]
+                    ) [ExprNoTernStatement]
+                  ) [AssignDesignator]
+                ) [ErrorProneAssignmentDesignator]
+              ) [StatementDesignatorStatement]
+            ) [NonEmptyMethodStatements]
+            StatementDesignatorStatement(
+              IncrementDesignator(
+                CleanDesignator(
+                 c
+                ) [CleanDesignator]
+              ) [IncrementDesignator]
+            ) [StatementDesignatorStatement]
+          ) [NonEmptyMethodStatements]
+          PrintStmt(
+            NoNumConst(
+              ExprNoTernStatement(
+                AddOperationTerm(
+                  OneTerm(
+                    NonMullOpTerm(
+                      NoParamsDesignator(
+                        CleanDesignator(
+                         c
+                        ) [CleanDesignator]
+                      ) [NoParamsDesignator]
+                    ) [NonMullOpTerm]
+                  ) [OneTerm]
+                ) [AddOperationTerm]
+              ) [ExprNoTernStatement]
+            ) [NoNumConst]
+          ) [PrintStmt]
+        ) [NonEmptyMethodStatements]
+        StatementDesignatorStatement(
+          ErrorProneAssignmentDesignator(
+            ErrorAssignment(
+            ) [ErrorAssignment]
+          ) [ErrorProneAssignmentDesignator]
+        ) [StatementDesignatorStatement]
+      ) [NonEmptyMethodStatements]
+    ) [OneMethodDeclaration]
+  ) [SingleMethod]
+) [Program]
+INFO  18:13:16,400 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:16,400 - [0;36m|                         SEMANTICKA OBRADA                         |[m
+INFO  18:13:16,400 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:16,402 - [0;32mMain metoda je definisana! [Line: 12][m
+INFO  18:13:16,402 - Pretraga na [Line: 22] --> detektovano Variable a: int, 0, 0 .
+INFO  18:13:16,403 - Pretraga na [Line: 24] --> detektovano Variable b: int, 1, 0 .
+INFO  18:13:16,403 - Pretraga na [Line: 26] --> detektovano Variable c: int, 0, 1 .
+INFO  18:13:16,403 - Pretraga na [Line: 26] --> detektovano Variable a: int, 0, 0 .
+INFO  18:13:16,403 - Pretraga na [Line: 26] --> detektovano Variable b: int, 1, 0 .
+INFO  18:13:16,403 - Pretraga na [Line: 28] --> detektovano Variable c: int, 0, 1 .
+INFO  18:13:16,404 - Pretraga na [Line: 28] --> detektovano Variable c: int, 0, 1 .
+ERROR 18:13:16,404 - [0;31mNemoguce sabiranje tipova (int) i (char)! [Line: 28][m
+ERROR 18:13:16,404 - [0;31mPromenljiva tipa (null) ne moze da se dodeli promenljivoj tipa (int)! [Line: 28][m
+INFO  18:13:16,404 - Pretraga na [Line: 30] --> detektovano Variable c: int, 0, 1 .
+INFO  18:13:16,404 - Pretraga na [Line: 32] --> detektovano Variable c: int, 0, 1 .
+INFO  18:13:16,404 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:16,404 - [0;36m|                STATISTIKA KORISCENJA PROMENLJIVIH                 |[m
+INFO  18:13:16,404 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:16,407 - 
+Broj definisanih klasa: ..................................................................[35m0[0m
+Broj definisanih metoda: .................................................................[35m1[0m
+Broj globalnih nizova: ...................................................................[35m0[0m
+Broj globalnih promenljivih: .............................................................[35m2[0m
+Broj globalnih konstanti: ................................................................[35m0[0m
+Broj lokalnih promenljivih u [main()]: ...................................................[35m3[0m
+Broj izraza u [main()]: ..................................................................[35m8[0m
+Broj poziva metoda u [main()]: ...........................................................[35m1[0m
+
+INFO  18:13:16,407 - [0;36m============================= SADRZAJ TABELE SIMBOLA =============================[m
+ERROR 18:13:16,408 - [0;31mDetektovana je greska! Proveriti log za vise informacija![m
+ERROR 18:13:16,408 - [0;31mSemanticka analiza je detektovala neku gresku. Objektni generisanje koda se neceizvrsiti![m
+INFO  18:13:16,408 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:16,408 - [0;36m|                              KRAJ RADA                            |[m
+INFO  18:13:16,408 - [0;36m|-------------------------------------------------------------------|[m

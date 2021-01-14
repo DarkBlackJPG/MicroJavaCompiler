@@ -1,0 +1,39 @@
+// Test301
+
+program test10
+// ------| Global variables
+
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+        int a;
+        int b;
+        int c;
+        int d;
+        int e;
+        int result;
+        // ------| End local variables
+        {
+            // ------| Code begin
+
+            read(a);
+            read(b);
+            read(c);
+            read(d);
+
+            result = a > 30 ? 1 : 0;
+            print(result);
+
+            result = 10;
+            result = (a > b ? c : d) <= (a > 3 ? d + 2 : d + 2) ? (true ? d * 10 - a + 5 : 0) : (false ? 10 : 0);
+            print(result);
+
+            // Result: 1        char        true
+
+            // ------| Code end
+        }
+}
+
+

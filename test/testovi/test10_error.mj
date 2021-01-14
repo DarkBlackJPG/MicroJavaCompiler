@@ -1,0 +1,37 @@
+// Test301
+
+program test9
+// ------| Global variables
+
+int a_array[];
+int b_array[];
+
+char a_array_ch[];
+char b_array_ch[];
+
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+
+        bool a_array_bool[];
+        bool b_array_bool[];
+
+        // ------| End local variables
+        {
+            // ------| Code begin
+            a_array = new int[2];
+            a_array[0] = 1;
+            a_array[0] = 2;
+
+            b_array = true ? a_array_bool : a_array;
+
+            // Result: 1    2   a   b   true    false |---| 3   4   c   d   false   true
+
+
+            // ------| Code end
+        }
+}
+
+

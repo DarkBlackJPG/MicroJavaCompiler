@@ -1,0 +1,46 @@
+// Test301
+
+program test12
+// ------| Global variables
+
+// ------| End gloabal variables
+{
+        void main()
+        // ------| Local variables
+        int a;
+        char ach;
+        bool abool;
+
+        int a_array[];
+        char ach_array[];
+        bool abool_array[];
+        // ------| End local variables
+        {
+            // ------| Code begin
+            a = 3;
+
+            a_array = new int[a];
+            ach_array = new char[a];
+            abool_array = new bool[a];
+
+            read(ach);
+            read(a);
+
+
+            print(a);
+            print(ach);
+            print(abool);
+
+            print(a_array[0]);
+            print(ach_array[0]);
+            print(abool_array[0]);
+
+            print(a_array[1]);
+            print(ach_array[1]);
+            print(abool_array[1]);
+
+            // Result: Zavisi od unosa. Ali poslednja tri print bi trebalo da budu 0 [default za char] false
+
+            // ------| Code end
+        }
+}

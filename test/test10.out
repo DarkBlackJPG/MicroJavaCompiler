@@ -1,0 +1,241 @@
+INFO  18:13:04,078 - [0;36m|-----------------------------------------------------------------|[m
+INFO  18:13:04,079 - [0;36m|                         LEKSICKA OBRADA                         |[m
+INFO  18:13:04,079 - [0;36m|-----------------------------------------------------------------|[m
+INFO  18:13:04,079 - Compiling source file: C:\Users\stefa\OneDrive\Desktop\ETF\PP1 projekat\MyCode\workspace\MJCompiler\test\testovi\test10.mj
+INFO  18:13:04,135 - #7 program	3
+INFO  18:13:04,135 - #2 test10	3
+INFO  18:13:04,135 - #20 {	8
+INFO  18:13:04,136 - #30 void	9
+INFO  18:13:04,136 - #2 main	9
+INFO  18:13:04,137 - #24 (	9
+INFO  18:13:04,137 - #25 )	9
+INFO  18:13:04,138 - #20 {	14
+INFO  18:13:04,138 - #42 print	17
+INFO  18:13:04,139 - #24 (	17
+INFO  18:13:04,140 - #3 1	17
+INFO  18:13:04,140 - #25 )	17
+INFO  18:13:04,140 - #27 ;	17
+INFO  18:13:04,140 - #42 print	18
+INFO  18:13:04,141 - #24 (	18
+INFO  18:13:04,141 - #4  	18
+INFO  18:13:04,141 - #25 )	18
+INFO  18:13:04,141 - #27 ;	18
+INFO  18:13:04,141 - #42 print	19
+INFO  18:13:04,141 - #24 (	19
+INFO  18:13:04,141 - #4 c	19
+INFO  18:13:04,142 - #25 )	19
+INFO  18:13:04,142 - #27 ;	19
+INFO  18:13:04,142 - #42 print	20
+INFO  18:13:04,142 - #24 (	20
+INFO  18:13:04,142 - #4 h	20
+INFO  18:13:04,142 - #25 )	20
+INFO  18:13:04,143 - #27 ;	20
+INFO  18:13:04,143 - #42 print	21
+INFO  18:13:04,143 - #24 (	21
+INFO  18:13:04,143 - #4 a	21
+INFO  18:13:04,143 - #25 )	21
+INFO  18:13:04,143 - #27 ;	21
+INFO  18:13:04,143 - #42 print	22
+INFO  18:13:04,143 - #24 (	22
+INFO  18:13:04,143 - #4 r	22
+INFO  18:13:04,143 - #25 )	22
+INFO  18:13:04,144 - #27 ;	22
+INFO  18:13:04,144 - #42 print	23
+INFO  18:13:04,144 - #24 (	23
+INFO  18:13:04,144 - #4  	23
+INFO  18:13:04,144 - #25 )	23
+INFO  18:13:04,144 - #27 ;	23
+INFO  18:13:04,144 - #42 print	24
+INFO  18:13:04,144 - #24 (	24
+INFO  18:13:04,144 - #5 true	24
+INFO  18:13:04,144 - #25 )	24
+INFO  18:13:04,145 - #27 ;	24
+INFO  18:13:04,145 - #21 }	29
+INFO  18:13:04,145 - #21 }	30
+INFO  18:13:04,148 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,149 - [0;36m|                         APSTRAKTNO STABLO                         |[m
+INFO  18:13:04,149 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,149 - Program(
+  ProgramName(
+   test10
+  ) [ProgramName]
+  NoDecls(
+  ) [NoDecls]
+  SingleMethod(
+    OneMethodDeclaration(
+      MethodTypeName(
+        VoidReturn(
+        ) [VoidReturn]
+       main
+      ) [MethodTypeName]
+      EmptyFormPars(
+      ) [EmptyFormPars]
+      NoVariables(
+      ) [NoVariables]
+      NonEmptyMethodStatements(
+        NonEmptyMethodStatements(
+          NonEmptyMethodStatements(
+            NonEmptyMethodStatements(
+              NonEmptyMethodStatements(
+                NonEmptyMethodStatements(
+                  NonEmptyMethodStatements(
+                    NonEmptyMethodStatements(
+                      EmptyMethodStatements(
+                      ) [EmptyMethodStatements]
+                      PrintStmt(
+                        NoNumConst(
+                          ExprNoTernStatement(
+                            AddOperationTerm(
+                              OneTerm(
+                                NonMullOpTerm(
+                                  NumericConstant(
+                                   1
+                                  ) [NumericConstant]
+                                ) [NonMullOpTerm]
+                              ) [OneTerm]
+                            ) [AddOperationTerm]
+                          ) [ExprNoTernStatement]
+                        ) [NoNumConst]
+                      ) [PrintStmt]
+                    ) [NonEmptyMethodStatements]
+                    PrintStmt(
+                      NoNumConst(
+                        ExprNoTernStatement(
+                          AddOperationTerm(
+                            OneTerm(
+                              NonMullOpTerm(
+                                CharacterConstant(
+                                  
+                                ) [CharacterConstant]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                          ) [AddOperationTerm]
+                        ) [ExprNoTernStatement]
+                      ) [NoNumConst]
+                    ) [PrintStmt]
+                  ) [NonEmptyMethodStatements]
+                  PrintStmt(
+                    NoNumConst(
+                      ExprNoTernStatement(
+                        AddOperationTerm(
+                          OneTerm(
+                            NonMullOpTerm(
+                              CharacterConstant(
+                               c
+                              ) [CharacterConstant]
+                            ) [NonMullOpTerm]
+                          ) [OneTerm]
+                        ) [AddOperationTerm]
+                      ) [ExprNoTernStatement]
+                    ) [NoNumConst]
+                  ) [PrintStmt]
+                ) [NonEmptyMethodStatements]
+                PrintStmt(
+                  NoNumConst(
+                    ExprNoTernStatement(
+                      AddOperationTerm(
+                        OneTerm(
+                          NonMullOpTerm(
+                            CharacterConstant(
+                             h
+                            ) [CharacterConstant]
+                          ) [NonMullOpTerm]
+                        ) [OneTerm]
+                      ) [AddOperationTerm]
+                    ) [ExprNoTernStatement]
+                  ) [NoNumConst]
+                ) [PrintStmt]
+              ) [NonEmptyMethodStatements]
+              PrintStmt(
+                NoNumConst(
+                  ExprNoTernStatement(
+                    AddOperationTerm(
+                      OneTerm(
+                        NonMullOpTerm(
+                          CharacterConstant(
+                           a
+                          ) [CharacterConstant]
+                        ) [NonMullOpTerm]
+                      ) [OneTerm]
+                    ) [AddOperationTerm]
+                  ) [ExprNoTernStatement]
+                ) [NoNumConst]
+              ) [PrintStmt]
+            ) [NonEmptyMethodStatements]
+            PrintStmt(
+              NoNumConst(
+                ExprNoTernStatement(
+                  AddOperationTerm(
+                    OneTerm(
+                      NonMullOpTerm(
+                        CharacterConstant(
+                         r
+                        ) [CharacterConstant]
+                      ) [NonMullOpTerm]
+                    ) [OneTerm]
+                  ) [AddOperationTerm]
+                ) [ExprNoTernStatement]
+              ) [NoNumConst]
+            ) [PrintStmt]
+          ) [NonEmptyMethodStatements]
+          PrintStmt(
+            NoNumConst(
+              ExprNoTernStatement(
+                AddOperationTerm(
+                  OneTerm(
+                    NonMullOpTerm(
+                      CharacterConstant(
+                        
+                      ) [CharacterConstant]
+                    ) [NonMullOpTerm]
+                  ) [OneTerm]
+                ) [AddOperationTerm]
+              ) [ExprNoTernStatement]
+            ) [NoNumConst]
+          ) [PrintStmt]
+        ) [NonEmptyMethodStatements]
+        PrintStmt(
+          NoNumConst(
+            ExprNoTernStatement(
+              AddOperationTerm(
+                OneTerm(
+                  NonMullOpTerm(
+                    BooleanConstant(
+                     true
+                    ) [BooleanConstant]
+                  ) [NonMullOpTerm]
+                ) [OneTerm]
+              ) [AddOperationTerm]
+            ) [ExprNoTernStatement]
+          ) [NoNumConst]
+        ) [PrintStmt]
+      ) [NonEmptyMethodStatements]
+    ) [OneMethodDeclaration]
+  ) [SingleMethod]
+) [Program]
+INFO  18:13:04,155 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,155 - [0;36m|                         SEMANTICKA OBRADA                         |[m
+INFO  18:13:04,155 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,157 - [0;32mMain metoda je definisana! [Line: 9][m
+INFO  18:13:04,157 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,157 - [0;36m|                STATISTIKA KORISCENJA PROMENLJIVIH                 |[m
+INFO  18:13:04,158 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,158 - 
+Broj definisanih klasa: ..................................................................[35m0[0m
+Broj definisanih metoda: .................................................................[35m1[0m
+Broj globalnih nizova: ...................................................................[35m0[0m
+Broj globalnih promenljivih: .............................................................[35m0[0m
+Broj globalnih konstanti: ................................................................[35m0[0m
+Broj lokalnih promenljivih u [main()]: ...................................................[35m0[0m
+Broj izraza u [main()]: ..................................................................[35m8[0m
+Broj poziva metoda u [main()]: ...........................................................[35m8[0m
+
+INFO  18:13:04,158 - [0;36m============================= SADRZAJ TABELE SIMBOLA =============================[m
+INFO  18:13:04,158 - [0;32mUspesno izvrsena semanticka analiza! Nastavlja se sa generisanjem koda[m
+INFO  18:13:04,159 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,159 - [0;36m|                          GENERISANJE KODA                         |[m
+INFO  18:13:04,159 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,163 - [0;32mKompajliranje uspesno izvrseno![m
+INFO  18:13:04,164 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:04,164 - [0;36m|                              KRAJ RADA                            |[m
+INFO  18:13:04,164 - [0;36m|-------------------------------------------------------------------|[m

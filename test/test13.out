@@ -1,0 +1,680 @@
+INFO  18:13:05,302 - [0;36m|-----------------------------------------------------------------|[m
+INFO  18:13:05,302 - [0;36m|                         LEKSICKA OBRADA                         |[m
+INFO  18:13:05,303 - [0;36m|-----------------------------------------------------------------|[m
+INFO  18:13:05,303 - Compiling source file: C:\Users\stefa\OneDrive\Desktop\ETF\PP1 projekat\MyCode\workspace\MJCompiler\test\testovi\test13.mj
+INFO  18:13:05,359 - #7 program	3
+INFO  18:13:05,359 - #2 test13	3
+INFO  18:13:05,359 - #20 {	7
+INFO  18:13:05,360 - #30 void	8
+INFO  18:13:05,360 - #2 main	8
+INFO  18:13:05,361 - #24 (	8
+INFO  18:13:05,361 - #25 )	8
+INFO  18:13:05,362 - #2 int	10
+INFO  18:13:05,362 - #2 a	10
+INFO  18:13:05,363 - #27 ;	10
+INFO  18:13:05,363 - #2 char	11
+INFO  18:13:05,364 - #2 ach	11
+INFO  18:13:05,364 - #27 ;	11
+INFO  18:13:05,364 - #2 bool	12
+INFO  18:13:05,364 - #2 abool	12
+INFO  18:13:05,364 - #27 ;	12
+INFO  18:13:05,364 - #2 int	14
+INFO  18:13:05,364 - #2 a_array	14
+INFO  18:13:05,365 - #22 [	14
+INFO  18:13:05,365 - #23 ]	14
+INFO  18:13:05,365 - #27 ;	14
+INFO  18:13:05,365 - #2 char	15
+INFO  18:13:05,365 - #2 ach_array	15
+INFO  18:13:05,365 - #22 [	15
+INFO  18:13:05,365 - #23 ]	15
+INFO  18:13:05,365 - #27 ;	15
+INFO  18:13:05,366 - #2 bool	16
+INFO  18:13:05,366 - #2 abool_array	16
+INFO  18:13:05,366 - #22 [	16
+INFO  18:13:05,366 - #23 ]	16
+INFO  18:13:05,366 - #27 ;	16
+INFO  18:13:05,366 - #20 {	18
+INFO  18:13:05,366 - #2 a	22
+INFO  18:13:05,367 - #19 =	22
+INFO  18:13:05,367 - #3 2	22
+INFO  18:13:05,368 - #27 ;	22
+INFO  18:13:05,370 - #2 a_array	25
+INFO  18:13:05,371 - #19 =	25
+INFO  18:13:05,371 - #37 new	25
+INFO  18:13:05,371 - #2 int	25
+INFO  18:13:05,371 - #22 [	25
+INFO  18:13:05,371 - #2 a	25
+INFO  18:13:05,372 - #23 ]	25
+INFO  18:13:05,372 - #27 ;	25
+INFO  18:13:05,372 - #2 ach_array	26
+INFO  18:13:05,372 - #19 =	26
+INFO  18:13:05,372 - #37 new	26
+INFO  18:13:05,373 - #2 char	26
+INFO  18:13:05,373 - #22 [	26
+INFO  18:13:05,373 - #2 a	26
+INFO  18:13:05,373 - #23 ]	26
+INFO  18:13:05,373 - #27 ;	26
+INFO  18:13:05,373 - #2 abool_array	27
+INFO  18:13:05,373 - #19 =	27
+INFO  18:13:05,374 - #37 new	27
+INFO  18:13:05,374 - #2 bool	27
+INFO  18:13:05,374 - #22 [	27
+INFO  18:13:05,374 - #2 a	27
+INFO  18:13:05,374 - #23 ]	27
+INFO  18:13:05,374 - #27 ;	27
+INFO  18:13:05,374 - #48 read	29
+INFO  18:13:05,374 - #24 (	29
+INFO  18:13:05,375 - #2 abool_array	29
+INFO  18:13:05,375 - #22 [	29
+INFO  18:13:05,375 - #3 0	29
+INFO  18:13:05,375 - #23 ]	29
+INFO  18:13:05,375 - #25 )	29
+INFO  18:13:05,375 - #27 ;	29
+INFO  18:13:05,375 - #42 print	31
+INFO  18:13:05,375 - #24 (	31
+INFO  18:13:05,375 - #2 a	31
+INFO  18:13:05,376 - #25 )	31
+INFO  18:13:05,376 - #27 ;	31
+INFO  18:13:05,376 - #42 print	32
+INFO  18:13:05,376 - #24 (	32
+INFO  18:13:05,376 - #2 ach	32
+INFO  18:13:05,376 - #25 )	32
+INFO  18:13:05,376 - #27 ;	32
+INFO  18:13:05,376 - #42 print	33
+INFO  18:13:05,376 - #24 (	33
+INFO  18:13:05,376 - #2 abool	33
+INFO  18:13:05,377 - #25 )	33
+INFO  18:13:05,377 - #27 ;	33
+INFO  18:13:05,377 - #42 print	35
+INFO  18:13:05,377 - #24 (	35
+INFO  18:13:05,377 - #2 a_array	35
+INFO  18:13:05,377 - #22 [	35
+INFO  18:13:05,377 - #3 0	35
+INFO  18:13:05,377 - #23 ]	35
+INFO  18:13:05,377 - #25 )	35
+INFO  18:13:05,377 - #27 ;	35
+INFO  18:13:05,377 - #42 print	36
+INFO  18:13:05,378 - #24 (	36
+INFO  18:13:05,378 - #2 ach_array	36
+INFO  18:13:05,378 - #22 [	36
+INFO  18:13:05,378 - #3 0	36
+INFO  18:13:05,378 - #23 ]	36
+INFO  18:13:05,378 - #25 )	36
+INFO  18:13:05,378 - #27 ;	36
+INFO  18:13:05,378 - #42 print	37
+INFO  18:13:05,378 - #24 (	37
+INFO  18:13:05,378 - #2 abool_array	37
+INFO  18:13:05,378 - #22 [	37
+INFO  18:13:05,379 - #3 0	37
+INFO  18:13:05,379 - #23 ]	37
+INFO  18:13:05,379 - #25 )	37
+INFO  18:13:05,379 - #27 ;	37
+INFO  18:13:05,379 - #42 print	39
+INFO  18:13:05,379 - #24 (	39
+INFO  18:13:05,379 - #2 a_array	39
+INFO  18:13:05,379 - #22 [	39
+INFO  18:13:05,379 - #3 1	39
+INFO  18:13:05,379 - #23 ]	39
+INFO  18:13:05,379 - #25 )	39
+INFO  18:13:05,380 - #27 ;	39
+INFO  18:13:05,380 - #42 print	40
+INFO  18:13:05,380 - #24 (	40
+INFO  18:13:05,380 - #2 ach_array	40
+INFO  18:13:05,380 - #22 [	40
+INFO  18:13:05,380 - #3 1	40
+INFO  18:13:05,380 - #23 ]	40
+INFO  18:13:05,380 - #25 )	40
+INFO  18:13:05,380 - #27 ;	40
+INFO  18:13:05,380 - #42 print	41
+INFO  18:13:05,380 - #24 (	41
+INFO  18:13:05,380 - #2 abool_array	41
+INFO  18:13:05,381 - #22 [	41
+INFO  18:13:05,381 - #3 1	41
+INFO  18:13:05,381 - #23 ]	41
+INFO  18:13:05,381 - #25 )	41
+INFO  18:13:05,381 - #27 ;	41
+INFO  18:13:05,381 - #21 }	46
+INFO  18:13:05,381 - #21 }	47
+INFO  18:13:05,385 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,386 - [0;36m|                         APSTRAKTNO STABLO                         |[m
+INFO  18:13:05,386 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,387 - Program(
+  ProgramName(
+   test13
+  ) [ProgramName]
+  NoDecls(
+  ) [NoDecls]
+  SingleMethod(
+    OneMethodDeclaration(
+      MethodTypeName(
+        VoidReturn(
+        ) [VoidReturn]
+       main
+      ) [MethodTypeName]
+      EmptyFormPars(
+      ) [EmptyFormPars]
+      HasMethodVariables(
+        HasMethodVariables(
+          HasMethodVariables(
+            HasMethodVariables(
+              HasMethodVariables(
+                HasMethodVariables(
+                  NoVariables(
+                  ) [NoVariables]
+                  VariableDecls(
+                    Type(
+                     int
+                    ) [Type]
+                    SingleVariable(
+                      NonArrayVariable(
+                       a
+                      ) [NonArrayVariable]
+                    ) [SingleVariable]
+                  ) [VariableDecls]
+                ) [HasMethodVariables]
+                VariableDecls(
+                  Type(
+                   char
+                  ) [Type]
+                  SingleVariable(
+                    NonArrayVariable(
+                     ach
+                    ) [NonArrayVariable]
+                  ) [SingleVariable]
+                ) [VariableDecls]
+              ) [HasMethodVariables]
+              VariableDecls(
+                Type(
+                 bool
+                ) [Type]
+                SingleVariable(
+                  NonArrayVariable(
+                   abool
+                  ) [NonArrayVariable]
+                ) [SingleVariable]
+              ) [VariableDecls]
+            ) [HasMethodVariables]
+            VariableDecls(
+              Type(
+               int
+              ) [Type]
+              SingleVariable(
+                ArrayVariable(
+                 a_array
+                ) [ArrayVariable]
+              ) [SingleVariable]
+            ) [VariableDecls]
+          ) [HasMethodVariables]
+          VariableDecls(
+            Type(
+             char
+            ) [Type]
+            SingleVariable(
+              ArrayVariable(
+               ach_array
+              ) [ArrayVariable]
+            ) [SingleVariable]
+          ) [VariableDecls]
+        ) [HasMethodVariables]
+        VariableDecls(
+          Type(
+           bool
+          ) [Type]
+          SingleVariable(
+            ArrayVariable(
+             abool_array
+            ) [ArrayVariable]
+          ) [SingleVariable]
+        ) [VariableDecls]
+      ) [HasMethodVariables]
+      NonEmptyMethodStatements(
+        NonEmptyMethodStatements(
+          NonEmptyMethodStatements(
+            NonEmptyMethodStatements(
+              NonEmptyMethodStatements(
+                NonEmptyMethodStatements(
+                  NonEmptyMethodStatements(
+                    NonEmptyMethodStatements(
+                      NonEmptyMethodStatements(
+                        NonEmptyMethodStatements(
+                          NonEmptyMethodStatements(
+                            NonEmptyMethodStatements(
+                              NonEmptyMethodStatements(
+                                NonEmptyMethodStatements(
+                                  EmptyMethodStatements(
+                                  ) [EmptyMethodStatements]
+                                  StatementDesignatorStatement(
+                                    ErrorProneAssignmentDesignator(
+                                      AssignDesignator(
+                                        CleanDesignator(
+                                         a
+                                        ) [CleanDesignator]
+                                        AssignOp(
+                                        ) [AssignOp]
+                                        ExprNoTernStatement(
+                                          AddOperationTerm(
+                                            OneTerm(
+                                              NonMullOpTerm(
+                                                NumericConstant(
+                                                 2
+                                                ) [NumericConstant]
+                                              ) [NonMullOpTerm]
+                                            ) [OneTerm]
+                                          ) [AddOperationTerm]
+                                        ) [ExprNoTernStatement]
+                                      ) [AssignDesignator]
+                                    ) [ErrorProneAssignmentDesignator]
+                                  ) [StatementDesignatorStatement]
+                                ) [NonEmptyMethodStatements]
+                                StatementDesignatorStatement(
+                                  ErrorProneAssignmentDesignator(
+                                    AssignDesignator(
+                                      CleanDesignator(
+                                       a_array
+                                      ) [CleanDesignator]
+                                      AssignOp(
+                                      ) [AssignOp]
+                                      ExprNoTernStatement(
+                                        AddOperationTerm(
+                                          OneTerm(
+                                            NonMullOpTerm(
+                                              NewTypeArray(
+                                                Type(
+                                                 int
+                                                ) [Type]
+                                                ExprNoTernStatement(
+                                                  AddOperationTerm(
+                                                    OneTerm(
+                                                      NonMullOpTerm(
+                                                        NoParamsDesignator(
+                                                          CleanDesignator(
+                                                           a
+                                                          ) [CleanDesignator]
+                                                        ) [NoParamsDesignator]
+                                                      ) [NonMullOpTerm]
+                                                    ) [OneTerm]
+                                                  ) [AddOperationTerm]
+                                                ) [ExprNoTernStatement]
+                                              ) [NewTypeArray]
+                                            ) [NonMullOpTerm]
+                                          ) [OneTerm]
+                                        ) [AddOperationTerm]
+                                      ) [ExprNoTernStatement]
+                                    ) [AssignDesignator]
+                                  ) [ErrorProneAssignmentDesignator]
+                                ) [StatementDesignatorStatement]
+                              ) [NonEmptyMethodStatements]
+                              StatementDesignatorStatement(
+                                ErrorProneAssignmentDesignator(
+                                  AssignDesignator(
+                                    CleanDesignator(
+                                     ach_array
+                                    ) [CleanDesignator]
+                                    AssignOp(
+                                    ) [AssignOp]
+                                    ExprNoTernStatement(
+                                      AddOperationTerm(
+                                        OneTerm(
+                                          NonMullOpTerm(
+                                            NewTypeArray(
+                                              Type(
+                                               char
+                                              ) [Type]
+                                              ExprNoTernStatement(
+                                                AddOperationTerm(
+                                                  OneTerm(
+                                                    NonMullOpTerm(
+                                                      NoParamsDesignator(
+                                                        CleanDesignator(
+                                                         a
+                                                        ) [CleanDesignator]
+                                                      ) [NoParamsDesignator]
+                                                    ) [NonMullOpTerm]
+                                                  ) [OneTerm]
+                                                ) [AddOperationTerm]
+                                              ) [ExprNoTernStatement]
+                                            ) [NewTypeArray]
+                                          ) [NonMullOpTerm]
+                                        ) [OneTerm]
+                                      ) [AddOperationTerm]
+                                    ) [ExprNoTernStatement]
+                                  ) [AssignDesignator]
+                                ) [ErrorProneAssignmentDesignator]
+                              ) [StatementDesignatorStatement]
+                            ) [NonEmptyMethodStatements]
+                            StatementDesignatorStatement(
+                              ErrorProneAssignmentDesignator(
+                                AssignDesignator(
+                                  CleanDesignator(
+                                   abool_array
+                                  ) [CleanDesignator]
+                                  AssignOp(
+                                  ) [AssignOp]
+                                  ExprNoTernStatement(
+                                    AddOperationTerm(
+                                      OneTerm(
+                                        NonMullOpTerm(
+                                          NewTypeArray(
+                                            Type(
+                                             bool
+                                            ) [Type]
+                                            ExprNoTernStatement(
+                                              AddOperationTerm(
+                                                OneTerm(
+                                                  NonMullOpTerm(
+                                                    NoParamsDesignator(
+                                                      CleanDesignator(
+                                                       a
+                                                      ) [CleanDesignator]
+                                                    ) [NoParamsDesignator]
+                                                  ) [NonMullOpTerm]
+                                                ) [OneTerm]
+                                              ) [AddOperationTerm]
+                                            ) [ExprNoTernStatement]
+                                          ) [NewTypeArray]
+                                        ) [NonMullOpTerm]
+                                      ) [OneTerm]
+                                    ) [AddOperationTerm]
+                                  ) [ExprNoTernStatement]
+                                ) [AssignDesignator]
+                              ) [ErrorProneAssignmentDesignator]
+                            ) [StatementDesignatorStatement]
+                          ) [NonEmptyMethodStatements]
+                          ReadStmt(
+                            ArrayElementAccessDesignator(
+                              DesignatorListOneElement(
+                               abool_array
+                              ) [DesignatorListOneElement]
+                              ExprNoTernStatement(
+                                AddOperationTerm(
+                                  OneTerm(
+                                    NonMullOpTerm(
+                                      NumericConstant(
+                                       0
+                                      ) [NumericConstant]
+                                    ) [NonMullOpTerm]
+                                  ) [OneTerm]
+                                ) [AddOperationTerm]
+                              ) [ExprNoTernStatement]
+                            ) [ArrayElementAccessDesignator]
+                          ) [ReadStmt]
+                        ) [NonEmptyMethodStatements]
+                        PrintStmt(
+                          NoNumConst(
+                            ExprNoTernStatement(
+                              AddOperationTerm(
+                                OneTerm(
+                                  NonMullOpTerm(
+                                    NoParamsDesignator(
+                                      CleanDesignator(
+                                       a
+                                      ) [CleanDesignator]
+                                    ) [NoParamsDesignator]
+                                  ) [NonMullOpTerm]
+                                ) [OneTerm]
+                              ) [AddOperationTerm]
+                            ) [ExprNoTernStatement]
+                          ) [NoNumConst]
+                        ) [PrintStmt]
+                      ) [NonEmptyMethodStatements]
+                      PrintStmt(
+                        NoNumConst(
+                          ExprNoTernStatement(
+                            AddOperationTerm(
+                              OneTerm(
+                                NonMullOpTerm(
+                                  NoParamsDesignator(
+                                    CleanDesignator(
+                                     ach
+                                    ) [CleanDesignator]
+                                  ) [NoParamsDesignator]
+                                ) [NonMullOpTerm]
+                              ) [OneTerm]
+                            ) [AddOperationTerm]
+                          ) [ExprNoTernStatement]
+                        ) [NoNumConst]
+                      ) [PrintStmt]
+                    ) [NonEmptyMethodStatements]
+                    PrintStmt(
+                      NoNumConst(
+                        ExprNoTernStatement(
+                          AddOperationTerm(
+                            OneTerm(
+                              NonMullOpTerm(
+                                NoParamsDesignator(
+                                  CleanDesignator(
+                                   abool
+                                  ) [CleanDesignator]
+                                ) [NoParamsDesignator]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                          ) [AddOperationTerm]
+                        ) [ExprNoTernStatement]
+                      ) [NoNumConst]
+                    ) [PrintStmt]
+                  ) [NonEmptyMethodStatements]
+                  PrintStmt(
+                    NoNumConst(
+                      ExprNoTernStatement(
+                        AddOperationTerm(
+                          OneTerm(
+                            NonMullOpTerm(
+                              NoParamsDesignator(
+                                ArrayElementAccessDesignator(
+                                  DesignatorListOneElement(
+                                   a_array
+                                  ) [DesignatorListOneElement]
+                                  ExprNoTernStatement(
+                                    AddOperationTerm(
+                                      OneTerm(
+                                        NonMullOpTerm(
+                                          NumericConstant(
+                                           0
+                                          ) [NumericConstant]
+                                        ) [NonMullOpTerm]
+                                      ) [OneTerm]
+                                    ) [AddOperationTerm]
+                                  ) [ExprNoTernStatement]
+                                ) [ArrayElementAccessDesignator]
+                              ) [NoParamsDesignator]
+                            ) [NonMullOpTerm]
+                          ) [OneTerm]
+                        ) [AddOperationTerm]
+                      ) [ExprNoTernStatement]
+                    ) [NoNumConst]
+                  ) [PrintStmt]
+                ) [NonEmptyMethodStatements]
+                PrintStmt(
+                  NoNumConst(
+                    ExprNoTernStatement(
+                      AddOperationTerm(
+                        OneTerm(
+                          NonMullOpTerm(
+                            NoParamsDesignator(
+                              ArrayElementAccessDesignator(
+                                DesignatorListOneElement(
+                                 ach_array
+                                ) [DesignatorListOneElement]
+                                ExprNoTernStatement(
+                                  AddOperationTerm(
+                                    OneTerm(
+                                      NonMullOpTerm(
+                                        NumericConstant(
+                                         0
+                                        ) [NumericConstant]
+                                      ) [NonMullOpTerm]
+                                    ) [OneTerm]
+                                  ) [AddOperationTerm]
+                                ) [ExprNoTernStatement]
+                              ) [ArrayElementAccessDesignator]
+                            ) [NoParamsDesignator]
+                          ) [NonMullOpTerm]
+                        ) [OneTerm]
+                      ) [AddOperationTerm]
+                    ) [ExprNoTernStatement]
+                  ) [NoNumConst]
+                ) [PrintStmt]
+              ) [NonEmptyMethodStatements]
+              PrintStmt(
+                NoNumConst(
+                  ExprNoTernStatement(
+                    AddOperationTerm(
+                      OneTerm(
+                        NonMullOpTerm(
+                          NoParamsDesignator(
+                            ArrayElementAccessDesignator(
+                              DesignatorListOneElement(
+                               abool_array
+                              ) [DesignatorListOneElement]
+                              ExprNoTernStatement(
+                                AddOperationTerm(
+                                  OneTerm(
+                                    NonMullOpTerm(
+                                      NumericConstant(
+                                       0
+                                      ) [NumericConstant]
+                                    ) [NonMullOpTerm]
+                                  ) [OneTerm]
+                                ) [AddOperationTerm]
+                              ) [ExprNoTernStatement]
+                            ) [ArrayElementAccessDesignator]
+                          ) [NoParamsDesignator]
+                        ) [NonMullOpTerm]
+                      ) [OneTerm]
+                    ) [AddOperationTerm]
+                  ) [ExprNoTernStatement]
+                ) [NoNumConst]
+              ) [PrintStmt]
+            ) [NonEmptyMethodStatements]
+            PrintStmt(
+              NoNumConst(
+                ExprNoTernStatement(
+                  AddOperationTerm(
+                    OneTerm(
+                      NonMullOpTerm(
+                        NoParamsDesignator(
+                          ArrayElementAccessDesignator(
+                            DesignatorListOneElement(
+                             a_array
+                            ) [DesignatorListOneElement]
+                            ExprNoTernStatement(
+                              AddOperationTerm(
+                                OneTerm(
+                                  NonMullOpTerm(
+                                    NumericConstant(
+                                     1
+                                    ) [NumericConstant]
+                                  ) [NonMullOpTerm]
+                                ) [OneTerm]
+                              ) [AddOperationTerm]
+                            ) [ExprNoTernStatement]
+                          ) [ArrayElementAccessDesignator]
+                        ) [NoParamsDesignator]
+                      ) [NonMullOpTerm]
+                    ) [OneTerm]
+                  ) [AddOperationTerm]
+                ) [ExprNoTernStatement]
+              ) [NoNumConst]
+            ) [PrintStmt]
+          ) [NonEmptyMethodStatements]
+          PrintStmt(
+            NoNumConst(
+              ExprNoTernStatement(
+                AddOperationTerm(
+                  OneTerm(
+                    NonMullOpTerm(
+                      NoParamsDesignator(
+                        ArrayElementAccessDesignator(
+                          DesignatorListOneElement(
+                           ach_array
+                          ) [DesignatorListOneElement]
+                          ExprNoTernStatement(
+                            AddOperationTerm(
+                              OneTerm(
+                                NonMullOpTerm(
+                                  NumericConstant(
+                                   1
+                                  ) [NumericConstant]
+                                ) [NonMullOpTerm]
+                              ) [OneTerm]
+                            ) [AddOperationTerm]
+                          ) [ExprNoTernStatement]
+                        ) [ArrayElementAccessDesignator]
+                      ) [NoParamsDesignator]
+                    ) [NonMullOpTerm]
+                  ) [OneTerm]
+                ) [AddOperationTerm]
+              ) [ExprNoTernStatement]
+            ) [NoNumConst]
+          ) [PrintStmt]
+        ) [NonEmptyMethodStatements]
+        PrintStmt(
+          NoNumConst(
+            ExprNoTernStatement(
+              AddOperationTerm(
+                OneTerm(
+                  NonMullOpTerm(
+                    NoParamsDesignator(
+                      ArrayElementAccessDesignator(
+                        DesignatorListOneElement(
+                         abool_array
+                        ) [DesignatorListOneElement]
+                        ExprNoTernStatement(
+                          AddOperationTerm(
+                            OneTerm(
+                              NonMullOpTerm(
+                                NumericConstant(
+                                 1
+                                ) [NumericConstant]
+                              ) [NonMullOpTerm]
+                            ) [OneTerm]
+                          ) [AddOperationTerm]
+                        ) [ExprNoTernStatement]
+                      ) [ArrayElementAccessDesignator]
+                    ) [NoParamsDesignator]
+                  ) [NonMullOpTerm]
+                ) [OneTerm]
+              ) [AddOperationTerm]
+            ) [ExprNoTernStatement]
+          ) [NoNumConst]
+        ) [PrintStmt]
+      ) [NonEmptyMethodStatements]
+    ) [OneMethodDeclaration]
+  ) [SingleMethod]
+) [Program]
+INFO  18:13:05,395 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,395 - [0;36m|                         SEMANTICKA OBRADA                         |[m
+INFO  18:13:05,395 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,397 - [0;32mMain metoda je definisana! [Line: 8][m
+INFO  18:13:05,397 - Pretraga na [Line: 22] --> detektovano Variable a: int, 0, 1 .
+INFO  18:13:05,398 - Pretraga na [Line: 25] --> detektovano Variable a_array: Array of int, 3, 1 .
+INFO  18:13:05,398 - Pretraga na [Line: 25] --> detektovano Variable a: int, 0, 1 .
+INFO  18:13:05,398 - Pretraga na [Line: 26] --> detektovano Variable ach_array: Array of char, 4, 1 .
+INFO  18:13:05,398 - Pretraga na [Line: 26] --> detektovano Variable a: int, 0, 1 .
+INFO  18:13:05,398 - Pretraga na [Line: 27] --> detektovano Variable abool_array: Array of bool, 5, 1 .
+INFO  18:13:05,398 - Pretraga na [Line: 27] --> detektovano Variable a: int, 0, 1 .
+INFO  18:13:05,399 - Pretraga na [Line: 31] --> detektovano Variable a: int, 0, 1 .
+INFO  18:13:05,402 - Pretraga na [Line: 32] --> detektovano Variable ach: char, 1, 1 .
+INFO  18:13:05,402 - Pretraga na [Line: 33] --> detektovano Variable abool: bool, 2, 1 .
+INFO  18:13:05,402 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,402 - [0;36m|                STATISTIKA KORISCENJA PROMENLJIVIH                 |[m
+INFO  18:13:05,402 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,402 - 
+Broj definisanih klasa: ..................................................................[35m0[0m
+Broj definisanih metoda: .................................................................[35m1[0m
+Broj globalnih nizova: ...................................................................[35m0[0m
+Broj globalnih promenljivih: .............................................................[35m0[0m
+Broj globalnih konstanti: ................................................................[35m0[0m
+Broj lokalnih promenljivih u [main()]: ...................................................[35m6[0m
+Broj izraza u [main()]: ..................................................................[35m14[0m
+Broj poziva metoda u [main()]: ...........................................................[35m10[0m
+
+INFO  18:13:05,402 - [0;36m============================= SADRZAJ TABELE SIMBOLA =============================[m
+INFO  18:13:05,402 - [0;32mUspesno izvrsena semanticka analiza! Nastavlja se sa generisanjem koda[m
+INFO  18:13:05,402 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,402 - [0;36m|                          GENERISANJE KODA                         |[m
+INFO  18:13:05,403 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,407 - [0;32mKompajliranje uspesno izvrseno![m
+INFO  18:13:05,408 - [0;36m|-------------------------------------------------------------------|[m
+INFO  18:13:05,409 - [0;36m|                              KRAJ RADA                            |[m
+INFO  18:13:05,409 - [0;36m|-------------------------------------------------------------------|[m

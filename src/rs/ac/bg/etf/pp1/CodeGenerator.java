@@ -210,7 +210,6 @@ public class CodeGenerator extends VisitorAdaptor {
     }
 
     public void visit(ArrayElementAccessDesignator arrayElementAccessDesignator) {
-        // Expression postavlja broj
         SyntaxNode parent = arrayElementAccessDesignator.getParent();
         if (parent.getClass() != DecrementDesignator.class && parent.getClass() != IncrementDesignator.class) {
             if (parent.getClass() != AssignDesignator.class && parent.getClass() != ReadStmt.class) {
@@ -235,7 +234,6 @@ public class CodeGenerator extends VisitorAdaptor {
         Code.load(o);
     }
 
-    // TODO za matrice
     public void visit(ArrayElementDesignatorList arrayElementAccessDesignator) {
         SyntaxNode parent = arrayElementAccessDesignator.getParent();
         if (parent.getClass() != DecrementDesignator.class && parent.getClass() != IncrementDesignator.class) {
@@ -256,7 +254,6 @@ public class CodeGenerator extends VisitorAdaptor {
         }
     }
 
-    // Todo
     public void visit(ExprTernStatement exprNoTernStatement) {
         Code.put(Code.enter);
         Code.put(0);
@@ -409,11 +406,24 @@ public class CodeGenerator extends VisitorAdaptor {
             int jumpToEnd;
             Code.putFalseJump(Code.eq, 0);
             jumpIfFalse = Code.pc - 2;
+            Code.put(Code.bread); // r
+            Code.put(Code.bread); // u
+            Code.put(Code.bread); // e
+            Code.put(Code.pop);
+            Code.put(Code.pop);
+            Code.put(Code.pop);
             Code.loadConst(1);
             Code.putJump(0);
             jumpToEnd = Code.pc - 2;
-
             Code.fixup(jumpIfFalse);
+            Code.put(Code.bread); // a
+            Code.put(Code.bread); // l
+            Code.put(Code.bread); // s
+            Code.put(Code.bread); // e
+            Code.put(Code.pop);
+            Code.put(Code.pop);
+            Code.put(Code.pop);
+            Code.put(Code.pop);
             Code.loadConst(0);
             Code.fixup(jumpToEnd);
         }
@@ -445,9 +455,8 @@ public class CodeGenerator extends VisitorAdaptor {
     // Kad dodjemo do ovog delea, trebalo bi da imamo na steku vec velicinu niza
     // Ova metoda treba da postavi adresu niza
     public void visit(NewTypeArray newTypeArray) {
-
         Code.put(Code.newarray);
-        if (newTypeArray.getType().obj.getType().getKind() == Struct.Int) {
+        if (newTypeArray.getType().obj.getType().getKind() == Struct.Int || newTypeArray.getType().obj.getType().getKind() == Struct.Bool) {
             Code.put(1);
         } else {
             Code.put(0);
