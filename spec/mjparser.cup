@@ -52,6 +52,7 @@ scan with {:
 /* ==================== TERMINALS ==================== */
 
 terminal String IDENT;
+terminal String GOTO;
 terminal Integer NUM_CONST;
 terminal Character CHAR_CONST;
 terminal String BOOL_CONST;
@@ -393,6 +394,8 @@ Statement 		::= (StatementDesignatorStatement) DesignatorStatement SEMI
 				| (DoWhileStatement) DO Statement WHILE PARENTHESES_BEGIN Condition PARENTHESES_END SEMI
 				| (SwitchStatement) SWITCH PARENTHESES_BEGIN Expr PARENTHESES_END BRACES_BEGIN SwitchCaseList BRACES_END
 				| (BreakStmt) BREAK SEMI
+				| (LabelDefinition) IDENT:identification COLON
+				| (GotoStatement) GOTO IDENT:identification SEMI
 				| (ContinueStmt) CONTINUE SEMI
 				| (ReturnStmt) RETURN ReturnStmts SEMI
 				| (ReadStmt) READ PARENTHESES_BEGIN Designator PARENTHESES_END SEMI

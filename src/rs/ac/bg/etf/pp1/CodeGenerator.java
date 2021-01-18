@@ -6,6 +6,8 @@ import rs.etf.pp1.symboltable.concepts.Obj;
 import rs.etf.pp1.symboltable.concepts.Struct;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 public class CodeGenerator extends VisitorAdaptor {
@@ -207,6 +209,37 @@ public class CodeGenerator extends VisitorAdaptor {
             Code.load(cleanDesignator.obj);
         }
 
+    }
+
+
+    private HashMap<String, Integer> jumpAddress = new HashMap<>();
+
+    public void visit(LabelDefinition labelDefinition) {
+        String identification = labelDefinition.getIdentification();
+        int currentJumpAddress;
+        if (jumpAddress.get(identification) == null) {
+            Code.putJump(0);
+            jumpAddress.put(identification, Code.pc); // Ako je adresa < 0 to znaci da jos ne znamo adresu na koju skacemo
+        } else {
+            if (jumpAddress.get(identification) > 0) {
+                System.exit(-10000);
+            } else {
+                currentJumpAddress = jumpAddress.get(identification) * -1;
+                Code.fixup(currentJumpAddress);
+            }
+        }
+    }
+
+    public void visit(GotoStatement gotoStatement) {
+        String identification = gotoStatement.getIdentification();
+        int currentJumpAddress;
+        if (jumpAddress.get(identification) == null) {
+            Code.putJump(0);
+            jumpAddress.put(identification, (Code.pc - 2) * -1); // Ako je adresa < 0 to znaci da jos ne znamo adresu na koju skacemo
+        } else {
+            currentJumpAddress = jumpAddress.get(identification);
+            Code.putJump(currentJumpAddress);
+        }
     }
 
     public void visit(ArrayElementAccessDesignator arrayElementAccessDesignator) {

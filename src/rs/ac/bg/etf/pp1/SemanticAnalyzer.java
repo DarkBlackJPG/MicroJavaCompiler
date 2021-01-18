@@ -1,6 +1,8 @@
 package rs.ac.bg.etf.pp1;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import rs.ac.bg.etf.pp1.ast.*;
@@ -12,6 +14,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     boolean returnTokenRequired = false;
     boolean mainMethodDetected = false;
     static Logger log = Logger.getLogger(SemanticAnalyzer.class);
+
     public static void report_error(String message) {
         log.error("\u001b[0;31m" + message + "\u001b[m");
     }
@@ -23,6 +26,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public static void report_success(String message) {
         log.info("\u001B[0;32m" + message + "\u001b[m");
     }
+
     SyntaxAnalysisWatcher syntaxAnalysisWatcher = new SyntaxAnalysisWatcher();
     private HashMap<Integer, String> objectTypeMapping = new HashMap<>();
     // Potreba da se detektuje ulazna tacka programa
@@ -114,6 +118,46 @@ public class SemanticAnalyzer extends VisitorAdaptor {
                     + vardecl.getLine() + "!", null);
         }
 
+    }
+
+    private HashMap<String, Boolean> label_pairs = new HashMap<>();
+    private Set<String> idents = new HashSet<>();
+
+    public void visit(LabelDefinition labelDefinition) {
+        String identification = labelDefinition.getIdentification();
+        Obj noType = Table.find(identification);
+        if (noType == Table.noObj) {
+            if (label_pairs.get(identification) == null) {
+                label_pairs.put(identification, true);
+                idents.add(identification);
+            } else {
+                if (label_pairs.get(identification)) {
+                    errorDetected = true;
+                    report_error(String.format("Mora da postoji tacno jedna jedinstvena labela sa %s imenom! [Line: %d]", identification, labelDefinition.getLine()));
+                } else {
+                    label_pairs.put(identification, true);
+                }
+            }
+        } else {
+            errorDetected = true;
+            report_error(String.format("Labela ne moze da ima ime kao promenljiva iz izvornog koda! [Line: %d]", labelDefinition.getLine()));
+        }
+    }
+
+    public void visit(GotoStatement gotoStatement) {
+        String identification = gotoStatement.getIdentification();
+        Obj noType = Table.find(identification);
+        if (noType == Table.noObj) {
+            if (label_pairs.get(identification) == null) {
+                label_pairs.put(identification, false);
+                idents.add(identification);
+            } else {
+                label_pairs.put(identification, true);
+            }
+        } else {
+            errorDetected = true;
+            report_error(String.format("Ne moze da se skace na promenljivu! Mora da se definise labela sa jedinstvenim imenom! [Line: %s]", gotoStatement.getLine()));
+        }
     }
 
     public void visit(ArrayVariable vardecl) {
@@ -345,6 +389,16 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         Table.chainLocalSymbols(program.getProgName().obj);
         Table.closeScope();
         currentLevel--;
+        String labels[] = new String[idents.size()];
+        idents.toArray(labels);
+
+        for (String ident :
+                labels) {
+            if (label_pairs.get(ident) == null) {
+                report_error(String.format("Bezuslovni skok goto %s nema labelu na koju moze da skoci!"));
+                errorDetected = true;
+            }
+        }
 
     }
 
@@ -568,7 +622,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
     public void visit(NumericConstant numericConstant) {
         // Level 1 jer je unutar nekog scope-a
         numericConstant.obj = new Obj(Obj.Con, "", Table.intType, numericConstant.getNumValue(), 1);
-        if (numericConstant.obj.getAdr() == 4){
+        if (numericConstant.obj.getAdr() == 4) {
             System.out.println();
         }
     }
@@ -771,12 +825,12 @@ public class SemanticAnalyzer extends VisitorAdaptor {
 
         if (isCompatableWith(trueExpression.getType(), falseExpression.getType())) {
             if (trueExpression.getType().isRefType() || falseExpression.getType().isRefType()) {
-                if (trueExpression.getType() == Table.nullType){
+                if (trueExpression.getType() == Table.nullType) {
                     ternaryExpressionStmt.obj = new Obj(Obj.Type, "", falseExpression.getType());
-                } else if(falseExpression.getType() == Table.nullType) {
+                } else if (falseExpression.getType() == Table.nullType) {
                     ternaryExpressionStmt.obj = new Obj(Obj.Type, "", trueExpression.getType());
                 } else {
-                    if(isCompatableWith(trueExpression.getType().getElemType(), falseExpression.getType().getElemType())){
+                    if (isCompatableWith(trueExpression.getType().getElemType(), falseExpression.getType().getElemType())) {
                         ternaryExpressionStmt.obj = new Obj(Obj.Type, "", trueExpression.getType());
                     } else {
                         report_error(String.format("Izraz za true je tipa Array of (%s), izraz za false je Array of (%s). Tipovi treba da budu kompatibilni!" +
@@ -805,7 +859,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             StringBuilder builder = new StringBuilder("Izraz za true je tipa");
             if (trueExpression.getType().isRefType()) {
                 builder.append(String.format(" Array of (%s) ", nazivi_tipova.get(trueExpression.getType().getElemType().getKind())));
-            } else if(trueExpression.getType() == Table.nullType) {
+            } else if (trueExpression.getType() == Table.nullType) {
                 builder.append(" (null) ");
             } else {
                 builder.append(String.format(" (%s) ", nazivi_tipova.get(trueExpression.getType().getKind())));
@@ -813,7 +867,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
             builder.append(", a izraz za false je tipa ");
             if (falseExpression.getType().isRefType()) {
                 builder.append(String.format(" Array of (%s) ", nazivi_tipova.get(falseExpression.getType().getElemType().getKind())));
-            } else if(falseExpression.getType() == Table.nullType) {
+            } else if (falseExpression.getType() == Table.nullType) {
                 builder.append(" (null) ");
             } else {
                 builder.append(String.format(" (%s) ", nazivi_tipova.get(falseExpression.getType().getKind())));
