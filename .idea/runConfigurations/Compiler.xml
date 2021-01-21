@@ -1,8 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Compiler" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
     <option name="MAIN_CLASS_NAME" value="rs.ac.bg.etf.pp1.Compiler" />
     <module name="MJCompiler" />
-    <option name="PROGRAM_PARAMETERS" value="test/testovi/program.mj test/program.obj" />
+    <option name="PROGRAM_PARAMETERS" value="test/testovi/moj.mj test/moj.obj" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="rs.ac.bg.etf.pp1.*" />

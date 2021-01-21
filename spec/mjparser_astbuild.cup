@@ -53,6 +53,7 @@ scan with {:
 
 terminal String IDENT;
 terminal String GOTO;
+terminal String FINAL;
 terminal Integer NUM_CONST;
 terminal Character CHAR_CONST;
 terminal String BOOL_CONST;
@@ -321,6 +322,7 @@ VariableList ::=
 				
 ErrorVariables ::= (ErrorNonArrayVariable) IDENT:variableName COMMA {: RESULT=new ErrorNonArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
 					| (ErrorArrayVariable) IDENT:variableName BRACKET_BEGIN BRACKET_END COMMA {: RESULT=new ErrorArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
+					| (FinalErrorArrayVariable) FINAL:F1 IDENT:variableName BRACKET_BEGIN BRACKET_END COMMA {: RESULT=new FinalErrorArrayVariable(F1, variableName); RESULT.setLine(F1left); :}
 					| (CommaErrorStmt) error COMMA
 	   				{:
 	   				 Symbol symbol = (Symbol)(CUP$MJParser$stack.elementAt(CUP$MJParser$top));
@@ -331,6 +333,7 @@ ErrorVariables ::= (ErrorNonArrayVariable) IDENT:variableName COMMA {: RESULT=ne
 VariableDeclaration ::= 
 					(NonArrayVariable) IDENT:variableName {: RESULT=new NonArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
 					| (ArrayVariable) IDENT:variableName BRACKET_BEGIN BRACKET_END {: RESULT=new ArrayVariable(variableName); RESULT.setLine(variableNameleft); :}
+					| (FinalArrayVariable) FINAL:F1 IDENT:variableName BRACKET_BEGIN BRACKET_END {: RESULT=new FinalArrayVariable(F1, variableName); RESULT.setLine(F1left); :}
 					;
 
 ClassDeclaration ::= 
@@ -394,8 +397,8 @@ Statement 		::= (StatementDesignatorStatement) DesignatorStatement:D1 SEMI {: RE
 				| (DoWhileStatement) DO Statement:S1 WHILE PARENTHESES_BEGIN Condition:C2 PARENTHESES_END SEMI {: RESULT=new DoWhileStatement(S1, C2); RESULT.setLine(S1left); :}
 				| (SwitchStatement) SWITCH PARENTHESES_BEGIN Expr:E1 PARENTHESES_END BRACES_BEGIN SwitchCaseList:S2 BRACES_END {: RESULT=new SwitchStatement(E1, S2); RESULT.setLine(E1left); :}
 				| (BreakStmt) BREAK SEMI {: RESULT=new BreakStmt(); :}
-				| (LabelDefinition) IDENT:identification COLON {: RESULT=new LabelDefinition(identification); RESULT.setLine(identificationleft); :}
-				| (GotoStatement) GOTO:G1 IDENT:identification SEMI {: RESULT=new GotoStatement(G1, identification); RESULT.setLine(G1left); :}
+				/* | (LabelDefinition) IDENT:identification COLON
+				| (GotoStatement) GOTO IDENT:identification SEMI */
 				| (ContinueStmt) CONTINUE SEMI {: RESULT=new ContinueStmt(); :}
 				| (ReturnStmt) RETURN ReturnStmts:R1 SEMI {: RESULT=new ReturnStmt(R1); RESULT.setLine(R1left); :}
 				| (ReadStmt) READ PARENTHESES_BEGIN Designator:D1 PARENTHESES_END SEMI {: RESULT=new ReadStmt(D1); RESULT.setLine(D1left); :}

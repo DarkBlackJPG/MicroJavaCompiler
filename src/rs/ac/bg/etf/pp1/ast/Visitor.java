@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 18/0/2021 18:35:13
+// 20/0/2021 15:40:23
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -127,8 +127,6 @@ public interface Visitor {
     public void visit(ReadStmt ReadStmt);
     public void visit(ReturnStmt ReturnStmt);
     public void visit(ContinueStmt ContinueStmt);
-    public void visit(GotoStatement GotoStatement);
-    public void visit(LabelDefinition LabelDefinition);
     public void visit(BreakStmt BreakStmt);
     public void visit(SwitchStatement SwitchStatement);
     public void visit(DoWhileStatement DoWhileStatement);
@@ -157,9 +155,11 @@ public interface Visitor {
     public void visit(ClassBodyWithMethods ClassBodyWithMethods);
     public void visit(ChildClass ChildClass);
     public void visit(RootClass RootClass);
+    public void visit(FinalArrayVariable FinalArrayVariable);
     public void visit(ArrayVariable ArrayVariable);
     public void visit(NonArrayVariable NonArrayVariable);
     public void visit(CommaErrorStmt CommaErrorStmt);
+    public void visit(FinalErrorArrayVariable FinalErrorArrayVariable);
     public void visit(ErrorArrayVariable ErrorArrayVariable);
     public void visit(ErrorNonArrayVariable ErrorNonArrayVariable);
     public void visit(MoreVariables MoreVariables);

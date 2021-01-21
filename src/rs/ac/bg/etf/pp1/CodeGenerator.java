@@ -173,13 +173,14 @@ public class CodeGenerator extends VisitorAdaptor {
     public void visit(AssignDesignator assignDesignator) {
         boolean[] notNew = {true};
 
-        assignDesignator.traverseTopDown(new VisitorAdaptor() {
+        assignDesignator.traverseBottomUp(new VisitorAdaptor() {
             public void visit(NewTypeArray newTypeArray) {
                 notNew[0] = false;
             }
         });
 
         if (assignDesignator.getDesignator().obj.getType().getKind() == Struct.Array && notNew[0]) {
+
             if (assignDesignator.getDesignator().obj.getType().getElemType().getKind() == Struct.Int) {
                 if (assignableTo(assignDesignator.getExpr().obj.getType(), assignDesignator.getDesignator().obj.getType())) {
                     Code.store(assignDesignator.getDesignator().obj);
@@ -196,13 +197,63 @@ public class CodeGenerator extends VisitorAdaptor {
 
             }
         } else {
-            Code.store(assignDesignator.getDesignator().obj);
+            if (assignDesignator.getDesignator() instanceof ArrayElementAccessDesignator && notNew[0]) {
+                ArrayElementAccessDesignator s = (ArrayElementAccessDesignator) assignDesignator.getDesignator();
+                Obj ss = s.getDesignatorList().obj;
+                int fpos = ss.getFpPos();
+                if (fpos == -5) {
+
+                    Obj index = Table.insert(Obj.Var, "sad2wf2ef", Table.intType);
+                    Obj original = Table.insert(Obj.Var, "sad2wf2ef", Table.intType);
+                    Obj value = Table.insert(Obj.Var, "sadsadasdwqfqwf", Table.intType);
+                    Obj array = Table.insert(Obj.Var, "BULLLSHISADHIUASHDIUSAH", Table.intType);
+                    Code.put(Code.dup2);
+                    Code.put(Code.pop);
+                    Code.load(ss);
+                    Code.put(Code.arraylength);
+                    Code.loadConst(2);
+                    Code.put(Code.div);
+                    Code.put(Code.add);
+                    Code.load(ss);
+
+                    Code.put(Code.enter);
+                    Code.put(0);
+                    Code.put(4);
+                    Code.store(array);
+                    Code.store(index);
+                    Code.store(value);
+                    Code.store(original);
+                    Code.load(index);
+                    Code.put(Code.aload);
+                    Code.loadConst(0);
+                    int ifFalseJumpFixupAddress;
+                    Code.putFalseJump(Code.eq, 0);
+                    ifFalseJumpFixupAddress = Code.pc - 2;
+                    Code.load(array);
+                    Code.load(index);
+                    Code.loadConst(1);
+                    Code.put(Code.astore);
+                    Code.load(array);
+                    Code.load(original);
+                    Code.load(value);
+                    Code.put(Code.astore);
+                    Code.fixup(ifFalseJumpFixupAddress);
+                    Code.put(Code.exit);
+                }
+            } else {
+                Code.store(assignDesignator.getDesignator().obj);
+            }
         }
 
     }
 
+    private boolean isFinal = false;
+
     public void visit(CleanDesignator cleanDesignator) {
         SyntaxNode parent = cleanDesignator.getParent();
+        if (cleanDesignator.obj.getFpPos() == -5) {
+            isFinal = true;
+        }
         if (AssignDesignator.class != parent.getClass()
                 && ReadStmt.class != parent.getClass()
                 && cleanDesignator.obj.getKind() != Obj.Meth) {
@@ -211,36 +262,36 @@ public class CodeGenerator extends VisitorAdaptor {
 
     }
 
-
-    private HashMap<String, Integer> jumpAddress = new HashMap<>();
-
-    public void visit(LabelDefinition labelDefinition) {
-        String identification = labelDefinition.getIdentification();
-        int currentJumpAddress;
-        if (jumpAddress.get(identification) == null) {
-            Code.putJump(0);
-            jumpAddress.put(identification, Code.pc); // Ako je adresa < 0 to znaci da jos ne znamo adresu na koju skacemo
-        } else {
-            if (jumpAddress.get(identification) > 0) {
-                System.exit(-10000);
-            } else {
-                currentJumpAddress = jumpAddress.get(identification) * -1;
-                Code.fixup(currentJumpAddress);
-            }
-        }
-    }
-
-    public void visit(GotoStatement gotoStatement) {
-        String identification = gotoStatement.getIdentification();
-        int currentJumpAddress;
-        if (jumpAddress.get(identification) == null) {
-            Code.putJump(0);
-            jumpAddress.put(identification, (Code.pc - 2) * -1); // Ako je adresa < 0 to znaci da jos ne znamo adresu na koju skacemo
-        } else {
-            currentJumpAddress = jumpAddress.get(identification);
-            Code.putJump(currentJumpAddress);
-        }
-    }
+//
+//    private HashMap<String, Integer> jumpAddress = new HashMap<>();
+//
+//    public void visit(LabelDefinition labelDefinition) {
+//        String identification = labelDefinition.getIdentification();
+//        int currentJumpAddress;
+//        if (jumpAddress.get(identification) == null) {
+//            //Code.putJump(0);
+//            jumpAddress.put(identification, Code.pc); // Ako je adresa < 0 to znaci da jos ne znamo adresu na koju skacemo
+//        } else {
+//            if (jumpAddress.get(identification) > 0) {
+//                System.exit(-10000);
+//            } else {
+//                currentJumpAddress = jumpAddress.get(identification) * -1;
+//                Code.fixup(currentJumpAddress);
+//            }
+//        }
+//    }
+//
+//    public void visit(GotoStatement gotoStatement) {
+//        String identification = gotoStatement.getIdentification();
+//        int currentJumpAddress;
+//        if (jumpAddress.get(identification) == null) {
+//            Code.putJump(0);
+//            jumpAddress.put(identification, (Code.pc - 2) * -1); // Ako je adresa < 0 to znaci da jos ne znamo adresu na koju skacemo
+//        } else {
+//            currentJumpAddress = jumpAddress.get(identification);
+//            Code.putJump(currentJumpAddress);
+//        }
+//    }
 
     public void visit(ArrayElementAccessDesignator arrayElementAccessDesignator) {
         SyntaxNode parent = arrayElementAccessDesignator.getParent();
@@ -485,9 +536,14 @@ public class CodeGenerator extends VisitorAdaptor {
 
     }
 
+
     // Kad dodjemo do ovog delea, trebalo bi da imamo na steku vec velicinu niza
     // Ova metoda treba da postavi adresu niza
     public void visit(NewTypeArray newTypeArray) {
+        if (isFinal) {
+            Code.loadConst(2);
+            Code.put(Code.mul);
+        }
         Code.put(Code.newarray);
         if (newTypeArray.getType().obj.getType().getKind() == Struct.Int || newTypeArray.getType().obj.getType().getKind() == Struct.Bool) {
             Code.put(1);

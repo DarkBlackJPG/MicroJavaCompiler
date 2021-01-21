@@ -46,6 +46,7 @@ import java_cup.runtime.Symbol;
 "else"		{ return new_symbol(sym.ELSE, yytext()); }
 "const"		{ return new_symbol(sym.CONST, yytext()); }
 "if"		{ return new_symbol(sym.IF, yytext()); }
+"final"		{ return new_symbol(sym.FINAL, yytext()); }
 "switch"		{ return new_symbol(sym.SWITCH, yytext()); }
 "do"		{ return new_symbol(sym.DO, yytext()); }
 "while"		{ return new_symbol(sym.WHILE, yytext()); }
@@ -54,7 +55,7 @@ import java_cup.runtime.Symbol;
 "extends"		{ return new_symbol(sym.EXTENDS, yytext()); }
 "continue"		{ return new_symbol(sym.CONTINUE, yytext()); }
 "case"		{ return new_symbol(sym.CASE, yytext()); }
-"goto"		{ return new_symbol(sym.GOTO, yytext()); }
+// "goto"		{ return new_symbol(sym.GOTO, yytext()); }
 
 // Operators
 "+" 		{ return new_symbol(sym.PLUS, yytext()); }

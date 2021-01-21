@@ -1,0 +1,62 @@
+// Test301
+
+program test1
+// ------| Global variables
+// ------| End gloabal variables
+{
+
+        void main()
+        // ------| Local variables
+        int a;
+        int b;
+        int c;
+        int d;
+        int e;
+        int ee;
+        int eee;
+        int final niz[];
+        int final niz1[];
+        int final niz2[];
+        // ------| End local variables
+        {
+            // ------| Code begin
+
+            niz = new int[3];
+            niz[2] =6;
+            print(niz[2]);
+            niz[2] = 7;
+            print(niz[2]);
+            print(niz[1]);
+            niz[1] = 55;
+            print(niz[1]);
+            niz[1] = 88;
+            print(niz[1]);
+            
+            niz1 = new int[3];
+            niz1[2] =6;
+            print(niz1[2]);
+            niz1[2] = 7;
+            print(niz1[2]);
+            print(niz1[1]);
+            niz1[1] = 55;
+            print(niz1[1]);
+            niz1[1] = 88;
+            print(niz1[1]);
+            
+            niz2 = new int[3];
+            niz2[2] =6;
+            print(niz2[2]);
+            niz2[2] = 7;
+            print(niz2[2]);
+            print(niz2[1]);
+            niz2[1] = 55;
+            print(niz2[1]);
+            niz2[1] = 88;
+            print(niz2[1]);
+            // Result: 1    2   a   b   true    false
+
+            // ------| Code end
+        }
+}
+
+

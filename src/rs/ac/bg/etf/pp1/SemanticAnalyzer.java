@@ -119,46 +119,46 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         }
 
     }
-
-    private HashMap<String, Boolean> label_pairs = new HashMap<>();
-    private Set<String> idents = new HashSet<>();
-
-    public void visit(LabelDefinition labelDefinition) {
-        String identification = labelDefinition.getIdentification();
-        Obj noType = Table.find(identification);
-        if (noType == Table.noObj) {
-            if (label_pairs.get(identification) == null) {
-                label_pairs.put(identification, true);
-                idents.add(identification);
-            } else {
-                if (label_pairs.get(identification)) {
-                    errorDetected = true;
-                    report_error(String.format("Mora da postoji tacno jedna jedinstvena labela sa %s imenom! [Line: %d]", identification, labelDefinition.getLine()));
-                } else {
-                    label_pairs.put(identification, true);
-                }
-            }
-        } else {
-            errorDetected = true;
-            report_error(String.format("Labela ne moze da ima ime kao promenljiva iz izvornog koda! [Line: %d]", labelDefinition.getLine()));
-        }
-    }
-
-    public void visit(GotoStatement gotoStatement) {
-        String identification = gotoStatement.getIdentification();
-        Obj noType = Table.find(identification);
-        if (noType == Table.noObj) {
-            if (label_pairs.get(identification) == null) {
-                label_pairs.put(identification, false);
-                idents.add(identification);
-            } else {
-                label_pairs.put(identification, true);
-            }
-        } else {
-            errorDetected = true;
-            report_error(String.format("Ne moze da se skace na promenljivu! Mora da se definise labela sa jedinstvenim imenom! [Line: %s]", gotoStatement.getLine()));
-        }
-    }
+//
+//    private HashMap<String, Boolean> label_pairs = new HashMap<>();
+//    private Set<String> idents = new HashSet<>();
+//
+//    public void visit(LabelDefinition labelDefinition) {
+//        String identification = labelDefinition.getIdentification();
+//        Obj noType = Table.find(identification);
+//        if (noType == Table.noObj) {
+//            if (label_pairs.get(identification) == null) {
+//                label_pairs.put(identification, true);
+//                idents.add(identification);
+//            } else {
+//                if (label_pairs.get(identification)) {
+//                    errorDetected = true;
+//                    report_error(String.format("Mora da postoji tacno jedna jedinstvena labela sa %s imenom! [Line: %d]", identification, labelDefinition.getLine()));
+//                } else {
+//                    label_pairs.put(identification, true);
+//                }
+//            }
+//        } else {
+//            errorDetected = true;
+//            report_error(String.format("Labela ne moze da ima ime kao promenljiva iz izvornog koda! [Line: %d]", labelDefinition.getLine()));
+//        }
+//    }
+//
+//    public void visit(GotoStatement gotoStatement) {
+//        String identification = gotoStatement.getIdentification();
+//        Obj noType = Table.find(identification);
+//        if (noType == Table.noObj) {
+//            if (label_pairs.get(identification) == null) {
+//                label_pairs.put(identification, false);
+//                idents.add(identification);
+//            } else {
+//                label_pairs.put(identification, true);
+//            }
+//        } else {
+//            errorDetected = true;
+//            report_error(String.format("Ne moze da se skace na promenljivu! Mora da se definise labela sa jedinstvenim imenom! [Line: %s]", gotoStatement.getLine()));
+//        }
+//    }
 
     public void visit(ArrayVariable vardecl) {
         if (currentLevel == 1) {
@@ -168,7 +168,8 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj ||
                 currentLevel > variableNode.getLevel()) {
-            Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
+            Obj o = Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
+            System.out.println();
         } else {
             report_error("Promenlijva sa imenom " + vardecl.getVariableName() + " je vec deklarisana"
                     + vardecl.getLine() + "!", vardecl);
@@ -195,7 +196,7 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         Obj variableNode = Table.find(vardecl.getVariableName());
         if (variableNode == Table.noObj ||
                 currentLevel > variableNode.getLevel()) {
-            Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
+            Obj o = Table.insert(Obj.Var, vardecl.getVariableName(), new Struct(Struct.Array, currentType));
         } else {
             report_error("Promenlijva sa imenom " + vardecl.getVariableName() + " je vec deklarisana "
                     + vardecl.getLine() + "!", vardecl);
@@ -389,17 +390,47 @@ public class SemanticAnalyzer extends VisitorAdaptor {
         Table.chainLocalSymbols(program.getProgName().obj);
         Table.closeScope();
         currentLevel--;
-        String labels[] = new String[idents.size()];
-        idents.toArray(labels);
+//        String labels[] = new String[idents.size()];
+//        idents.toArray(labels);
+//
+//        for (String ident :
+//                labels) {
+//            if (label_pairs.get(ident) == null) {
+//                report_error(String.format("Bezuslovni skok goto %s nema labelu na koju moze da skoci!"));
+//                errorDetected = true;
+//            }
+//        }
 
-        for (String ident :
-                labels) {
-            if (label_pairs.get(ident) == null) {
-                report_error(String.format("Bezuslovni skok goto %s nema labelu na koju moze da skoci!"));
-                errorDetected = true;
-            }
+    }
+
+    public void visit(FinalArrayVariable finalArrayVariable) {
+        if (currentLevel == 1) {
+            syntaxAnalysisWatcher.globalArrayDetected();
         }
+        Obj variableNode = Table.find(finalArrayVariable.getVariableName());
+        if (variableNode == Table.noObj ||
+                currentLevel > variableNode.getLevel()) {
+            Obj temp = Table.insert(Obj.Var, finalArrayVariable.getVariableName(), new Struct(Struct.Array, currentType));
+            temp.setFpPos(-5);
+        } else {
+            report_error("Promenlijva sa imenom " + finalArrayVariable.getVariableName() + " je vec deklarisana "
+                    + finalArrayVariable.getLine() + "!", finalArrayVariable);
+        }
+    }
 
+    public void visit(FinalErrorArrayVariable finalErrorArrayVariable) {
+        if (currentLevel == 1) {
+            syntaxAnalysisWatcher.globalArrayDetected();
+        }
+        Obj variableNode = Table.find(finalErrorArrayVariable.getVariableName());
+        if (variableNode == Table.noObj ||
+                currentLevel > variableNode.getLevel()) {
+            Obj temp = Table.insert(Obj.Var, finalErrorArrayVariable.getVariableName(), new Struct(Struct.Array, currentType));
+            temp.setFpPos(-5);
+        } else {
+            report_error("Promenlijva sa imenom " + finalErrorArrayVariable.getVariableName() + " je vec deklarisana "
+                    + finalErrorArrayVariable.getLine() + "!", finalErrorArrayVariable);
+        }
     }
 
     public void visit(TypedReturn typedReturn) {
